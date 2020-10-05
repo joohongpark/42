@@ -31,7 +31,7 @@ char		*ft_strjoin(char const *s1, char const *s2)
 	}
 	while (cnt < (s1len + s2len))
 	{
-		rtn[cnt] = s2[cnt];
+		rtn[cnt] = s2[cnt - s1len];
 		cnt++;
 	}
 	rtn[cnt] = '\0';
