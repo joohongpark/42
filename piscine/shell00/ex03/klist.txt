@@ -1,0 +1,5 @@
+Credentials cache: API:A3664DCA-0380-41ED-A681-088381341A9B
+        Principal: joopark@42SEOUL.KR
+
+  Issued                Expires               Principal
+Jul 28 18:42:04 2020  Jul 29 04:42:04 2020  krbtgt/42SEOUL.KR@42SEOUL.KR
