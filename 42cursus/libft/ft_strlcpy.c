@@ -1,0 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: joopark <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/06 20:23:24 by joopark           #+#    #+#             */
+/*   Updated: 2020/10/06 20:23:27 by joopark          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+size_t		ft_strlcpy(char * restrict dst, const char * restrict src, size_t dstsize)
+{
+	size_t	i;
+	size_t	len;
+
+	i = 0;
+	len = ft_strlen((char *)src);
+    if (len + 1 < dstsize) {
+        ft_memcpy(dst, src, len + 1);
+    } else if (dstsize != 0) {
+        ft_memcpy(dst, src, dstsize - 1);
+        dst[dstsize - 1] = '\0';
+    }
+	/*
+	while ((dstsize > i + 1) && (src[i] != '\0'))
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	if (dstsize > 0)
+		dst[i] = '\0';
+		*/
+	return (len);
+}

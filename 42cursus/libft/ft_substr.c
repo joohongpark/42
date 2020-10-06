@@ -18,8 +18,13 @@ char		*ft_substr(char const *s, unsigned int start, size_t len)
 	size_t	cnt;
 
 	cnt = 0;
-	if (!(rtn = (char *)malloc(sizeof(char) * len)))
+	if (!(rtn = (char *)malloc(sizeof(char) * (len + 1))))
 		return ((char *)0);
+	if (ft_strlen((char *)s) <= start)
+	{
+		rtn[cnt] = '\0';
+		return (rtn);
+	}
 	while (cnt < len)
 	{
 		rtn[cnt] = s[cnt + start];
