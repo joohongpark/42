@@ -18,14 +18,9 @@ size_t		ft_strlcpy(char * restrict dst, const char * restrict src, size_t dstsiz
 	size_t	len;
 
 	i = 0;
+	if (dst == ((char *)0) || src == ((char *)0))
+		return (0);
 	len = ft_strlen((char *)src);
-    if (len + 1 < dstsize) {
-        ft_memcpy(dst, src, len + 1);
-    } else if (dstsize != 0) {
-        ft_memcpy(dst, src, dstsize - 1);
-        dst[dstsize - 1] = '\0';
-    }
-	/*
 	while ((dstsize > i + 1) && (src[i] != '\0'))
 	{
 		dst[i] = src[i];
@@ -33,6 +28,5 @@ size_t		ft_strlcpy(char * restrict dst, const char * restrict src, size_t dstsiz
 	}
 	if (dstsize > 0)
 		dst[i] = '\0';
-		*/
 	return (len);
 }
