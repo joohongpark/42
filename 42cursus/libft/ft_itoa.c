@@ -15,17 +15,25 @@
 char		*ft_itoa(int n)
 {
 	char	*rtn;
-	int		tmp;
-	int		len;
+	long	tmp;
+	long	base;
+	int		i;
 
-	tmp = n >= 0 ? n : -1 * n;
-	len = n >= 0 ? 1 : 2;
-	while (len++)
-	{
-		tmp /= 10;
-		if (tmp == 0)
-			break;
-	}
-	if (!(rtn = (char *)malloc(sizeof(char) * len)))
+	tmp = n >= 0 ? (long)n : -1L * n;
+	i = n >= 0 ? 2 : 3;
+	base = 1L;
+	while ((base *= 10) < tmp)
+		i++;
+	if (!(rtn = (char *)malloc(sizeof(char) * i)))
 		return (NULL);
+	i = 0;
+	if (n < 0)
+		rtn[i++] = '-';
+	while (base /= 10)
+	{
+		rtn[i++] = (tmp / base) + '0';
+		tmp = tmp % base;
+	}
+	rtn[i] = '\0';
+	return (rtn);
 }
