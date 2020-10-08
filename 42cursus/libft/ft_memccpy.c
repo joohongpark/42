@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joopark <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 21:21:17 by joopark           #+#    #+#             */
-/*   Updated: 2020/10/05 21:21:19 by joopark          ###   ########.fr       */
+/*   Updated: 2020/10/07 21:34:42 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		*ft_memccpy(void *restrict dst, const void *restrict src, int c, size_t n)
 	{
 		((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
 		if ((unsigned char)c == ((unsigned char *)src)[i])
-			return (&dst[i + 1]);
+			return ((void *)&((unsigned char *)dst)[i + 1]);
 		i++;
 	}
 	return ((void *)0);

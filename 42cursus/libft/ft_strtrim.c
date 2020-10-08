@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 19:52:44 by joopark           #+#    #+#             */
-/*   Updated: 2020/10/05 19:52:58 by joopark          ###   ########.fr       */
+/*   Updated: 2020/10/07 22:03:15 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char		*ft_strtrim(char const *s1, char const *set)
 		j--;
 	while (i <= j && ft_charsearch(s1[i], set) == 1)
 		i++;
-	if (!(rtn = (char *)malloc(sizeof(char) * (j - i + 1))))
+	if (!(rtn = (char *)malloc(sizeof(char) * (j - i + 2))))
 		return ((char *)0);
 	k = 0;
 	while (i <= j)

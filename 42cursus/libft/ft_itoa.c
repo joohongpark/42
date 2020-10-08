@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/05 20:52:42 by joopark           #+#    #+#             */
-/*   Updated: 2020/10/07 21:29:00 by joopark          ###   ########.fr       */
+/*   Created: 2020/10/08 05:03:27 by joopark           #+#    #+#             */
+/*   Updated: 2020/10/08 14:25:59 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		*ft_memcpy(void *restrict dst, const void *restrict src, size_t n)
+char		*ft_itoa(int n)
 {
-	size_t	i;
+	char	*rtn;
+	int		tmp;
+	int		len;
 
-	i = 0;
-	if (dst == NULL && src == NULL)
-		return (NULL);
-	while (i < n)
+	tmp = n >= 0 ? n : -1 * n;
+	len = n >= 0 ? 1 : 2;
+	while (len++)
 	{
-		((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
-		i++;
+		tmp /= 10;
+		if (tmp == 0)
+			break;
 	}
-	return (dst);
+	if (!(rtn = (char *)malloc(sizeof(char) * len)))
+		return (NULL);
 }

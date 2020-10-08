@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joopark <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 22:54:47 by joopark           #+#    #+#             */
-/*   Updated: 2020/10/05 22:54:48 by joopark          ###   ########.fr       */
+/*   Updated: 2020/10/06 17:27:26 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void		*ft_memchr(const void *s, int c, size_t n)
 	while (i < n)
 	{
 		if(((unsigned char *)s)[i] == (unsigned char)c)
-			return ((void *)&s[i]);
+			return ((void *)&((unsigned char *)s)[i]);
 		i++;
 	}
 	return ((void *)0);
