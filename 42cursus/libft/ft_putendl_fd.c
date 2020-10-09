@@ -1,34 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/08 19:13:47 by joopark           #+#    #+#             */
-/*   Updated: 2020/10/09 02:26:20 by joopark          ###   ########.fr       */
+/*   Created: 2020/10/08 17:10:46 by joopark           #+#    #+#             */
+/*   Updated: 2020/10/09 02:27:10 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char				*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+void		ft_putendl_fd(char *s, int fd)
 {
-	char			*rtn;
-	unsigned int	i;
-	unsigned int	len;
-
-	if (s == NULL || f == NULL)
-		return (NULL);
-	len = ft_strlen((char *)s);
-	i = 0;
-	if (!(rtn = (char *)malloc(sizeof(char) * (len + 1))))
-		return (NULL);
-	while (i < len)
+	if (s != NULL)
 	{
-		rtn[i] = f(i, s[i]);
-		i++;
+		write(fd, s, ft_strlen(s));
+		write(fd, "\n", 1);
 	}
-	rtn[i] = '\0';
-	return (rtn);
 }

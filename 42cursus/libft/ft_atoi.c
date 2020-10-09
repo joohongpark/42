@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joopark <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 22:02:04 by joopark           #+#    #+#             */
-/*   Updated: 2020/10/06 22:02:05 by joopark          ###   ########.fr       */
+/*   Updated: 2020/10/09 02:22:23 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int			ft_atoi(const char *str)
 {
-	long 	sum;
-	long 	p;
+	long	sum;
+	long	p;
 
 	sum = 0;
 	p = 1;

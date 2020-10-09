@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 22:54:47 by joopark           #+#    #+#             */
-/*   Updated: 2020/10/06 17:27:26 by joopark          ###   ########.fr       */
+/*   Updated: 2020/10/09 02:24:37 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		*ft_memchr(const void *s, int c, size_t n)
 	i = 0;
 	while (i < n)
 	{
-		if(((unsigned char *)s)[i] == (unsigned char)c)
+		if (((unsigned char *)s)[i] == (unsigned char)c)
 			return ((void *)&((unsigned char *)s)[i]);
 		i++;
 	}

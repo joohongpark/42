@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/08 19:13:47 by joopark           #+#    #+#             */
-/*   Updated: 2020/10/09 02:26:20 by joopark          ###   ########.fr       */
+/*   Created: 2020/10/08 17:13:16 by joopark           #+#    #+#             */
+/*   Updated: 2020/10/09 02:20:00 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char				*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+void		ft_putnbr_fd(int n, int fd)
 {
-	char			*rtn;
-	unsigned int	i;
-	unsigned int	len;
+	long	tmp;
+	long	base;
+	char	c;
 
-	if (s == NULL || f == NULL)
-		return (NULL);
-	len = ft_strlen((char *)s);
-	i = 0;
-	if (!(rtn = (char *)malloc(sizeof(char) * (len + 1))))
-		return (NULL);
-	while (i < len)
+	tmp = n >= 0 ? (long)n : -1L * n;
+	base = 1L;
+	while ((base *= 10) < tmp)
+		;
+	if (n < 0)
+		write(fd, "-", 1);
+	while (base /= 10)
 	{
-		rtn[i] = f(i, s[i]);
-		i++;
+		c = (tmp / base) + '0';
+		write(fd, &c, 1);
+		tmp = tmp % base;
 	}
-	rtn[i] = '\0';
-	return (rtn);
 }

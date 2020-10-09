@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joopark <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 22:37:13 by joopark           #+#    #+#             */
-/*   Updated: 2020/10/06 22:37:15 by joopark          ###   ########.fr       */
+/*   Updated: 2020/10/09 02:26:08 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char		*ft_strdup(const char *s1)
 	{
 		((unsigned char *)rtn)[i] = s1[i];
 		if (i == 0)
-			break;
+			break ;
 		i--;
 	}
 	return (rtn);
