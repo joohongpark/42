@@ -22,7 +22,7 @@ char		*ft_itoa(int n)
 	tmp = n >= 0 ? (long)n : -1L * n;
 	i = n >= 0 ? 2 : 3;
 	base = 1L;
-	while ((base *= 10) < tmp)
+	while ((base *= 10) <= tmp)
 		i++;
 	if (!(rtn = (char *)malloc(sizeof(char) * i)))
 		return (NULL);
