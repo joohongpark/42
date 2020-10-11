@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 06:05:24 by joopark           #+#    #+#             */
-/*   Updated: 2020/10/09 15:18:28 by joopark          ###   ########.fr       */
+/*   Updated: 2020/10/11 15:34:52 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@ void		ft_lstadd_front(t_list **lst, t_list *new)
 	if (lst != NULL && new != NULL)
 	{
 		new->next = *lst;
-		*lst = new;	
+		*lst = new;
 	}
 }

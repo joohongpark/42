@@ -6,7 +6,7 @@ FILES += ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c
 BONUS_FILES = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c
 OBJS = $(FILES:.c=.o)
 BONUS_OBJS = $(BONUS_FILES:.c=.o)
-TARGET = libft.a
+NAME = libft.a
 COMPILER = gcc
 CFLAGS = -Wall -Wextra -Werror -O3
 LDFLAGS=-L.
@@ -14,10 +14,10 @@ LDLIBS=-lft
 HEADERPATH = includes/
 
 
-$(TARGET):
+$(NAME):
 	$(COMPILER) $(CFLAGS) -c $(FILES) -I${HEADERPATH}
-	ar rc $(TARGET) $(OBJS)
-	ranlib $(TARGET)
+	ar rc $(NAME) $(OBJS)
+	ranlib $(NAME)
 
 # TEST (For Linux)
 so:
@@ -26,16 +26,16 @@ so:
 
 bonus:
 	$(COMPILER) $(CFLAGS) -c $(FILES) $(BONUS_FILES) -I${HEADERPATH}
-	ar rc $(TARGET) $(OBJS) $(BONUS_OBJS)
-	ranlib $(TARGET)
+	ar rc $(NAME) $(OBJS) $(BONUS_OBJS)
+	ranlib $(NAME)
 
-all: $(TARGET)
+all: $(NAME)
 
 clean:
 	rm -f $(OBJS) $(BONUS_OBJS)
 
 fclean: clean
-	rm -f $(TARGET)
+	rm -f $(NAME)
 
 re: fclean all
 
