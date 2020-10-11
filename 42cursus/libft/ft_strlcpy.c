@@ -6,18 +6,14 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 20:23:24 by joopark           #+#    #+#             */
-/*   Updated: 2020/10/11 15:36:14 by joopark          ###   ########.fr       */
+/*   Updated: 2020/10/11 17:33:17 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-<<<<<<< HEAD
 size_t		ft_strlcpy(
 	char *restrict dst, const char *restrict src, size_t dstsize)
-=======
-size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize)
->>>>>>> 56fb8d74c582461b847b2e8b3857991fb86174b1
 {
 	size_t	i;
 	size_t	len;
