@@ -11,7 +11,7 @@ COMPILER = gcc
 CFLAGS = -Wall -Wextra -Werror -O3
 LDFLAGS=-L.
 LDLIBS=-lft
-HEADERPATH = includes/
+HEADERPATH = ./
 
 
 $(NAME):

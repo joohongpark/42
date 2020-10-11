@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 08:11:02 by joopark           #+#    #+#             */
-/*   Updated: 2020/10/05 17:56:55 by joopark          ###   ########.fr       */
+/*   Updated: 2020/10/11 21:19:37 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char		*ft_strjoin(char const *s1, char const *s2)
 	s1len = ft_strlen((char *)s1);
 	s2len = ft_strlen((char *)s2);
 	cnt = 0;
-	if (!(rtn = (char *)malloc(sizeof(char) * (s1len + s2len))))
+	if (!(rtn = (char *)malloc(sizeof(char) * (s1len + s2len + 1))))
 		return ((char *)0);
 	while (cnt < s1len)
 	{
