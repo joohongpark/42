@@ -12,8 +12,12 @@
 
 #include "libft.h"
 
+<<<<<<< HEAD
 size_t		ft_strlcat(
 	char *restrict dst, const char *restrict src, size_t dstsize)
+=======
+size_t		ft_strlcat(char *dst, const char *src, size_t dstsize)
+>>>>>>> 56fb8d74c582461b847b2e8b3857991fb86174b1
 {
 	size_t	i;
 	size_t	len;

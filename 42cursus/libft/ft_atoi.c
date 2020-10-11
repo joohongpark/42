@@ -19,15 +19,15 @@ int			ft_atoi(const char *str)
 
 	sum = 0;
 	p = 1;
-	while ((*str == '\t')
-		|| (*str == '\n')
-		|| (*str == '\v')
-		|| (*str == '\f')
-		|| (*str == '\r')
-		|| (*str == ' '))
+	while ((*str == '\t') || (*str == '\n')
+		|| (*str == '\v') || (*str == '\f')
+		|| (*str == '\r') || (*str == ' '))
 		str++;
-	while (*str == '+' || *str == '-')
-		p = (*str++ == '-') ? (p * -1L) : p;
+	if (*str == '+' || *str == '-')
+	{
+		p = (*str == '-') ? (p * -1L) : p;
+		str++;
+	}
 	while (*str >= '0' && *str <= '9')
 	{
 		sum = (long)(*str++ - '0') + sum * 10L;
@@ -36,5 +36,5 @@ int			ft_atoi(const char *str)
 		if (sum * p < -2147483648L)
 			return (0);
 	}
-	return ((int)sum * p);
+	return ((int)(sum * p));
 }
