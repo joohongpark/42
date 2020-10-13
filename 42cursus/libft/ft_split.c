@@ -33,6 +33,14 @@ int			ft_sl(char const *s, char c)
 	return (arr_size);
 }
 
+char		**ft_split_free(char **arr, int size)
+{
+	while (size--)
+		free(arr[size]);
+	free(arr);
+	return (NULL);
+}
+
 char		**ft_split(char const *s, char c)
 {
 	char	**rtn;
@@ -54,7 +62,7 @@ char		**ft_split(char const *s, char c)
 			i++;
 		if (t != i)
 			if (!(rtn[arr_size] = (char *)malloc(sizeof(char) * (i - t + 1))))
-				return (NULL);
+				return (ft_split_free(rtn, arr_size));
 		if (t != i)
 			ft_strlcpy(rtn[arr_size++], &s[t], (i - t + 1));
 	}

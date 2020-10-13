@@ -14,7 +14,6 @@
 
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*tmp;
 	t_list	*rtn;
 	t_list	*rtntmp;
 
@@ -31,7 +30,6 @@ t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 			}
 			ft_lstadd_back(&rtn, rtntmp);
 		}
-		tmp = lst;
 		lst = lst->next;
 	}
 	return (rtn);
