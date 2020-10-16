@@ -12,6 +12,21 @@
 
 #include "get_next_line.h"
 
+void        *ft_memcpy(void *dst, void *src, size_t n)
+{
+    size_t    i;
+    
+    i = 0;
+    if (dst == NULL && src == NULL)
+        return (NULL);
+    while (i < n)
+    {
+        ((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
+        i++;
+    }
+    return (dst);
+}
+
 size_t		ft_strlen(char *str)
 {
 	size_t	i;
@@ -22,32 +37,17 @@ size_t		ft_strlen(char *str)
 	return (i);
 }
 
-char		*ft_strjoin(char *s1, char *s2)
+void		*ft_memset(void *b, int c, size_t len)
 {
-	char	*rtn;
-	size_t	cnt;
-	size_t	s1len;
-	size_t	s2len;
+	size_t	i;
 
-	if (s1 == ((char *)0) || s2 == ((char *)0))
-		return (((char *)0));
-	s1len = ft_strlen((char *)s1);
-	s2len = ft_strlen((char *)s2);
-	cnt = 0;
-	if (!(rtn = (char *)malloc(sizeof(char) * (s1len + s2len + 1))))
-		return ((char *)0);
-	while (cnt < s1len)
+	i = 0;
+	while (i < len)
 	{
-		rtn[cnt] = s1[cnt];
-		cnt++;
+		((unsigned char *)b)[i] = (unsigned char)c;
+		i++;
 	}
-	while (cnt < (s1len + s2len))
-	{
-		rtn[cnt] = s2[cnt - s1len];
-		cnt++;
-	}
-	rtn[cnt] = '\0';
-	return (rtn);
+	return (b);
 }
 
 char		*ft_strnstr(const char *haystack, const char *needle, size_t len)
