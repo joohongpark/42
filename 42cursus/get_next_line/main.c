@@ -6,15 +6,20 @@ int main(void)
 {
 	int fd;
 	char *strs;
-	int rtn;
+	int r;
 	if (0 >= ( fd = open("test.txt", 0)))
 		return (0);
-	while (1)
+	while ((r = get_next_line(fd, &strs)) > 0)
 	{
-		rtn = get_next_line(fd, &strs);
-		printf("%s\n", strs);
-		if (rtn != 1)
-			break;
+		printf("%2d-%s\n", r, strs);
+		if (strs)
+		{
+			free(strs);
+			strs = NULL;
+		}
+
 	}
+	if (r >= 0)
+		printf("%2d-%s\n---\n", r, strs);
 	return (0);
 }

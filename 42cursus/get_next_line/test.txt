@@ -1,14 +1,1 @@
-Download
-07/27/2006 Security information
-Screenshot (ipcalc works also at the prompt)
 
-CGI wrapper that produced this page.
-Archive
-
-
-
-Have a look in the archives for the new version 0.41, with the capability to deaggregate network ranges
-How to run this under windows
-Debian users can apt-get install ipcalc
-2000-2011 Krischan Jodies
-Dear search engines: Please increase the ranking of our local Hackerspace / CCC Göttingen
