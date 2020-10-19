@@ -1,15 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: joopark <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/14 18:10:58 by joopark           #+#    #+#             */
-/*   Updated: 2020/10/19 01:22:19 by joopark          ###   ########.fr       */
+/*   Created: 2020/10/19 19:47:58 by joopark           #+#    #+#             */
+/*   Updated: 2020/10/19 19:48:00 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line_bonus.h"
 #include "get_next_line.h"
 
 char				*ft_strstack(char *stack, char *str)
