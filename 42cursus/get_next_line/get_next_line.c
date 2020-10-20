@@ -83,12 +83,11 @@ int					get_next_line(int fd, char **line)
 			if (!(*line = ft_strnstack(*line, b, p ? (p - b) : ft_strlen(b))))
 				return (-1);
 			ft_memcpy(b, p + 1, p ? (ft_strlen(p + 1) + 1) : 0);
-			ft_memset(b + (p ? ft_strlen(b) : 0), 0, BUFFER_SIZE - (p ? ft_strlen(b) : 0));
+			ft_memset(b + (p ? ft_strlen(b) : 0), 0,
+				BUFFER_SIZE - (p ? ft_strlen(b) : 0));
 			if (p)
 				break ;
 		}
 	}
-	if (len == -1)
-		return (-1);
-	return ((len == 0 && ft_strlen(b) == 0) ? 0 : 1);
+	return ((len == -2 || len > 0 || (ft_strlen(b) != 0 && !len)) ? 1 : len);
 }

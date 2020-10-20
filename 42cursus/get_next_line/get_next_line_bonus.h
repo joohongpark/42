@@ -18,18 +18,19 @@
 # include <limits.h>
 
 # ifndef OPEN_MAX
-#  define OPEN_MAX 256
+#  define OPEN_MAX 10240
 # endif
 # ifndef BUFFER_SIZE
-# define BUFFER_SIZE 4
+#  define BUFFER_SIZE 4
 # endif
 
-void        	*ft_memcpy(void *dst, void *src, size_t n);
+void			*ft_memcpy(void *dst, void *src, size_t n);
 size_t			ft_strlen(char *str);
 void			*ft_memset(void *b, int c, size_t len);
-char			*ft_strnstr(const char *haystack, const char *needle, size_t len);
+char			*ft_strnstr(char *haystack, char *needle, size_t len);
 size_t			ft_strlcpy(char *dst, char *src, size_t dstsize);
-char			*ft_strstack(char *stack, char *str);
+char			*ft_ss(char *stack, char *str, size_t n);
+int				ft_prechk(int fd, char **line, char **bufrtn);
 int				get_next_line(int fd, char **line);
 
 #endif

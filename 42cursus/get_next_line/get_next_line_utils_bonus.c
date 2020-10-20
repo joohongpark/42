@@ -12,19 +12,19 @@
 
 #include "get_next_line_bonus.h"
 
-void        *ft_memcpy(void *dst, void *src, size_t n)
+void		*ft_memcpy(void *dst, void *src, size_t n)
 {
-    size_t    i;
-    
-    i = 0;
-    if (dst == NULL && src == NULL)
-        return (NULL);
-    while (i < n)
-    {
-        ((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
-        i++;
-    }
-    return (dst);
+	size_t	i;
+
+	i = 0;
+	if (dst == NULL && src == NULL)
+		return (NULL);
+	while (i < n)
+	{
+		((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
+		i++;
+	}
+	return (dst);
 }
 
 size_t		ft_strlen(char *str)
@@ -50,7 +50,7 @@ void		*ft_memset(void *b, int c, size_t len)
 	return (b);
 }
 
-char		*ft_strnstr(const char *haystack, const char *needle, size_t len)
+char		*ft_strnstr(char *haystack, char *needle, size_t len)
 {
 	size_t	s_p;
 	size_t	f_p;
