@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joopark <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 19:47:58 by joopark           #+#    #+#             */
-/*   Updated: 2020/10/19 19:48:00 by joopark          ###   ########.fr       */
+/*   Updated: 2020/10/21 20:35:29 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,21 @@ char				*ft_strnstack(char *stack, char *str, size_t n)
 			return (NULL);
 		stack[0] = '\0';
 	}
-	len = ft_strlen(stack) + 1;
-	if (!(rtn = (char *)malloc(sizeof(char) * (len + ft_strlen(str)))))
+	len = ft_strlen(stack);
+	if (!(rtn = (char *)malloc(sizeof(char) * (len + ft_strlen(str) + 1))))
 	{
 		if (stack)
 			free(stack);
 		return (NULL);
 	}
-	ft_strlcpy(rtn, stack, len);
-	ft_strlcpy(rtn + len - 1, str, n + 1);
+	ft_strlcpy(rtn, stack, len + 1);
+	ft_strlcpy(rtn + len, str, n + 1);
+	free(stack);
 	rtn[len + n] = '\0';
 	return (rtn);
 }
 
-char				*ft_getbuf(int fd)
+char				*ft_getbuf(int fd, ssize_t clr)
 {
 	static char		*buffer[OPEN_MAX] = {0, };
 
@@ -45,6 +46,11 @@ char				*ft_getbuf(int fd)
 		if (!(buffer[fd] = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 			return (NULL);
 		ft_memset(buffer[fd], 0, BUFFER_SIZE + 1);
+	}
+	if (buffer[fd] != NULL && clr == 0)
+	{
+		free(buffer[fd]);
+		buffer[fd] = NULL;
 	}
 	return (buffer[fd]);
 }
@@ -59,7 +65,7 @@ int					ft_prechk(int fd, char **line, char **bufrtn)
 		return (-1);
 	if (!(*line = ft_strnstack(NULL, "", 0)))
 		return (-1);
-	if (!(*bufrtn = ft_getbuf(fd)))
+	if (!(*bufrtn = ft_getbuf(fd, 1)))
 		return (-1);
 	return (0);
 }
@@ -89,5 +95,6 @@ int					get_next_line(int fd, char **line)
 				break ;
 		}
 	}
+	ft_getbuf(fd, len);
 	return ((len == -2 || len > 0 || (ft_strlen(b) != 0 && !len)) ? 1 : len);
 }
