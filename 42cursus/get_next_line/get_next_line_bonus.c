@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 19:47:58 by joopark           #+#    #+#             */
-/*   Updated: 2020/10/21 20:35:29 by joopark          ###   ########.fr       */
+/*   Updated: 2020/10/21 22:05:43 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,6 @@ int					get_next_line(int fd, char **line)
 				break ;
 		}
 	}
-	ft_getbuf(fd, len);
-	return ((len == -2 || len > 0 || (ft_strlen(b) != 0 && !len)) ? 1 : len);
+	b = ft_getbuf(fd, len);
+	return ((len == -2 || len > 0 || (b != NULL && !len)) ? 1 : len);
 }
