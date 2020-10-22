@@ -57,7 +57,11 @@ char				*ft_getbuf(int fd, ssize_t clr)
 
 int					ft_prechk(int fd, char **line, char **bufrtn)
 {
+	char			tmp;
+
 	if (fd < 0)
+		return (-1);
+	if (read(fd, &tmp, 0) == -1)
 		return (-1);
 	if (BUFFER_SIZE < 1)
 		return (-1);
@@ -95,6 +99,6 @@ int					get_next_line(int fd, char **line)
 				break ;
 		}
 	}
-	ft_getbuf(fd, len);
-	return ((len == -2 || len > 0 || (ft_strlen(b) != 0 && !len)) ? 1 : len);
+	b = ft_getbuf(fd, len);
+	return ((len == -2 || len > 0 || (b != NULL && !len)) ? 1 : len);
 }
