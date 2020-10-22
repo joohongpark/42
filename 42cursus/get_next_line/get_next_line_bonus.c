@@ -57,7 +57,11 @@ char				*ft_getbuf(int fd, ssize_t clr)
 
 int					ft_prechk(int fd, char **line, char **bufrtn)
 {
+	char			tmp;
+
 	if (fd < 0)
+		return (-1);
+	if (read(fd, &tmp, 0) == -1)
 		return (-1);
 	if (BUFFER_SIZE < 1)
 		return (-1);
