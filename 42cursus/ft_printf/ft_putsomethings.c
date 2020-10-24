@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_putsomethings.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/22 18:49:10 by joopark           #+#    #+#             */
-/*   Updated: 2020/10/24 12:26:21 by joopark          ###   ########.fr       */
+/*   Created: 2020/10/24 01:36:14 by joopark           #+#    #+#             */
+/*   Updated: 2020/10/24 12:23:55 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "ft_printf.h"
 
-# include <stdarg.h>
-# include <unistd.h>
-# include <stdio.h>
+int			ft_putnbr_fd(int n, int fd)
+{
+	long	tmp;
+	long	base;
+	char	c;
+	int		rtn;
 
-/* ft_putsomethings.c */
-int			ft_putnbr_fd(int n, int fd);
-
-/* ft_libft.c */
-size_t		ft_strlen(char *str);
-
-int			ft_printf(const char *fmt, ...);
-
-
-#endif
+	tmp = n >= 0 ? (long)n : -1L * n;
+	base = 1L;
+	while ((base *= 10) < tmp)
+		;
+	rtn = (n < 0) ? 1 : 0;
+	if (n < 0)
+		write(fd, "-", 1);
+	while (base /= 10)
+	{
+		c = (tmp / base) + '0';
+		write(fd, &c, 1);
+		tmp = tmp % base;
+		rtn++;
+	}
+	return (rtn);
+}

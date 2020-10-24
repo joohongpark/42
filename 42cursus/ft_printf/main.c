@@ -2,6 +2,8 @@
 
 int main(void)
 {
-	write(1, "hi!!", 4);
+	int i = 0;
+	i = ft_printf("test number : %d\ntest string : %s\n", -42, "asc");
+	ft_printf("retnrn value : %d\n", i);
 	return (0);
 }
