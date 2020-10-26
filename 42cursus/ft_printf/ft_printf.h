@@ -29,6 +29,11 @@ typedef struct	s_format
 
 /* ft_printer.c */
 void			ft_printer(va_list ap, t_format form);
+int				ft_putint(t_format form, int n);
+int				ft_putuint(t_format form, unsigned int n);
+
+/* ft_puts.c */
+int				ft_putnbr_base(unsigned int nbr, char *base);
 int				ft_putnbr_fd(int n, int fd);
 
 /* ft_libft.c */
