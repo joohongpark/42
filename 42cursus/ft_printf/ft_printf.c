@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 18:48:26 by joopark           #+#    #+#             */
-/*   Updated: 2020/10/25 19:05:21 by joopark          ###   ########.fr       */
+/*   Updated: 2020/10/29 10:46:06 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ void			ft_parsefmt(char *str, int *cnt, va_list ap)
 		{
 			delta = ft_parser(str + 1, &form) + 2;
 			str += delta;
-			*cnt += delta;
-			ft_printer(ap, form);
+			*cnt += ft_printer(ap, form);
 		}
 		else
 		{

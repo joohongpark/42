@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 18:49:10 by joopark           #+#    #+#             */
-/*   Updated: 2020/10/25 18:57:58 by joopark          ###   ########.fr       */
+/*   Updated: 2020/10/29 21:23:37 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,15 @@ typedef struct	s_format
 }				t_format;
 
 /* ft_printer.c */
-void			ft_printer(va_list ap, t_format form);
-int				ft_putint(t_format form, int n);
-int				ft_putuint(t_format form, unsigned int n);
+int				ft_printer(va_list ap, t_format form);
+int				ft_printstr(t_format form, char *str);
+int				ft_printint(t_format form, int n);
+int				ft_printuint(t_format form, size_t n);
 
 /* ft_puts.c */
-int				ft_putnbr_base(unsigned int nbr, char *base);
-int				ft_putnbr_fd(int n, int fd);
+void			ft_putnbr_base(size_t nbr, char *base);
+int				ft_putstr(char *str, int lim);
+int				ft_putchar(char c, int len);
 
 /* ft_libft.c */
 size_t			ft_strlen(char *str);
@@ -46,6 +48,7 @@ int				ft_getnumorstar(char *str);
 
 /* ft_util */
 int				ft_charsearch(char c, char *chars);
+int				ft_intlen(size_t nbr, int base, size_t *exp);
 
 /* ft_printf.c */
 int				ft_printf(const char *fmt, ...);

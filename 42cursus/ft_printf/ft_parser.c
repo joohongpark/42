@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 16:44:17 by joopark           #+#    #+#             */
-/*   Updated: 2020/10/25 19:08:46 by joopark          ###   ########.fr       */
+/*   Updated: 2020/10/27 15:10:20 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int				ft_parser(char *str, t_format *form)
 			parser++;
 	}
 	else
-		form->precision = 0;
+		form->precision = -2;
 	
 	//length?
 
