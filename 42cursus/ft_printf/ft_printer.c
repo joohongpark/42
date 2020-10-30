@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 01:36:14 by joopark           #+#    #+#             */
-/*   Updated: 2020/10/29 22:22:07 by joopark          ###   ########.fr       */
+/*   Updated: 2020/10/30 19:48:19 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@ int					ft_printer(va_list ap, t_format form)
 	else if (form.type == 'x' || form.type == 'X' || form.type == 'u')
 		return (ft_printuint(form, va_arg(ap, int)));
 	else if (form.type == 'p')
-		return (ft_printuint(form, (size_t)va_arg(ap, void *)));
+		return (ft_printpointer(form, (size_t)va_arg(ap, void *)));
 	else if (form.type == 's')
 		return (ft_printstr(form, va_arg(ap, char*)));
+	else if (form.type == 'c')
+		return (ft_putchar(va_arg(ap, int), 1));
 	return (0);
 }
 
@@ -53,7 +55,7 @@ int					ft_printint(t_format form, int n)
 {
 	int				len;
 
-	len = ft_intlen(n & 0x000000007fffffffUL, 10, NULL);
+	//len = ft_intlen(n & 0x000000007fffffffUL, 10, NULL);
 	(void) form;
 	if (n < 0)
 		write(1, "-", 1);
@@ -65,29 +67,38 @@ int					ft_printint(t_format form, int n)
 int					ft_printuint(t_format form, size_t n)
 {
 	int				rtn;
+	int				intlen;
+	int				space;
+
+	intlen = ft_intlen(n, (form.type == 'u') ? 10 : 16, NULL);
+	rtn = intlen;
+	space = form.width - ((form.precision > intlen) ? form.precision : intlen);
+	if (form.set_right == 0)
+		rtn += ft_putchar((form.precision == -2) ? '0' : ' ', space);
+	if (form.precision > intlen)
+		rtn += ft_putchar('0', form.precision - intlen);
+	if (form.type == 'u')
+		ft_putnbr_base((unsigned int)n, "0123456789");
+	else if (form.type == 'x')
+		ft_putnbr_base((unsigned int)n, "0123456789abcdef");
+	else if (form.type == 'X')
+		ft_putnbr_base((unsigned int)n, "0123456789ABCDEF");
+	if (form.set_right == 1)
+		rtn += ft_putchar(' ', space);
+	return (rtn);
+}
+
+int					ft_printpointer(t_format form, size_t n)
+{
+	int				rtn;
 	int				len;
 
-	len = ft_intlen(n, (form.type == 'u') ? 10 : 16, NULL);
+	len = ft_intlen(n, 16, NULL);
 	rtn = len;
 	if (form.set_right == 0)
 		rtn += ft_putchar(' ', form.width - len);
-	if (form.type == 'u')
-	{
-		ft_putnbr_base((unsigned int)n, "0123456789");
-	}
-	else if (form.type == 'x')
-	{
-		ft_putnbr_base((unsigned int)n, "0123456789abcdef");
-	}
-	else if (form.type == 'X')
-	{
-		ft_putnbr_base((unsigned int)n, "0123456789ABCDEF");
-	}
-	else if (form.type == 'p')
-	{
-		write(1, "0x", 2);
-		ft_putnbr_base(n, "0123456789abcdef");
-	}
+	rtn += write(1, "0x", 2);
+	ft_putnbr_base(n, "0123456789abcdef");
 	if (form.set_right == 1)
 		rtn += ft_putchar(' ', form.width - len);
 	return (rtn);

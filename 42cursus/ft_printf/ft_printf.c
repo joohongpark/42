@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 18:48:26 by joopark           #+#    #+#             */
-/*   Updated: 2020/10/29 10:46:06 by joopark          ###   ########.fr       */
+/*   Updated: 2020/10/30 10:57:43 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int				ft_printf(const char *fmt, ...)
 {
 	va_list		ap;
 	int			rtn;
-	
+
 	va_start(ap, fmt);
 	rtn = 0;
 	ft_parsefmt((char *)fmt, &rtn, ap);
