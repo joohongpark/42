@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 01:36:14 by joopark           #+#    #+#             */
-/*   Updated: 2020/10/30 19:48:19 by joopark          ###   ########.fr       */
+/*   Updated: 2020/11/02 23:24:07 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int					ft_printer(va_list ap, t_format form)
 {
-	int				rtn;
-
 	form.width = (form.width == -1) ? va_arg(ap, int) : form.width;
 	form.precision = (form.precision == -1) ? va_arg(ap, int) : form.precision;
 	if (form.type == '%')
@@ -53,9 +51,6 @@ int					ft_printstr(t_format form, char *str)
 
 int					ft_printint(t_format form, int n)
 {
-	int				len;
-
-	//len = ft_intlen(n & 0x000000007fffffffUL, 10, NULL);
 	(void) form;
 	if (n < 0)
 		write(1, "-", 1);
