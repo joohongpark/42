@@ -6,7 +6,7 @@
 #    By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/02 23:17:54 by joopark           #+#    #+#              #
-#    Updated: 2020/11/02 23:22:15 by joopark          ###   ########.fr        #
+#    Updated: 2020/11/02 23:30:20 by joopark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,7 @@ $(NAME):
 
 # TEST (For Linux)
 test:
-	$(COMPILER) $(CFLAGS) -fPIC -c $(FILES) $(BONUS_FILES) -I${HEADERPATH}
-	$(COMPILER) -shared -fPIC -o libft.so $(OBJS) $(BONUS_OBJS)
+	$(COMPILER) main.c -lftprintf -L./
 
 all: $(NAME)
 
