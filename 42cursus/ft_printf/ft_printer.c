@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 01:36:14 by joopark           #+#    #+#             */
-/*   Updated: 2020/11/05 18:10:08 by joopark          ###   ########.fr       */
+/*   Updated: 2020/11/06 01:45:05 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int					ft_printer(va_list ap, t_format form)
 	form.precision = (form.precision == -1) ? va_arg(ap, int) : form.precision;
 	form.precision = (form.precision < 0) ? -2 : form.precision;
 	if (form.type == 'd' || form.type == 'i')
-		return (ft_printint(form, va_arg(ap, int)));
+		return (ft_printint(form, ft_getargbysize(ap, form.length)));
 	else if (form.type == 'x' || form.type == 'X' || form.type == 'u')
-		return (ft_printuint(form, va_arg(ap, int)));
+		return (ft_printuint(form, ft_getargbysize(ap, form.length)));
 	else if (form.type == 'p')
 		return (ft_printpointer(form, (size_t)va_arg(ap, void *)));
 	else if (form.type == 's')
@@ -70,7 +70,7 @@ int					ft_printpointer(t_format form, size_t n)
 	int				rtn;
 	int				len;
 
-	len = ft_intlen(n, 16, NULL);
+	len = ft_nbrlen(n, 16, NULL);
 	rtn = len;
 	if (form.set_right == 0)
 		rtn += ft_putchar(' ', form.width - (len + 2));
@@ -78,5 +78,23 @@ int					ft_printpointer(t_format form, size_t n)
 	ft_putnbr_base(n, "0123456789abcdef");
 	if (form.set_right == 1)
 		rtn += ft_putchar(' ', form.width - (len + 2));
+	return (rtn);
+}
+
+ssize_t				ft_getargbysize(va_list ap, int size)
+{
+	ssize_t			rtn;
+
+	rtn = 0;
+	if (size == sizeof(char))
+		rtn = va_arg(ap, int);
+	else if (size == sizeof(short))
+		rtn = va_arg(ap, int);
+	else if (size == sizeof(int))
+		rtn = va_arg(ap, int);
+	else if (size == sizeof(long))
+		rtn = va_arg(ap, long);
+	else if (size == sizeof(long long))
+		rtn = va_arg(ap, long long);
 	return (rtn);
 }

@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 16:51:09 by joopark           #+#    #+#             */
-/*   Updated: 2020/10/29 22:58:47 by joopark          ###   ########.fr       */
+/*   Updated: 2020/11/06 01:45:34 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int			ft_charsearch(char c, char *chars)
 	return (0);
 }
 
-int			ft_intlen(size_t nbr, int base, size_t *exp)
+int			ft_nbrlen(size_t nbr, int base, size_t *exp)
 {
 	size_t	l_exp;
 	int		rtn;
@@ -35,6 +35,19 @@ int			ft_intlen(size_t nbr, int base, size_t *exp)
 	{
 		*exp *= base;
 		rtn++;
+	}
+	return (rtn);
+}
+
+size_t		ft_mask(int size)
+{
+	size_t	rtn;
+
+	rtn = 0;
+	while (size)
+	{
+		rtn = (rtn << 8) | 0xFF;
+		size--;
 	}
 	return (rtn);
 }

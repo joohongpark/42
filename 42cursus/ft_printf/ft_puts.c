@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 16:24:13 by joopark           #+#    #+#             */
-/*   Updated: 2020/10/29 20:48:33 by joopark          ###   ########.fr       */
+/*   Updated: 2020/11/06 01:44:58 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void				ft_putnbr_base(size_t nbr, char *base)
 	digit = ft_strlen(base);
 	if (digit < 2)
 		return ;
-	ft_intlen(nbr, digit, &basecnt);
+	ft_nbrlen(nbr, digit, &basecnt);
 	while (basecnt)
 	{
 		c = base[(int)(nbr / basecnt)];

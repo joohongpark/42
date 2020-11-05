@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 18:49:10 by joopark           #+#    #+#             */
-/*   Updated: 2020/11/05 18:10:29 by joopark          ###   ########.fr       */
+/*   Updated: 2020/11/06 01:45:36 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@ int				ft_printer(va_list ap, t_format form);
 int				ft_printchar(t_format form, char c);
 int				ft_printstr(t_format form, char *str);
 int				ft_printpointer(t_format form, size_t n);
+ssize_t			ft_getargbysize(va_list ap, int size);
 
 /* ft_print_number.c */
-int				ft_printint(t_format form, int n);
-int				ft_printuint(t_format form, size_t n);
+int				ft_printint(t_format form, ssize_t n);
+int				ft_printuint(t_format form, ssize_t n);
 
 /* ft_puts.c */
 void			ft_putnbr_base(size_t nbr, char *base);
@@ -56,7 +57,8 @@ int				ft_getflag(char *str, t_format *form);
 
 /* ft_util */
 int				ft_charsearch(char c, char *chars);
-int				ft_intlen(size_t nbr, int base, size_t *exp);
+int				ft_nbrlen(size_t nbr, int base, size_t *exp);
+size_t			ft_mask(int size);
 
 /* ft_printf.c */
 int				ft_printf(const char *fmt, ...);
