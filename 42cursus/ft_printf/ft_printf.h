@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 18:49:10 by joopark           #+#    #+#             */
-/*   Updated: 2020/10/30 15:34:33 by joopark          ###   ########.fr       */
+/*   Updated: 2020/11/05 17:10:57 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,18 @@ typedef struct	s_format
 {
 	int			set_right;
 	int			fill;
+	int			plus;
+	int			prefix;
 	int			space;
 	int			width;
 	int			precision;
+	int			length;
 	char		type;
 }				t_format;
 
 /* ft_printer.c */
 int				ft_printer(va_list ap, t_format form);
+int				ft_printchar(t_format form, char c);
 int				ft_printstr(t_format form, char *str);
 int				ft_printint(t_format form, int n);
 int				ft_printuint(t_format form, size_t n);
@@ -45,7 +49,8 @@ int				ft_atoi(const char *str);
 
 /* ft_parser.c */
 int				ft_parser(char *str, t_format *form);
-int				ft_getnumorstar(char *str);
+int				ft_getnumorstar(char **str);
+int				ft_getflag(char *str, t_format *form);
 
 /* ft_util */
 int				ft_charsearch(char c, char *chars);
