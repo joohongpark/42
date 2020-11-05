@@ -6,11 +6,11 @@
 #    By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/02 23:17:54 by joopark           #+#    #+#              #
-#    Updated: 2020/11/02 23:30:20 by joopark          ###   ########.fr        #
+#    Updated: 2020/11/05 18:10:38 by joopark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FILES = ft_libft.c ft_parser.c ft_printer.c ft_printf.c ft_puts.c ft_util.c
+FILES = ft_libft.c ft_parser.c ft_printer.c ft_print_number.c ft_printf.c ft_puts.c ft_util.c
 OBJS = $(FILES:.c=.o)
 NAME = libftprintf.a
 COMPILER = gcc
