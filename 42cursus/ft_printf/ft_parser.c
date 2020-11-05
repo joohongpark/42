@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 16:44:17 by joopark           #+#    #+#             */
-/*   Updated: 2020/10/27 15:10:20 by joopark          ###   ########.fr       */
+/*   Updated: 2020/11/05 17:08:01 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,41 +14,55 @@
 
 int				ft_parser(char *str, t_format *form)
 {
-	char *parser;
+	char		*parser;
 
 	parser = str;
-	//flag
-	form->set_right = (*parser == '-') ? 1 : 0;
-	parser += (*parser == '-') ? 1 : 0;
-	//fill_zero
-	form->fill = (*parser == '0') ? 1 : 0;
-	parser += (*parser == '0') ? 1 : 0;
-	//width
-	form->width = ft_getnumorstar(parser);
-	while (ft_charsearch(*(parser), "0123456789*"))
-		parser++;
-	//precision
+	parser += (form->set_right = (*parser == '-') ? 1 : 0);
+	parser += (form->fill = (*parser == '0') ? 1 : 0);
+	form->width = ft_getnumorstar(&parser);
+	form->precision = -2;
 	if (*parser == '.')
 	{
 		parser++;
-		form->precision = ft_getnumorstar(parser);
-		while (ft_charsearch(*(parser), "0123456789*"))
-			parser++;
+		form->precision = ft_getnumorstar(&parser);
 	}
-	else
-		form->precision = -2;
-	
-	//length?
-
-	//type
+	form->length = sizeof(int);
+	if (*parser == 'l' || *parser == 'h')
+	{
+		form->length = *parser == 'l' ? sizeof(long) : sizeof(short);
+		parser++;
+		if (*parser == 'l' || *parser == 'h')
+		{
+			form->length = *parser == 'l' ? sizeof(long long) : sizeof(char);
+			parser++;
+		}
+	}
 	form->type = *parser;
 	return (parser - str);
 }
 
-int				ft_getnumorstar(char *str)
+int				ft_getnumorstar(char **str)
 {
-	if (*str == '*')
-		return (-1);
+	int			rtn;
+
+	rtn = -1;
+	if (**str == '*')
+	{
+		(*str)++;
+		return (rtn);
+	}
 	else
-		return (ft_atoi((char *)str));
+	{
+		rtn = ft_atoi(*str);
+		while (ft_charsearch(**str, "0123456789*"))
+			(*str)++;
+		return (rtn);
+	}
+}
+
+int				ft_getflag(char *str, t_format *form)
+{
+	(void) str;
+	(void) form;	
+	return (0);
 }
