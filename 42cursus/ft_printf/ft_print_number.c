@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 18:08:28 by joopark           #+#    #+#             */
-/*   Updated: 2020/11/06 21:37:53 by joopark          ###   ########.fr       */
+/*   Updated: 2020/11/06 21:41:25 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,22 +49,22 @@ int					ft_printuint(t_format form, ssize_t n)
 	int				space;
 	
 	l = ft_nbrlen(n & ft_mask(form.length), (form.type == 'u') ? 10 : 16, NULL);
-	rtn = l;
+	rtn = 0;
 	space = form.width - ((form.prec > l) ? form.prec : l);
 	if (form.r == 0)
 		rtn += ft_putchar((form.prec == -2 && form.fill == 1) ? '0' : ' ', space);
 	if (form.prec > l)
 		rtn += ft_putchar('0', form.prec - l);
 	if (n == 0 && form.prec == 0 && form.width == 0)
-		rtn--;
+		rtn += 0;
 	else if (n == 0 && form.prec == 0)
-		ft_putchar(' ', 1);
+		rtn += ft_putchar(' ', 1);
 	else if (form.type == 'u')
-		ft_putnbr_base(n & ft_mask(form.length), "0123456789");
+		rtn += ft_putnbr_base(n & ft_mask(form.length), "0123456789");
 	else if (form.type == 'x')
-		ft_putnbr_base(n & ft_mask(form.length), "0123456789abcdef");
+		rtn += ft_putnbr_base(n & ft_mask(form.length), "0123456789abcdef");
 	else if (form.type == 'X')
-		ft_putnbr_base(n & ft_mask(form.length), "0123456789ABCDEF");
+		rtn += ft_putnbr_base(n & ft_mask(form.length), "0123456789ABCDEF");
 	if (form.r == 1)
 		rtn += ft_putchar(' ', space);
 	return (rtn);
