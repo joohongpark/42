@@ -6,13 +6,13 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 01:36:14 by joopark           #+#    #+#             */
-/*   Updated: 2020/11/06 01:45:05 by joopark          ###   ########.fr       */
+/*   Updated: 2020/11/06 13:35:29 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int					ft_printer(va_list ap, t_format form)
+int					ft_printer(va_list ap, t_format form, int cnt)
 {
 	form.width = (form.width == -1) ? va_arg(ap, int) : form.width;
 	form.set_right = (form.width < 0) ? 1 : form.set_right;
@@ -31,6 +31,8 @@ int					ft_printer(va_list ap, t_format form)
 		return (ft_printchar(form, va_arg(ap, int)));
 	else if (form.type == '%')
 		return (ft_printchar(form, '%'));
+	else if (form.type == 'n')
+		return ((*(va_arg(ap, int *)) = cnt) < 0);
 	return (0);
 }
 

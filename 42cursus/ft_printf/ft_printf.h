@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 18:49:10 by joopark           #+#    #+#             */
-/*   Updated: 2020/11/06 01:45:36 by joopark          ###   ########.fr       */
+/*   Updated: 2020/11/06 13:25:37 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct	s_format
 }				t_format;
 
 /* ft_printer.c */
-int				ft_printer(va_list ap, t_format form);
+int				ft_printer(va_list ap, t_format form, int cnt);
 int				ft_printchar(t_format form, char c);
 int				ft_printstr(t_format form, char *str);
 int				ft_printpointer(t_format form, size_t n);
