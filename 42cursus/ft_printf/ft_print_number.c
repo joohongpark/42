@@ -22,13 +22,10 @@ int					ft_printint(t_format form, ssize_t n)
 
 	num = (n < 0) ? ~n + 1 : n;
 	l = ft_nbrlen(num & ft_mask(form.length), 10, NULL);	
-	rtn = 0;
 	c = ft_getsign(n < 0, form.space, form.plus);
 	space = form.width - ((c != '\0') + ((form.prec < l) ? l : form.prec));
-	if (form.r == 0 && (form.fill == 0 || form.prec >= 0))
-		rtn += ft_putchar(' ', space);
-	if (c)
-		rtn += write(1, &c, 1);
+	rtn = (!form.r && (!form.fill || form.prec >= 0)) ? ft_putchar(' ', space) : 0;
+	rtn += (c) ? write(1, &c, 1) : 0;
 	if (form.prec > l)
 		rtn += ft_putchar('0', form.prec - l);
 	else if ((form.width > (l + (c != '\0'))) && (form.prec == -2) && form.fill && !form.r)
@@ -37,8 +34,7 @@ int					ft_printint(t_format form, ssize_t n)
 		rtn += ft_putchar(' ', 1);
 	else if (!(num == 0 && form.prec == 0 && form.width == 0))
 		rtn += ft_putnbr_base(num & ft_mask(form.length), "0123456789");
-	if (form.r == 1)
-		rtn += ft_putchar(' ', space);
+	rtn += (form.r == 1) ? ft_putchar(' ', space) : 0;
 	return (rtn);
 }
 
@@ -50,29 +46,23 @@ int					ft_printuint(t_format form, ssize_t n)
 	int				pre;
 
 	l = ft_nbrlen(n & ft_mask(form.length), (form.type == 'u') ? 10 : 16, NULL);
-	rtn = 0;
 	pre = (form.prefix && (form.type == 'X' || form.type == 'x')) ? 2 : 0;
 	space = form.width - (pre + ((form.prec < l) ? l : form.prec));
-	if (form.r == 0 && (form.fill == 0 || form.prec >= 0))
-		rtn += ft_putchar(' ', space);
-	if (pre)
-		rtn += ft_putstr(form.type == 'X' ? "0X" : "0x", 2);
+	rtn = (!form.r && (!form.fill || form.prec >= 0)) ? ft_putchar(' ', space) : 0;
+	rtn += (pre) ? ft_putstr(form.type == 'X' ? "0X" : "0x", 2) : 0;
 	if (form.prec > l)
 		rtn += ft_putchar('0', form.prec - l);
 	else if ((form.width > (l + pre)) && (form.prec == -2) && form.fill && !form.r)
 		rtn += ft_putchar('0', form.width - (l + pre));
-	if (n == 0 && form.prec == 0 && form.width == 0)
-		rtn += 0;
-	else if (n == 0 && form.prec == 0)
-		rtn += ft_putchar(' ', 1);
+	if (n == 0 && form.prec == 0)
+		rtn += (form.width != 0) ? ft_putchar(' ', 1) : 0;
 	else if (form.type == 'u')
 		rtn += ft_putnbr_base(n & ft_mask(form.length), "0123456789");
 	else if (form.type == 'x')
 		rtn += ft_putnbr_base(n & ft_mask(form.length), "0123456789abcdef");
 	else if (form.type == 'X')
 		rtn += ft_putnbr_base(n & ft_mask(form.length), "0123456789ABCDEF");
-	if (form.r == 1)
-		rtn += ft_putchar(' ', space);
+	rtn += (form.r == 1) ? ft_putchar(' ', space) : 0;
 	return (rtn);
 }
 
