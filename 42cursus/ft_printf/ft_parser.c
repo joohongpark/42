@@ -71,11 +71,11 @@ int				ft_getflag(char *str, t_format *form)
 	form->space = 0;
 	while (ft_charsearch(*parser, "+-# 0"))
 	{
-		form->r += (*parser == '-');
-		form->fill += (*parser == '0');
-		form->plus += (*parser == '+');
-		form->prefix += (*parser == '#');
-		form->space += (*parser == ' ');
+		form->r |= (*parser == '-');
+		form->fill |= (*parser == '0');
+		form->plus |= (*parser == '+');
+		form->prefix |= (*parser == '#');
+		form->space |= (*parser == ' ');
 		parser++;
 	}
 	return (parser - str);

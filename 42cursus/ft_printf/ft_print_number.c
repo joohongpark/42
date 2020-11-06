@@ -47,14 +47,20 @@ int					ft_printuint(t_format form, ssize_t n)
 	int				rtn;
 	int				l;
 	int				space;
-	
+	int				pre;
+
 	l = ft_nbrlen(n & ft_mask(form.length), (form.type == 'u') ? 10 : 16, NULL);
 	rtn = 0;
-	space = form.width - ((form.prec > l) ? form.prec : l);
-	if (form.r == 0)
-		rtn += ft_putchar((form.prec == -2 && form.fill == 1) ? '0' : ' ', space);
+	pre = (form.prefix && (form.type == 'X' || form.type == 'x')) ? 2 : 0;
+	space = form.width - (pre + ((form.prec < l) ? l : form.prec));
+	if (form.r == 0 && (form.fill == 0 || form.prec >= 0))
+		rtn += ft_putchar(' ', space);
+	if (pre)
+		rtn += ft_putstr(form.type == 'X' ? "0X" : "0x", 2);
 	if (form.prec > l)
 		rtn += ft_putchar('0', form.prec - l);
+	else if ((form.width > (l + pre)) && (form.prec == -2) && form.fill && !form.r)
+		rtn += ft_putchar('0', form.width - (l + pre));
 	if (n == 0 && form.prec == 0 && form.width == 0)
 		rtn += 0;
 	else if (n == 0 && form.prec == 0)
