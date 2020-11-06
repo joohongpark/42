@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 01:36:14 by joopark           #+#    #+#             */
-/*   Updated: 2020/11/06 13:35:29 by joopark          ###   ########.fr       */
+/*   Updated: 2020/11/06 21:37:54 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 int					ft_printer(va_list ap, t_format form, int cnt)
 {
 	form.width = (form.width == -1) ? va_arg(ap, int) : form.width;
-	form.set_right = (form.width < 0) ? 1 : form.set_right;
+	form.r = (form.width < 0) ? 1 : form.r;
 	form.width = (form.width < 0) ? ~form.width + 1 : form.width;
-	form.precision = (form.precision == -1) ? va_arg(ap, int) : form.precision;
-	form.precision = (form.precision < 0) ? -2 : form.precision;
+	form.prec = (form.prec == -1) ? va_arg(ap, int) : form.prec;
+	form.prec = (form.prec < 0) ? -2 : form.prec;
 	if (form.type == 'd' || form.type == 'i')
 		return (ft_printint(form, ft_getargbysize(ap, form.length)));
 	else if (form.type == 'x' || form.type == 'X' || form.type == 'u')
@@ -44,12 +44,12 @@ int					ft_printstr(t_format form, char *str)
 	rtn = 0;
 	str = str ? str : "(null)";
 	len = ft_strlen(str);
-	if (form.precision < len)
-		len = (form.precision == -2) ? len : form.precision;
-	if (form.set_right == 0)
+	if (form.prec < len)
+		len = (form.prec == -2) ? len : form.prec;
+	if (form.r == 0)
 		rtn += ft_putchar(' ', form.width - len);
 	rtn += ft_putstr(str, len);
-	if (form.set_right == 1)
+	if (form.r == 1)
 		rtn += ft_putchar(' ', form.width - len);
 	return (rtn);
 }
@@ -59,10 +59,10 @@ int					ft_printchar(t_format form, char c)
 	int				rtn;
 
 	rtn = 0;
-	if (form.set_right == 0)
+	if (form.r == 0)
 		rtn += ft_putchar(form.fill == 0 ? ' ' : '0', form.width - 1);
 	rtn += ft_putchar(c, 1);
-	if (form.set_right == 1)
+	if (form.r == 1)
 		rtn += ft_putchar(' ', form.width - 1);
 	return (rtn);
 }
@@ -74,11 +74,11 @@ int					ft_printpointer(t_format form, size_t n)
 
 	len = ft_nbrlen(n, 16, NULL);
 	rtn = len;
-	if (form.set_right == 0)
+	if (form.r == 0)
 		rtn += ft_putchar(' ', form.width - (len + 2));
 	rtn += write(1, "0x", 2);
 	ft_putnbr_base(n, "0123456789abcdef");
-	if (form.set_right == 1)
+	if (form.r == 1)
 		rtn += ft_putchar(' ', form.width - (len + 2));
 	return (rtn);
 }
