@@ -40,7 +40,6 @@ ssize_t			ft_getargbysize(va_list ap, int size);
 /* ft_print_number.c */
 int				ft_printint(t_format form, ssize_t n);
 int				ft_printuint(t_format form, ssize_t n);
-char			ft_getsign(int minus, int space, int plus);
 
 /* ft_puts.c */
 int				ft_putnbr_base(size_t nbr, char *base);

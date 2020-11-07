@@ -21,8 +21,10 @@ int					ft_printint(t_format form, ssize_t n)
 	ssize_t			num;
 
 	num = (n < 0) ? ~n + 1 : n;
-	l = ft_nbrlen(num & ft_mask(form.length), 10, NULL);	
-	c = ft_getsign(n < 0, form.space, form.plus);
+	l = ft_nbrlen(num & ft_mask(form.length), 10, NULL);
+	c = form.space ? ' ' : '\0';
+	c = form.plus ? '+' : c;
+	c = (n < 0) ? '-' : c;
 	space = form.width - ((c != '\0') + ((form.prec < l) ? l : form.prec));
 	rtn = (!form.r && (!form.fill || form.prec >= 0)) ? ft_putchar(' ', space) : 0;
 	rtn += (c) ? write(1, &c, 1) : 0;
@@ -64,14 +66,4 @@ int					ft_printuint(t_format form, ssize_t n)
 		rtn += ft_putnbr_base(n & ft_mask(form.length), "0123456789ABCDEF");
 	rtn += (form.r == 1) ? ft_putchar(' ', space) : 0;
 	return (rtn);
-}
-
-char				ft_getsign(int minus, int space, int plus)
-{
-	char			c;
-
-	c = space ? ' ' : '\0';
-	c = plus ? '+' : c;
-	c = minus ? '-' : c;
-	return (c);
 }
