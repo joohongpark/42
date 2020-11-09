@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 18:08:28 by joopark           #+#    #+#             */
-/*   Updated: 2020/11/06 21:41:25 by joopark          ###   ########.fr       */
+/*   Updated: 2020/11/09 16:48:34 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int					ft_printint(t_format form, ssize_t n)
 	c = (n < 0) ? '-' : c;
 	space = form.width - ((c != '\0') + ((form.prec < l) ? l : form.prec));
 	rtn = (!form.r && (!form.fill || form.prec >= 0)) ? ft_putchar(' ', space) : 0;
-	rtn += (c) ? write(1, &c, 1) : 0;
+	rtn += (c) ? ft_putstr(&c, 1) : 0;
 	if (form.prec > l)
 		rtn += ft_putchar('0', form.prec - l);
 	else if ((form.width > (l + (c != '\0'))) && (form.prec == -2) && form.fill && !form.r)

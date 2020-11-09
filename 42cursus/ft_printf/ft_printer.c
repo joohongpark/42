@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 01:36:14 by joopark           #+#    #+#             */
-/*   Updated: 2020/11/06 21:37:54 by joopark          ###   ########.fr       */
+/*   Updated: 2020/11/09 22:16:10 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int					ft_printpointer(t_format form, size_t n)
 	rtn = len;
 	if (form.r == 0)
 		rtn += ft_putchar(' ', form.width - (len + 2));
-	rtn += write(1, "0x", 2);
+	rtn += ft_putstr("0x", 2);
 	ft_putnbr_base(n, "0123456789abcdef");
 	if (form.r == 1)
 		rtn += ft_putchar(' ', form.width - (len + 2));
