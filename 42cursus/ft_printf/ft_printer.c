@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 01:36:14 by joopark           #+#    #+#             */
-/*   Updated: 2020/11/09 22:16:10 by joopark          ###   ########.fr       */
+/*   Updated: 2020/11/10 01:00:51 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int					ft_printstr(t_format form, char *str)
 	if (form.prec < len)
 		len = (form.prec == -2) ? len : form.prec;
 	if (form.r == 0)
-		rtn += ft_putchar(' ', form.width - len);
+		rtn += ft_putchar(form.fill == 0 ? ' ' : '0', form.width - len);
 	rtn += ft_putstr(str, len);
 	if (form.r == 1)
 		rtn += ft_putchar(' ', form.width - len);
@@ -71,15 +71,19 @@ int					ft_printpointer(t_format form, size_t n)
 {
 	int				rtn;
 	int				len;
+	int				space;
 
-	len = ft_nbrlen(n, 16, NULL);
-	rtn = len;
-	if (form.r == 0)
-		rtn += ft_putchar(' ', form.width - (len + 2));
+	len = (n == 0 && form.prec == 0) ? 0 : ft_nbrlen(n, 16, NULL);
+	space = form.width - (2 + ((form.prec < len) ? len : form.prec));
+	rtn = (!form.r && (!form.fill || form.prec >= 0)) ? ft_putchar(' ', space) : 0;
 	rtn += ft_putstr("0x", 2);
-	ft_putnbr_base(n, "0123456789abcdef");
-	if (form.r == 1)
-		rtn += ft_putchar(' ', form.width - (len + 2));
+	if (form.prec > len)
+		rtn += ft_putchar('0', form.prec - len);
+	else if ((form.width > (len + 2)) && (form.prec == -2) && form.fill && !form.r)
+		rtn += ft_putchar('0', form.width - (len + 2));
+	if (!(n == 0 && form.prec == 0))
+		rtn += ft_putnbr_base(n, "0123456789abcdef");
+	rtn += (form.r == 1) ? ft_putchar(' ', space) : 0;
 	return (rtn);
 }
 
