@@ -6,7 +6,7 @@
 #    By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/02 23:17:54 by joopark           #+#    #+#              #
-#    Updated: 2020/11/05 18:10:38 by joopark          ###   ########.fr        #
+#    Updated: 2020/11/10 18:09:09 by joopark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,10 +22,6 @@ $(NAME):
 	$(COMPILER) $(CFLAGS) -c $(FILES) -I${HEADERPATH}
 	ar rc $(NAME) $(OBJS)
 	ranlib $(NAME)
-
-# TEST (For Linux)
-test:
-	$(COMPILER) main.c -lftprintf -L./
 
 all: $(NAME)
 
