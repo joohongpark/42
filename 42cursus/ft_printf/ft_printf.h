@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 18:49:10 by joopark           #+#    #+#             */
-/*   Updated: 2020/11/06 21:37:50 by joopark          ###   ########.fr       */
+/*   Updated: 2020/11/10 12:50:45 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int				ft_nbrlen(size_t nbr, int base, size_t *exp);
 size_t			ft_mask(int size);
 
 /* ft_printf.c */
+int				ft_isvaild_forprintf(char *str);
+void			ft_parsefmt(char *str, int *cnt, va_list ap);
 int				ft_printf(const char *fmt, ...);
 
 

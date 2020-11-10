@@ -6,11 +6,23 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 18:48:26 by joopark           #+#    #+#             */
-/*   Updated: 2020/11/06 13:25:40 by joopark          ###   ########.fr       */
+/*   Updated: 2020/11/10 12:56:03 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int				ft_isvaild_forprintf(char *str)
+{
+	while (ft_charsearch(*str, "cspdiuxX%") == 0)
+	{
+		if (*str == '\0')
+			return (0);
+		else
+			str++;
+	}
+	return (1);
+}
 
 void			ft_parsefmt(char *str, int *cnt, va_list ap)
 {
@@ -19,7 +31,7 @@ void			ft_parsefmt(char *str, int *cnt, va_list ap)
 
 	while (*str)
 	{
-		if (*str == '%')
+		if (*str == '%' && ft_isvaild_forprintf(str + 1))
 		{
 			delta = ft_parser(str + 1, &form) + 2;
 			str += delta;
