@@ -31,7 +31,8 @@ int					ft_printint(t_format f, ssize_t n)
 	rtn += (pre) ? ft_putstr(&pre, 1) : 0;
 	if (f.prec > l)
 		rtn += ft_putchar('0', f.prec - l);
-	else if ((f.width > (l + (!pre))) && (f.prec == -2) && f.fill && !f.r)
+	else if ((f.width > (l + (pre != '\0')))
+			&& (f.prec == -2) && f.fill && !f.r)
 		rtn += ft_putchar('0', f.width - (l + (pre != '\0')));
 	if (!(num == 0 && f.prec == 0))
 		rtn += ft_putnbr_base(num & ft_mask(f.length), "0123456789");
