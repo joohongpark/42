@@ -14,7 +14,7 @@
 
 int				ft_isvaild_forprintf(char *str)
 {
-	while (ft_charsearch(*str, "cspdiuxX%") == 0)
+	while (ft_charsearch(*str, "ncspdiuxX%") == 0)
 	{
 		if (*str == '\0')
 			return (0);
@@ -56,5 +56,3 @@ int				ft_printf(const char *fmt, ...)
 	va_end(ap);
 	return (rtn);
 }
-
-

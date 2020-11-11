@@ -67,23 +67,23 @@ int					ft_printchar(t_format form, char c)
 	return (rtn);
 }
 
-int					ft_printpointer(t_format form, size_t n)
+int					ft_printpointer(t_format f, size_t n)
 {
 	int				rtn;
 	int				len;
 	int				space;
 
-	len = (n == 0 && form.prec == 0) ? 0 : ft_nbrlen(n, 16, NULL);
-	space = form.width - (2 + ((form.prec < len) ? len : form.prec));
-	rtn = (!form.r && (!form.fill || form.prec >= 0)) ? ft_putchar(' ', space) : 0;
+	len = (n == 0 && f.prec == 0) ? 0 : ft_nbrlen(n, 16, NULL);
+	space = f.width - (2 + ((f.prec < len) ? len : f.prec));
+	rtn = (!f.r && (!f.fill || f.prec >= 0)) ? ft_putchar(' ', space) : 0;
 	rtn += ft_putstr("0x", 2);
-	if (form.prec > len)
-		rtn += ft_putchar('0', form.prec - len);
-	else if ((form.width > (len + 2)) && (form.prec == -2) && form.fill && !form.r)
-		rtn += ft_putchar('0', form.width - (len + 2));
-	if (!(n == 0 && form.prec == 0))
+	if (f.prec > len)
+		rtn += ft_putchar('0', f.prec - len);
+	else if ((f.width > (len + 2)) && (f.prec == -2) && f.fill && !f.r)
+		rtn += ft_putchar('0', f.width - (len + 2));
+	if (!(n == 0 && f.prec == 0))
 		rtn += ft_putnbr_base(n, "0123456789abcdef");
-	rtn += (form.r == 1) ? ft_putchar(' ', space) : 0;
+	rtn += (f.r == 1) ? ft_putchar(' ', space) : 0;
 	return (rtn);
 }
 
