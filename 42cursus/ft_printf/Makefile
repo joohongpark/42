@@ -10,7 +10,8 @@
 #                                                                              #
 # **************************************************************************** #
 
-FILES = ft_libft.c ft_parser.c ft_printer.c ft_print_number.c ft_printf.c ft_puts.c ft_util.c
+FILES = ft_libft.c ft_parser.c ft_printer.c ft_print_number.c
+FILES += ft_printf.c ft_puts.c ft_util.c
 OBJS = $(FILES:.c=.o)
 NAME = libftprintf.a
 COMPILER = gcc
