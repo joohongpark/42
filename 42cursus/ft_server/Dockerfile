@@ -9,8 +9,8 @@ RUN apt-get update -y \
 	php7.3-mysql \
 	php7.3-mbstring \
 	mariadb-server \
-	patch
-RUN mkdir /var/www/html/phpmy \
+	patch \
+&& mkdir /var/www/html/phpmy \
 && mkdir /var/www/html/wordpress \
 && mkdir /etc/certs \
 && tar -zxvf /tmp/init/phpmy.tar.gz --strip-components=1 -C /var/www/html/phpmy \
@@ -22,8 +22,14 @@ RUN mkdir /var/www/html/phpmy \
 && patch -l /var/www/html/phpmy/config.inc.php /tmp/init/patch/config.inc.php.patch \
 && patch -l /var/www/html/wordpress/wp-config.php /tmp/init/patch/wp-config.php.patch \
 && patch -l /etc/nginx/sites-available/default /tmp/init/patch/default.patch \
-&& chown -R www-data /var/www/html/
-RUN service mysql start \
+&& chown -R www-data /var/www/html/ \
+&& service mysql start \
 && cat /tmp/init/set_sql.sql | mysql -u root \
 && rm -rf /tmp/init/
-ENTRYPOINT service php7.3-fpm start && service nginx start && service mysql start && sleep inf
+ENTRYPOINT \
+service php7.3-fpm start \
+&& service nginx start \
+&& service mysql start \
+&& echo "wordpress server ON. \
+now you can go to https://127.0.0.1/wordpress or https://127.0.0.1/phpmy links." \
+&& sleep inf
