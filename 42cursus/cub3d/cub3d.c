@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:29:11 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/07 13:09:12 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/07 20:35:14 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int				ft_key_press(int code, t_canvas *obj)
 	// 0x7d : _
 	// 0x7c : ->
 	// 0x35 : esc
-	// a s d f : 0 1 2 3
+	// w a s d : 0x0d 0 1 2
 	printf("(%d, %d)\n", obj->player.x, obj->player.y);
 	printf("code : %02x\n", code);
 	if (code == 0x35)
@@ -33,6 +33,11 @@ int				ft_key_press(int code, t_canvas *obj)
 		obj->player.x -= (0 < obj->player.x) ? 10 : 0;
 	else if (code == 0x7e)
 		obj->player.y -= (0 < obj->player.y) ? 10 : 0;
+	else if (code == 0x00)
+		obj->player.deg -= (0 < obj->player.deg) ? 1 : -360;
+	else if (code == 0x02)
+		obj->player.deg += (360 > obj->player.deg) ? 1 : -360;
+	printf("obj->player.deg : %d\n", obj->player.deg);
 	return (0);
 }
 
@@ -58,9 +63,52 @@ void			ft_event_register(void *window, t_canvas *obj)
 	//mlx_expose_hook(window, &ft_test, "expose");
 }
 
+void			ft_draw_map_proto(t_canvas *area, t_map map)
+{
+	for (int i = 0; i < area->img.height; i++)
+	{
+		for (int j = 0; j < (area->img.size_line / 4); j++)
+		{
+			if (map.map[((map.y * i) / area->img.height)][((map.x * j) / area->img.width)] == 1)
+				area->img.data[i * (area->img.size_line / 4) + j] = 0x000000FF;
+			else
+				area->img.data[i * (area->img.size_line / 4) + j] = 0x0000FF00;
+		}
+	}
+}
+
+void			ft_map_gen_proto(t_map *map)
+{
+	map->map = (char **) malloc(sizeof(char *) * 10);
+	for (size_t i = 0; i < 10; i++)
+		map->map[i] = (char *) malloc(sizeof(char) * 10);
+}
+
 int				main(void)
 {
+
+	char		map[10][10] = {
+		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 1, 1, 1, 1, 1, 1, 1, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+	};
 	t_canvas	w;
+	t_map		m;
+
+	ft_map_gen_proto(&m);
+	for (size_t i = 0; i < 10; i++)
+		for (size_t j = 0; j < 10; j++)
+			m.map[i][j] = map[i][j];
+	m.scale = 10;
+	m.x = 10;
+	m.y = 10;
 
 	w.width = 800;
 	w.height = 800;
@@ -72,14 +120,13 @@ int				main(void)
 	w.img.y = 0;
 	w.img.img = mlx_new_image(w.window, w.img.width, w.img.height);
 	w.img.data = (int *)mlx_get_data_addr(w.img.img, &w.img.bits_per_pixel, &w.img.size_line, &w.img.endian);
-	for (int i = 0; i < w.img.height; i++)
-		for (int j = 0; j < (w.img.size_line / 4); j++)
-			w.img.data[i * (w.img.size_line / 4) + j] = 0x000000FF;
+	ft_draw_map_proto(&w, m);
 
 	w.player.width = 20;
 	w.player.height = 20;
 	w.player.x = 0;
 	w.player.y = 0;
+	w.player.deg = 0;
 	w.player.img = mlx_new_image(w.window, w.player.width, w.player.height);
 	w.player.data = (int *)mlx_get_data_addr(w.player.img, &w.player.bits_per_pixel, &w.player.size_line, &w.player.endian);
 	for (int i = 0; i < w.player.height; i++)

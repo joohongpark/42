@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 02:17:10 by joopark           #+#    #+#             */
-/*   Updated: 2020/11/27 02:07:22 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/07 18:53:36 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct		s_img
 	int				height;
 	int				x;
 	int				y;
+	int				deg;
 }					t_img;
 
 typedef struct		s_canvas
@@ -37,6 +38,14 @@ typedef struct		s_canvas
 	t_img			player;
 }					t_canvas;
 
+typedef struct		s_map
+{
+	char			**map;
+	int				x;
+	int				y;
+	int				scale;
+}					t_map;
+
 typedef	struct		s_vector
 {
 	double			x;
@@ -46,6 +55,7 @@ typedef	struct		s_vector
 
 # include <mlx.h>
 # include <unistd.h>
+# include <stdlib.h>
 # include <math.h>
 
 t_vector		ft_vinit(double x, double y);
