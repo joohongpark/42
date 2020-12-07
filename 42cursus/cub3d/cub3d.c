@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:29:11 by joopark           #+#    #+#             */
-/*   Updated: 2020/11/27 02:21:31 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/07 13:09:12 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,19 @@ int				ft_key_press(int code, t_canvas *obj)
 	// 0x7d : _
 	// 0x7c : ->
 	// 0x35 : esc
+	// a s d f : 0 1 2 3
 	printf("(%d, %d)\n", obj->player.x, obj->player.y);
 	printf("code : %02x\n", code);
 	if (code == 0x35)
 		_Exit(0);
-	else if (code == 0x7b)
-	{
-		obj->player.x++;
-	}
+	else if (code == 0x7c)
+		obj->player.x += (obj->width > obj->player.x) ? 10 : 0;
 	else if (code == 0x7d)
-	{
-		obj->player.y++;
-	}
+		obj->player.y += (obj->height > obj->player.y) ? 10 : 0;
+	else if (code == 0x7b)
+		obj->player.x -= (0 < obj->player.x) ? 10 : 0;
+	else if (code == 0x7e)
+		obj->player.y -= (0 < obj->player.y) ? 10 : 0;
 	return (0);
 }
 
