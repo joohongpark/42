@@ -65,20 +65,20 @@ int get_next_line(char **line)
 	int			pos;
 	char		*rtn;
 
-	rtn = NULL;
-	r = 1;
+	rtn = NULL; // 인수로 반환하기 전에 리턴할 문자열 임시 저장 공간
+	r = 1; // 초기 진입조건을 만들기 위해 1로 초기화 시킴
 	while (r > 0)
 	{
-		if (ft_strlen(buf) == 0)
+		if (ft_strlen(buf) == 0) // 만약에 버퍼가 비었으면?
 		{
-			r = read(0, buf, BUFSIZE);
-			if (r == -1)
+			r = read(0, buf, BUFSIZE); // 버퍼 사이즈만큼 읽어서 가져온다.
+			if (r == -1) // 읽기 오류
 			{
 				return (-1);
 			}
-			else if (r == 0 && rtn != NULL)
+			else if (r == 0 && rtn != NULL) // 읽어올 값이 없고 리턴 문자열이 존재하면
 			{
-				*line = rtn;
+				*line = rtn; // 마지막 라인 리턴
 				return (0);
 			}
 			else if (r != BUFSIZE)
@@ -105,5 +105,5 @@ int get_next_line(char **line)
 			}
 		}
 	}
-	return (r);
+	return (0);
 }
