@@ -85,22 +85,21 @@ int get_next_line(char **line)
 			{
 				buf[r] = '\0';
 			}
-			
 		}
-		else
+		else // 버퍼가 비어있지 않으면?
 		{
-			pos = ft_findchar(buf, '\n');
-			if (pos == -1)
+			pos = ft_findchar(buf, '\n'); // 버퍼 내에서 개행 위치를 찾음
+			if (pos == -1) // 개행이 없으면
 			{
-				rtn = ft_stradd(rtn, buf);
-				buf[0] = '\0';
+				rtn = ft_stradd(rtn, buf); // 반환할 문자열에 현재 버퍼에 있는 문자열을 합침
+				buf[0] = '\0'; // 버퍼 비움 (루프 처음으로 돌아감)
 			}
-			else
+			else // 개행이 있으면
 			{
-				buf[pos] = '\0';
-				rtn = ft_stradd(rtn, buf);
-				ft_strcpy(buf, &buf[pos + 1]);
-				*line = rtn;
+				buf[pos] = '\0'; // 개행을 널로 바꿔서 앞의 문자열이 구분되게 만듬
+				rtn = ft_stradd(rtn, buf); // 문자열 합침
+				ft_strcpy(buf, &buf[pos + 1]); // 뒤에 있는 문자열을 앞으로 당김
+				*line = rtn; // 문자열 반환
 				return (1);
 			}
 		}
