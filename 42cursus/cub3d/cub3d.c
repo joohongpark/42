@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:29:11 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/07 20:35:14 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/17 22:46:33 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int				ft_key_press(int code, t_canvas *obj)
 	else if (code == 0x02)
 		obj->player.deg += (360 > obj->player.deg) ? 1 : -360;
 	printf("obj->player.deg : %d\n", obj->player.deg);
+	obj->draw = 1;
 	return (0);
 }
 
@@ -49,9 +50,13 @@ int				ft_mouse_press(int code, int x, int y, char *str)
 
 int				ft_draw(t_canvas *obj)
 {
-	mlx_clear_window(obj->window, obj->canvas);
-	mlx_put_image_to_window(obj->window, obj->canvas, obj->img.img, obj->img.x, obj->img.y);
-	mlx_put_image_to_window(obj->window, obj->canvas, obj->player.img, obj->player.x, obj->player.y);
+	if (obj->draw == 1)
+	{
+		mlx_clear_window(obj->window, obj->canvas);
+		mlx_put_image_to_window(obj->window, obj->canvas, obj->img.img, obj->img.x, obj->img.y);
+		mlx_put_image_to_window(obj->window, obj->canvas, obj->player.img, obj->player.x, obj->player.y);
+		obj->draw = 0;
+	}
 	return (0);
 }
 
@@ -132,7 +137,7 @@ int				main(void)
 	for (int i = 0; i < w.player.height; i++)
 		for (int j = 0; j < (w.player.size_line / 4); j++)
 			w.player.data[i * (w.player.size_line / 4) + j] = 0x0000FFFF;
-	
+	w.draw = 1;
 	mlx_put_image_to_window(w.window, w.canvas, w.img.img, w.img.x, w.img.y);
 	mlx_put_image_to_window(w.window, w.canvas, w.player.img, w.player.x, w.player.y);
 	ft_event_register(w.canvas, &w);

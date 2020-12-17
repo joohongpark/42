@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 02:17:10 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/07 18:53:36 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/07 20:52:22 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct		s_canvas
 	void			*canvas;
 	int				width;
 	int				height;
+	int				draw;
 	t_img			img;
 	t_img			player;
 }					t_canvas;
