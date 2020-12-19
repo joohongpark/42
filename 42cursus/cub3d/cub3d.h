@@ -6,13 +6,19 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 02:17:10 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/07 20:52:22 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/19 13:21:08 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #ifndef FT_CUB3D_H
 # define FT_CUB3D_H
+
+typedef	struct		s_vector
+{
+	double			x;
+	double			y;
+}					t_vector;
 
 typedef struct		s_img
 {
@@ -26,6 +32,7 @@ typedef struct		s_img
 	int				x;
 	int				y;
 	int				deg;
+	t_vector		pos;
 }					t_img;
 
 typedef struct		s_canvas
@@ -47,13 +54,6 @@ typedef struct		s_map
 	int				scale;
 }					t_map;
 
-typedef	struct		s_vector
-{
-	double			x;
-	double			y;
-	double			z;
-}					t_vector;
-
 # include <mlx.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -63,7 +63,11 @@ t_vector		ft_vinit(double x, double y);
 t_vector		ft_vadd(t_vector v, t_vector w);
 t_vector		ft_vsub(t_vector v, t_vector w);
 t_vector		ft_vscala(t_vector v, double s);
+t_vector		ft_vspin(t_vector v, int degree);
 
-
+double				ft_raycasting(t_vector p, t_vector r, t_map m);
+t_vector			ft_xstart(t_vector player, t_vector ray);
+t_vector			ft_xinc(t_vector xgo, t_vector r);
+int					ft_checkspace(t_vector v, t_map map);
 
 #endif

@@ -6,13 +6,19 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:29:11 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/17 22:46:33 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/19 01:06:30 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h>
 
+int				_ux;
+int				_uy;
+int				_ux1;
+int				_uy1;
+t_map		m;
+t_img		imgx, imgy;
 int				ft_key_press(int code, t_canvas *obj)
 {
 	// 0x7b : <-
@@ -21,6 +27,8 @@ int				ft_key_press(int code, t_canvas *obj)
 	// 0x7c : ->
 	// 0x35 : esc
 	// w a s d : 0x0d 0 1 2
+	t_vector		ray;
+	double			d;
 	printf("(%d, %d)\n", obj->player.x, obj->player.y);
 	printf("code : %02x\n", code);
 	if (code == 0x35)
@@ -37,7 +45,19 @@ int				ft_key_press(int code, t_canvas *obj)
 		obj->player.deg -= (0 < obj->player.deg) ? 1 : -360;
 	else if (code == 0x02)
 		obj->player.deg += (360 > obj->player.deg) ? 1 : -360;
+	
+	// test
+	ray = ft_vinit(1, 0);
+	ray = ft_vspin(ray, obj->player.deg);
+
+	obj->player.pos = ft_vinit(((1.0 * obj->player.x) / obj->width) * 10,
+						((1.0 * obj->player.y) / obj->height) * 10);
+	printf("ray : (%f, %f)\n", ray.x, ray.y);
+	printf("player.pos : (%f, %f)\n", obj->player.pos.x, obj->player.pos.y);
+	d = ft_raycasting(obj->player.pos, ray, m);
+	printf("beam : (%f)\n", d);
 	printf("obj->player.deg : %d\n", obj->player.deg);
+	printf("uxy : (%d, %d)\n", _ux, _uy);
 	obj->draw = 1;
 	return (0);
 }
@@ -55,6 +75,8 @@ int				ft_draw(t_canvas *obj)
 		mlx_clear_window(obj->window, obj->canvas);
 		mlx_put_image_to_window(obj->window, obj->canvas, obj->img.img, obj->img.x, obj->img.y);
 		mlx_put_image_to_window(obj->window, obj->canvas, obj->player.img, obj->player.x, obj->player.y);
+		mlx_put_image_to_window(obj->window, obj->canvas, imgx.img, _ux, _uy);
+		mlx_put_image_to_window(obj->window, obj->canvas, imgy.img, _ux1, _uy1);
 		obj->draw = 0;
 	}
 	return (0);
@@ -105,7 +127,6 @@ int				main(void)
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 	};
 	t_canvas	w;
-	t_map		m;
 
 	ft_map_gen_proto(&m);
 	for (size_t i = 0; i < 10; i++)
@@ -137,6 +158,26 @@ int				main(void)
 	for (int i = 0; i < w.player.height; i++)
 		for (int j = 0; j < (w.player.size_line / 4); j++)
 			w.player.data[i * (w.player.size_line / 4) + j] = 0x0000FFFF;
+	
+	imgx.width = 5;
+	imgx.height = 5;
+	imgx.x = 0;
+	imgx.y = 0;
+	imgx.img = mlx_new_image(w.window, imgx.width, imgx.height);
+	imgx.data = (int *)mlx_get_data_addr(imgx.img, &imgx.bits_per_pixel, &imgx.size_line, &imgx.endian);
+	for (int i = 0; i < imgx.height; i++)
+		for (int j = 0; j < (imgx.size_line / 4); j++)
+			imgx.data[i * (imgx.size_line / 4) + j] = 0x00FF0000;
+	
+	imgy.width = 5;
+	imgy.height = 5;
+	imgy.x = 0;
+	imgy.y = 0;
+	imgy.img = mlx_new_image(w.window, imgy.width, imgy.height);
+	imgy.data = (int *)mlx_get_data_addr(imgy.img, &imgy.bits_per_pixel, &imgy.size_line, &imgy.endian);
+	for (int i = 0; i < imgy.height; i++)
+		for (int j = 0; j < (imgy.size_line / 4); j++)
+			imgy.data[i * (imgy.size_line / 4) + j] = 0x00FF00FF;
 	w.draw = 1;
 	mlx_put_image_to_window(w.window, w.canvas, w.img.img, w.img.x, w.img.y);
 	mlx_put_image_to_window(w.window, w.canvas, w.player.img, w.player.x, w.player.y);
