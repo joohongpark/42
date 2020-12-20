@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 02:17:10 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/19 20:39:20 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/20 17:02:32 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct		s_canvas
 	int				draw;
 	t_img			img;
 	t_img			player;
+	t_img			c;
 	t_player		cam;
 }					t_canvas;
 
@@ -66,6 +67,8 @@ typedef struct		s_map
 # include <unistd.h>
 # include <stdlib.h>
 # include <math.h>
+
+void			ft_draw_wall_proto(t_img *img, int x, double y);
 
 t_vector		ft_vinit(double x, double y);
 t_vector		ft_vadd(t_vector v, t_vector w);

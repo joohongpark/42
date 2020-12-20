@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:29:11 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/20 16:14:01 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/20 18:19:01 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,13 @@ int				ft_key_press(int code, t_canvas *obj)
 	tcam = ft_vspin(obj->cam.cam, obj->player.deg);
 	tplane = ft_vspin(obj->cam.plane, obj->player.deg);
 	printf("\n[");
-	for (int i = 0; i < 1000; i++)
+	for (int i = 0; i < 800; i++)
 	{
 		ray = ft_vadd(tcam, ft_vscala(tplane, (i - 500) / 500.0));
 		d = ft_raycasting(obj->player.pos, ray, m);
+		d = 1 / d;
+		d = (d > 399) ? 400 : d;
+		ft_draw_wall_proto(&obj->c, i, d);
 		printf("%.02f ", d);
 	}
 	printf("]\n");
@@ -82,8 +85,9 @@ int				ft_draw(t_canvas *obj)
 	if (obj->draw == 1)
 	{
 		mlx_clear_window(obj->window, obj->canvas);
-		mlx_put_image_to_window(obj->window, obj->canvas, obj->img.img, obj->img.x, obj->img.y);
-		mlx_put_image_to_window(obj->window, obj->canvas, obj->player.img, obj->player.x, obj->player.y);
+		mlx_put_image_to_window(obj->window, obj->canvas, obj->img.img, obj->img.x + 800, obj->img.y);
+		mlx_put_image_to_window(obj->window, obj->canvas, obj->player.img, obj->player.x + 800, obj->player.y);
+		mlx_put_image_to_window(obj->window, obj->canvas, obj->c.img, obj->c.x, obj->c.y);
 		mlx_put_image_to_window(obj->window, obj->canvas, imgx.img, _ux, _uy);
 		mlx_put_image_to_window(obj->window, obj->canvas, imgy.img, _ux1, _uy1);
 		obj->draw = 0;
@@ -110,6 +114,20 @@ void			ft_draw_map_proto(t_canvas *area, t_map map)
 			else
 				area->img.data[i * (area->img.size_line / 4) + j] = 0x0000FF00;
 		}
+	}
+}
+
+void			ft_draw_wall_proto(t_img *img, int x, double y)
+{
+	int			h;
+
+	h = (int)(y * (img->height / 2));
+	for (int iy = 0; iy < img->height; iy++)
+	{
+		if (iy > ((img->height / 2) - h) && iy < ((img->height / 2) + h))
+			img->data[iy * (img->size_line / 4) + x] = 0x0000FFFF;
+		else
+			img->data[iy * (img->size_line / 4) + x] = 0x00000000;
 	}
 }
 
@@ -155,7 +173,15 @@ int				main(void)
 	w.width = 800;
 	w.height = 800;
 	w.window = mlx_init();
-	w.canvas = mlx_new_window(w.window, w.width, w.height, "hello");
+	w.canvas = mlx_new_window(w.window, w.width * 2, w.height, "hello");
+
+	w.c.width = w.width;
+	w.c.height = w.height;
+	w.c.x = 0;
+	w.c.y = 0;
+	w.c.img = mlx_new_image(w.window, w.c.width, w.c.height);
+	w.c.data = (int *)mlx_get_data_addr(w.c.img, &w.c.bits_per_pixel, &w.c.size_line, &w.c.endian);
+
 	w.img.width = w.width;
 	w.img.height = w.height;
 	w.img.x = 0;
