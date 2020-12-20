@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:29:11 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/19 01:06:30 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/20 16:14:01 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int				ft_key_press(int code, t_canvas *obj)
 	// 0x7c : ->
 	// 0x35 : esc
 	// w a s d : 0x0d 0 1 2
+	t_vector		tcam;
+	t_vector		tplane;
 	t_vector		ray;
 	double			d;
 	printf("(%d, %d)\n", obj->player.x, obj->player.y);
@@ -47,15 +49,22 @@ int				ft_key_press(int code, t_canvas *obj)
 		obj->player.deg += (360 > obj->player.deg) ? 1 : -360;
 	
 	// test
+	tcam = ft_vspin(obj->cam.cam, obj->player.deg);
+	tplane = ft_vspin(obj->cam.plane, obj->player.deg);
+	printf("\n[");
+	for (int i = 0; i < 1000; i++)
+	{
+		ray = ft_vadd(tcam, ft_vscala(tplane, (i - 500) / 500.0));
+		d = ft_raycasting(obj->player.pos, ray, m);
+		printf("%.02f ", d);
+	}
+	printf("]\n");
+	
 	ray = ft_vinit(1, 0);
 	ray = ft_vspin(ray, obj->player.deg);
 
 	obj->player.pos = ft_vinit(((1.0 * obj->player.x) / obj->width) * 10,
 						((1.0 * obj->player.y) / obj->height) * 10);
-	printf("ray : (%f, %f)\n", ray.x, ray.y);
-	printf("player.pos : (%f, %f)\n", obj->player.pos.x, obj->player.pos.y);
-	d = ft_raycasting(obj->player.pos, ray, m);
-	printf("beam : (%f)\n", d);
 	printf("obj->player.deg : %d\n", obj->player.deg);
 	printf("uxy : (%d, %d)\n", _ux, _uy);
 	obj->draw = 1;
@@ -114,6 +123,10 @@ void			ft_map_gen_proto(t_map *map)
 int				main(void)
 {
 
+	_ux = 0;
+	_uy = 0;
+	_ux1 = 0;
+	_uy1 = 0;
 	char		map[10][10] = {
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -135,6 +148,9 @@ int				main(void)
 	m.scale = 10;
 	m.x = 10;
 	m.y = 10;
+
+	w.cam.cam = ft_vinit(1, 0);
+	w.cam.plane = ft_vinit(0, 0.66);
 
 	w.width = 800;
 	w.height = 800;

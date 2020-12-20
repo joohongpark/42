@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 02:17:10 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/19 13:21:08 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/19 20:39:20 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,13 @@ typedef struct		s_img
 	t_vector		pos;
 }					t_img;
 
+typedef struct		s_player
+{
+	t_vector		pos;
+	t_vector		cam;
+	t_vector		plane;
+}					t_player;
+
 typedef struct		s_canvas
 {
 	void			*window;
@@ -44,6 +51,7 @@ typedef struct		s_canvas
 	int				draw;
 	t_img			img;
 	t_img			player;
+	t_player		cam;
 }					t_canvas;
 
 typedef struct		s_map

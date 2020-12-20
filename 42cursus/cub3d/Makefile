@@ -6,11 +6,11 @@
 #    By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/21 19:03:14 by joopark           #+#    #+#              #
-#    Updated: 2020/11/23 16:39:22 by joopark          ###   ########.fr        #
+#    Updated: 2020/12/18 13:11:10 by joopark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FILES = cub3d.c ft_vector.c
+FILES = cub3d.c ft_vector.c ft_raycasting.c
 #OBJS = $(FILES:.c=.o)
 OBJS = ${FILES:%.c=%.o}
 NAME = cub3d
@@ -23,12 +23,12 @@ MMSPATH = ./libs/minilibx_mms_20200219
 
 $(NAME): $(OBJS)
 	make all -C ${MMSPATH}
-	$(COMPILER) $(CFLAGS) $(OBJS) -I$(HEADERPATH) -L$(MMSPATH) $(CLFLAGS) -o $(NAME)
+	$(COMPILER) $(CFLAGS) $(OBJS) -I$(HEADERPATH) -L$(MMSPATH) $(CLFLAGS) -g -o $(NAME)
 	#install_name_tool -add_rpath $(MMSPATH)/libmlx.dylib  $(NAME)
 	cp $(MMSPATH)/libmlx.dylib $(HEADERPATH)
 
 %.o: %.c
-	$(COMPILER) ${CFLAGS} -I${HEADERPATH} -I${MMSPATH} -c -o $@ $<
+	$(COMPILER) ${CFLAGS} -I${HEADERPATH} -I${MMSPATH} -g -c -o $@ $<
 
 all: $(NAME)
 
