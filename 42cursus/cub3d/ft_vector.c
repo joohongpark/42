@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 16:39:08 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/18 01:12:22 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/23 21:39:24 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,6 @@ t_vector		ft_vadd(t_vector v, t_vector w)
 	return (v);
 }
 
-t_vector		ft_vsub(t_vector v, t_vector w)
-{
-	v.x -= w.x;
-	v.y -= w.y;
-	return (v);
-}
-
 t_vector		ft_vscala(t_vector v, double s)
 {
 	v.x *= s;
@@ -53,5 +46,13 @@ t_vector		ft_vspin(t_vector v, int degree)
 	cosine = cos((degree / 360.0) * 2 * M_PI);
 	rtn.x = cosine * v.x - sine * v.y;
 	rtn.y = sine * v.x + cosine * v.y;
+	return (rtn);
+}
+
+double			ft_vsize(t_vector v)
+{
+	double		rtn;
+
+	rtn = sqrt((v.x * v.x) + (v.y * v.y));
 	return (rtn);
 }

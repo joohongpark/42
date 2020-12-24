@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:29:11 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/20 18:19:01 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/24 02:12:31 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,18 @@ int				_ux1;
 int				_uy1;
 t_map		m;
 t_img		imgx, imgy;
+
+int				ft_rgba(char r, char g, char b, char a)
+{
+	int			rtn;
+
+	rtn = a & 0x000000ff;
+	rtn = (rtn << 8) | (r & 0x000000ff);
+	rtn = (rtn << 8) | (g & 0x000000ff);
+	rtn = (rtn << 8) | (b & 0x000000ff);
+	return (rtn);
+}
+
 int				ft_key_press(int code, t_canvas *obj)
 {
 	// 0x7b : <-
@@ -29,8 +41,10 @@ int				ft_key_press(int code, t_canvas *obj)
 	// w a s d : 0x0d 0 1 2
 	t_vector		tcam;
 	t_vector		tplane;
+	t_vector		tplane_l;
 	t_vector		ray;
 	double			d;
+	double			eye;
 	printf("(%d, %d)\n", obj->player.x, obj->player.y);
 	printf("code : %02x\n", code);
 	if (code == 0x35)
@@ -51,17 +65,16 @@ int				ft_key_press(int code, t_canvas *obj)
 	// test
 	tcam = ft_vspin(obj->cam.cam, obj->player.deg);
 	tplane = ft_vspin(obj->cam.plane, obj->player.deg);
-	printf("\n[");
 	for (int i = 0; i < 800; i++)
 	{
-		ray = ft_vadd(tcam, ft_vscala(tplane, (i - 500) / 500.0));
-		d = ft_raycasting(obj->player.pos, ray, m);
+		tplane_l = ft_vscala(tplane, (i - 500) / 500.0);
+		ray = ft_vadd(tcam, tplane_l);
+		eye = ft_vsize(tcam) / ft_vsize(ray);
+		d = ft_raycasting(obj->player.pos, ray, m) * eye;
 		d = 1 / d;
-		d = (d > 399) ? 400 : d;
+		d = (d > 1) ? 1 : d;
 		ft_draw_wall_proto(&obj->c, i, d);
-		printf("%.02f ", d);
 	}
-	printf("]\n");
 	
 	ray = ft_vinit(1, 0);
 	ray = ft_vspin(ray, obj->player.deg);
@@ -110,7 +123,7 @@ void			ft_draw_map_proto(t_canvas *area, t_map map)
 		for (int j = 0; j < (area->img.size_line / 4); j++)
 		{
 			if (map.map[((map.y * i) / area->img.height)][((map.x * j) / area->img.width)] == 1)
-				area->img.data[i * (area->img.size_line / 4) + j] = 0x000000FF;
+				area->img.data[i * (area->img.size_line / 4) + j] = ft_rgba(0xff, 0, 0, 0);
 			else
 				area->img.data[i * (area->img.size_line / 4) + j] = 0x0000FF00;
 		}
@@ -125,7 +138,7 @@ void			ft_draw_wall_proto(t_img *img, int x, double y)
 	for (int iy = 0; iy < img->height; iy++)
 	{
 		if (iy > ((img->height / 2) - h) && iy < ((img->height / 2) + h))
-			img->data[iy * (img->size_line / 4) + x] = 0x0000FFFF;
+			img->data[iy * (img->size_line / 4) + x] = ft_rgba(0xff - (y < 0.5 ? (((0.5 - y)) * 255) : 0), 0xff , 0, 0);
 		else
 			img->data[iy * (img->size_line / 4) + x] = 0x00000000;
 	}
@@ -148,12 +161,12 @@ int				main(void)
 	char		map[10][10] = {
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 1, 1, 1, 1, 1, 1, 1, 0, 1},
+		{1, 1, 0, 1, 1, 1, 1, 1, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 1, 1, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 	};
