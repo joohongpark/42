@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:29:11 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/24 02:12:31 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/24 23:56:09 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int				ft_draw(t_canvas *obj)
 	if (obj->draw == 1)
 	{
 		mlx_clear_window(obj->window, obj->canvas);
+		mlx_put_image_to_window(obj->window, obj->canvas, obj->wallpaper.img, obj->wallpaper.x, obj->wallpaper.y);
 		mlx_put_image_to_window(obj->window, obj->canvas, obj->img.img, obj->img.x + 800, obj->img.y);
 		mlx_put_image_to_window(obj->window, obj->canvas, obj->player.img, obj->player.x + 800, obj->player.y);
 		mlx_put_image_to_window(obj->window, obj->canvas, obj->c.img, obj->c.x, obj->c.y);
@@ -138,9 +139,9 @@ void			ft_draw_wall_proto(t_img *img, int x, double y)
 	for (int iy = 0; iy < img->height; iy++)
 	{
 		if (iy > ((img->height / 2) - h) && iy < ((img->height / 2) + h))
-			img->data[iy * (img->size_line / 4) + x] = ft_rgba(0xff - (y < 0.5 ? (((0.5 - y)) * 255) : 0), 0xff , 0, 0);
+			img->data[iy * (img->size_line / 4) + x] = ft_rgba(0xff - (y < 0.7 ? (((0.7 - y)) * 255) : 0), 0xff , 0, 0);
 		else
-			img->data[iy * (img->size_line / 4) + x] = 0x00000000;
+			img->data[iy * (img->size_line / 4) + x] = ft_rgba(0, 0, 0, 0xff);
 	}
 }
 
@@ -161,7 +162,7 @@ int				main(void)
 	char		map[10][10] = {
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 1, 0, 1, 1, 1, 1, 1, 0, 1},
+		{1, 0, 0, 1, 1, 1, 1, 1, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 1, 1, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -195,6 +196,22 @@ int				main(void)
 	w.c.img = mlx_new_image(w.window, w.c.width, w.c.height);
 	w.c.data = (int *)mlx_get_data_addr(w.c.img, &w.c.bits_per_pixel, &w.c.size_line, &w.c.endian);
 
+	w.wallpaper.width = w.width;
+	w.wallpaper.height = w.height;
+	w.wallpaper.x = 0;
+	w.wallpaper.y = 0;
+	w.wallpaper.img = mlx_new_image(w.window, w.wallpaper.width, w.wallpaper.height);
+	w.wallpaper.data = (int *)mlx_get_data_addr(w.wallpaper.img, &w.wallpaper.bits_per_pixel, &w.wallpaper.size_line, &w.wallpaper.endian);
+	for (int i = 0; i < w.wallpaper.height; i++)
+	{
+		for (int j = 0; j < (w.wallpaper.size_line / 4); j++)
+		{
+			if (i < w.wallpaper.height / 2)
+				w.wallpaper.data[i * (w.wallpaper.size_line / 4) + j] = ft_rgba(0x89, 0xde, 0xff, 0);
+			else
+				w.wallpaper.data[i * (w.wallpaper.size_line / 4) + j] = ft_rgba(0xac, 0x74, 0x30, 0);
+		}
+	}
 	w.img.width = w.width;
 	w.img.height = w.height;
 	w.img.x = 0;

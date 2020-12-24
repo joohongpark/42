@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 02:17:10 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/20 17:02:32 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/24 23:46:38 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct		s_canvas
 	t_img			img;
 	t_img			player;
 	t_img			c;
+	t_img			wallpaper;
 	t_player		cam;
 }					t_canvas;
 
@@ -72,9 +73,9 @@ void			ft_draw_wall_proto(t_img *img, int x, double y);
 
 t_vector		ft_vinit(double x, double y);
 t_vector		ft_vadd(t_vector v, t_vector w);
-t_vector		ft_vsub(t_vector v, t_vector w);
 t_vector		ft_vscala(t_vector v, double s);
 t_vector		ft_vspin(t_vector v, int degree);
+double			ft_vsize(t_vector v);
 
 double				ft_raycasting(t_vector p, t_vector r, t_map m);
 t_vector			ft_xstart(t_vector player, t_vector ray);
