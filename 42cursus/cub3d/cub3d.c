@@ -6,19 +6,14 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:29:11 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/24 23:56:09 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/25 11:06:07 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h>
 
-int				_ux;
-int				_uy;
-int				_ux1;
-int				_uy1;
 t_map		m;
-t_img		imgx, imgy;
 
 int				ft_rgba(char r, char g, char b, char a)
 {
@@ -82,7 +77,6 @@ int				ft_key_press(int code, t_canvas *obj)
 	obj->player.pos = ft_vinit(((1.0 * obj->player.x) / obj->width) * 10,
 						((1.0 * obj->player.y) / obj->height) * 10);
 	printf("obj->player.deg : %d\n", obj->player.deg);
-	printf("uxy : (%d, %d)\n", _ux, _uy);
 	obj->draw = 1;
 	return (0);
 }
@@ -102,8 +96,6 @@ int				ft_draw(t_canvas *obj)
 		mlx_put_image_to_window(obj->window, obj->canvas, obj->img.img, obj->img.x + 800, obj->img.y);
 		mlx_put_image_to_window(obj->window, obj->canvas, obj->player.img, obj->player.x + 800, obj->player.y);
 		mlx_put_image_to_window(obj->window, obj->canvas, obj->c.img, obj->c.x, obj->c.y);
-		mlx_put_image_to_window(obj->window, obj->canvas, imgx.img, _ux, _uy);
-		mlx_put_image_to_window(obj->window, obj->canvas, imgy.img, _ux1, _uy1);
 		obj->draw = 0;
 	}
 	return (0);
@@ -154,11 +146,6 @@ void			ft_map_gen_proto(t_map *map)
 
 int				main(void)
 {
-
-	_ux = 0;
-	_uy = 0;
-	_ux1 = 0;
-	_uy1 = 0;
 	char		map[10][10] = {
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -231,25 +218,6 @@ int				main(void)
 		for (int j = 0; j < (w.player.size_line / 4); j++)
 			w.player.data[i * (w.player.size_line / 4) + j] = 0x0000FFFF;
 	
-	imgx.width = 5;
-	imgx.height = 5;
-	imgx.x = 0;
-	imgx.y = 0;
-	imgx.img = mlx_new_image(w.window, imgx.width, imgx.height);
-	imgx.data = (int *)mlx_get_data_addr(imgx.img, &imgx.bits_per_pixel, &imgx.size_line, &imgx.endian);
-	for (int i = 0; i < imgx.height; i++)
-		for (int j = 0; j < (imgx.size_line / 4); j++)
-			imgx.data[i * (imgx.size_line / 4) + j] = 0x00FF0000;
-	
-	imgy.width = 5;
-	imgy.height = 5;
-	imgy.x = 0;
-	imgy.y = 0;
-	imgy.img = mlx_new_image(w.window, imgy.width, imgy.height);
-	imgy.data = (int *)mlx_get_data_addr(imgy.img, &imgy.bits_per_pixel, &imgy.size_line, &imgy.endian);
-	for (int i = 0; i < imgy.height; i++)
-		for (int j = 0; j < (imgy.size_line / 4); j++)
-			imgy.data[i * (imgy.size_line / 4) + j] = 0x00FF00FF;
 	w.draw = 1;
 	mlx_put_image_to_window(w.window, w.canvas, w.img.img, w.img.x, w.img.y);
 	mlx_put_image_to_window(w.window, w.canvas, w.player.img, w.player.x, w.player.y);
