@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:29:11 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/25 11:06:07 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/26 16:17:01 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int				ft_key_press(int code, t_canvas *obj)
 	t_vector		tplane;
 	t_vector		tplane_l;
 	t_vector		ray;
+	t_vector		p;
 	double			d;
 	double			eye;
 	printf("(%d, %d)\n", obj->player.x, obj->player.y);
@@ -65,7 +66,9 @@ int				ft_key_press(int code, t_canvas *obj)
 		tplane_l = ft_vscala(tplane, (i - 500) / 500.0);
 		ray = ft_vadd(tcam, tplane_l);
 		eye = ft_vsize(tcam) / ft_vsize(ray);
-		d = ft_raycasting(obj->player.pos, ray, m) * eye;
+		p = ft_raycasting(obj->player.pos, ray, m);
+		d = ft_vsize(ft_vadd(p, ft_vinit(obj->player.pos.x * -1, obj->player.pos.y * -1)));
+		d = d * eye;
 		d = 1 / d;
 		d = (d > 1) ? 1 : d;
 		ft_draw_wall_proto(&obj->c, i, d);
