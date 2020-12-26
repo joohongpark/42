@@ -6,17 +6,14 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 22:45:54 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/19 21:05:17 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/26 16:50:28 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h>
-extern int				_ux;
-extern int				_uy;
-extern int				_ux1;
-extern int				_uy1;
-double				ft_raycasting(t_vector p, t_vector r, t_map m)
+
+t_vector			ft_raycasting(t_vector p, t_vector r, t_map m)
 {
 	t_vector		xgo;
 	t_vector		ygo;
@@ -32,9 +29,9 @@ double				ft_raycasting(t_vector p, t_vector r, t_map m)
 	while (ft_checkspace(ft_vinit(ygo.y, ygo.x), m) == 1)
 		ygo = ft_xinc(ygo, ft_vinit(r.y, r.x));
 	ygo = ft_vinit(ygo.y, ygo.x);
-	xlen = sqrt((xgo.x - p.x) * (xgo.x - p.x) + (xgo.y - p.y) * (xgo.y - p.y));
-	ylen = sqrt((ygo.x - p.x) * (ygo.x - p.x) + (ygo.y - p.y) * (ygo.y - p.y));
-	return ((xlen > ylen) ? ylen : xlen);
+	xlen = (xgo.x - p.x) * (xgo.x - p.x) + (xgo.y - p.y) * (xgo.y - p.y);
+	ylen = (ygo.x - p.x) * (ygo.x - p.x) + (ygo.y - p.y) * (ygo.y - p.y);
+	return ((xlen > ylen) ? ygo : xgo);
 }
 
 t_vector			ft_xstart(t_vector player, t_vector ray)

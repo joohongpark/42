@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:29:11 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/26 16:17:01 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/26 22:07:51 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ int				ft_key_press(int code, t_canvas *obj)
 	t_vector		p;
 	double			d;
 	double			eye;
+	int				color;
+	char			w;
+	int				b;
 	printf("(%d, %d)\n", obj->player.x, obj->player.y);
 	printf("code : %02x\n", code);
 	if (code == 0x35)
@@ -58,6 +61,10 @@ int				ft_key_press(int code, t_canvas *obj)
 	else if (code == 0x02)
 		obj->player.deg += (360 > obj->player.deg) ? 1 : -360;
 	
+
+	obj->player.pos = ft_vinit(((1.0 * obj->player.x) / obj->width) * 10,
+						((1.0 * obj->player.y) / obj->height) * 10);
+						
 	// test
 	tcam = ft_vspin(obj->cam.cam, obj->player.deg);
 	tplane = ft_vspin(obj->cam.plane, obj->player.deg);
@@ -71,14 +78,21 @@ int				ft_key_press(int code, t_canvas *obj)
 		d = d * eye;
 		d = 1 / d;
 		d = (d > 1) ? 1 : d;
-		ft_draw_wall_proto(&obj->c, i, d);
+		w = ft_isnwse(obj->player.pos, p);
+		b = (d < 0.7 ? (((0.7 - d)) * 255) : 0);
+		if (w == 'n')
+			color = ft_rgba(0xff, 0xff , 0xff, 0);
+		else if (w == 'w')
+			color = ft_rgba(0xff, 0x00 , 0xff, 0);
+		else if (w == 's')
+			color = ft_rgba(0xff, 0xff , 0x00, 0);
+		else if (w == 'e')
+			color = ft_rgba(0xff, 0x00 , 0x00, 0);
+		ft_draw_wall_proto(&obj->c, i, d, color);
 	}
 	
 	ray = ft_vinit(1, 0);
 	ray = ft_vspin(ray, obj->player.deg);
-
-	obj->player.pos = ft_vinit(((1.0 * obj->player.x) / obj->width) * 10,
-						((1.0 * obj->player.y) / obj->height) * 10);
 	printf("obj->player.deg : %d\n", obj->player.deg);
 	obj->draw = 1;
 	return (0);
@@ -126,7 +140,7 @@ void			ft_draw_map_proto(t_canvas *area, t_map map)
 	}
 }
 
-void			ft_draw_wall_proto(t_img *img, int x, double y)
+void			ft_draw_wall_proto(t_img *img, int x, double y, int color)
 {
 	int			h;
 
@@ -134,7 +148,7 @@ void			ft_draw_wall_proto(t_img *img, int x, double y)
 	for (int iy = 0; iy < img->height; iy++)
 	{
 		if (iy > ((img->height / 2) - h) && iy < ((img->height / 2) + h))
-			img->data[iy * (img->size_line / 4) + x] = ft_rgba(0xff - (y < 0.7 ? (((0.7 - y)) * 255) : 0), 0xff , 0, 0);
+			img->data[iy * (img->size_line / 4) + x] = color;
 		else
 			img->data[iy * (img->size_line / 4) + x] = ft_rgba(0, 0, 0, 0xff);
 	}
@@ -212,8 +226,8 @@ int				main(void)
 
 	w.player.width = 20;
 	w.player.height = 20;
-	w.player.x = 0;
-	w.player.y = 0;
+	w.player.x = 150;
+	w.player.y = 150;
 	w.player.deg = 0;
 	w.player.img = mlx_new_image(w.window, w.player.width, w.player.height);
 	w.player.data = (int *)mlx_get_data_addr(w.player.img, &w.player.bits_per_pixel, &w.player.size_line, &w.player.endian);

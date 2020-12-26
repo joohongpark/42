@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 02:17:10 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/24 23:46:38 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/26 17:15:55 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct		s_map
 # include <stdlib.h>
 # include <math.h>
 
-void			ft_draw_wall_proto(t_img *img, int x, double y);
+void			ft_draw_wall_proto(t_img *img, int x, double y, int color);
 
 t_vector		ft_vinit(double x, double y);
 t_vector		ft_vadd(t_vector v, t_vector w);
@@ -77,9 +77,11 @@ t_vector		ft_vscala(t_vector v, double s);
 t_vector		ft_vspin(t_vector v, int degree);
 double			ft_vsize(t_vector v);
 
-double				ft_raycasting(t_vector p, t_vector r, t_map m);
+t_vector			ft_raycasting(t_vector p, t_vector r, t_map m);
 t_vector			ft_xstart(t_vector player, t_vector ray);
 t_vector			ft_xinc(t_vector xgo, t_vector r);
 int					ft_checkspace(t_vector v, t_map map);
+
+char				ft_isnwse(t_vector start, t_vector end);
 
 #endif
