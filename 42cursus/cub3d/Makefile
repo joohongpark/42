@@ -6,11 +6,11 @@
 #    By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/21 19:03:14 by joopark           #+#    #+#              #
-#    Updated: 2020/12/26 16:50:22 by joopark          ###   ########.fr        #
+#    Updated: 2020/12/27 17:00:49 by joopark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FILES = cub3d.c ft_vector.c ft_raycasting.c ft_wall.c
+FILES = cub3d.c ft_vector.c ft_raycasting.c ft_wall.c ft_rendering.c
 #OBJS = $(FILES:.c=.o)
 OBJS = ${FILES:%.c=%.o}
 NAME = cub3d

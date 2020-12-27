@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:29:11 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/26 22:07:51 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/27 17:25:59 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,6 @@
 #include <stdio.h>
 
 t_map		m;
-
-int				ft_rgba(char r, char g, char b, char a)
-{
-	int			rtn;
-
-	rtn = a & 0x000000ff;
-	rtn = (rtn << 8) | (r & 0x000000ff);
-	rtn = (rtn << 8) | (g & 0x000000ff);
-	rtn = (rtn << 8) | (b & 0x000000ff);
-	return (rtn);
-}
 
 int				ft_key_press(int code, t_canvas *obj)
 {
@@ -34,16 +23,7 @@ int				ft_key_press(int code, t_canvas *obj)
 	// 0x7c : ->
 	// 0x35 : esc
 	// w a s d : 0x0d 0 1 2
-	t_vector		tcam;
-	t_vector		tplane;
-	t_vector		tplane_l;
 	t_vector		ray;
-	t_vector		p;
-	double			d;
-	double			eye;
-	int				color;
-	char			w;
-	int				b;
 	printf("(%d, %d)\n", obj->player.x, obj->player.y);
 	printf("code : %02x\n", code);
 	if (code == 0x35)
@@ -57,43 +37,20 @@ int				ft_key_press(int code, t_canvas *obj)
 	else if (code == 0x7e)
 		obj->player.y -= (0 < obj->player.y) ? 10 : 0;
 	else if (code == 0x00)
-		obj->player.deg -= (0 < obj->player.deg) ? 1 : -360;
+		obj->p.deg -= (0 < obj->p.deg) ? 1 : -360;
 	else if (code == 0x02)
-		obj->player.deg += (360 > obj->player.deg) ? 1 : -360;
+		obj->p.deg += (360 > obj->p.deg) ? 1 : -360;
 	
 
-	obj->player.pos = ft_vinit(((1.0 * obj->player.x) / obj->width) * 10,
+	obj->p.pos = ft_vinit(((1.0 * obj->player.x) / obj->width) * 10,
 						((1.0 * obj->player.y) / obj->height) * 10);
 						
 	// test
-	tcam = ft_vspin(obj->cam.cam, obj->player.deg);
-	tplane = ft_vspin(obj->cam.plane, obj->player.deg);
-	for (int i = 0; i < 800; i++)
-	{
-		tplane_l = ft_vscala(tplane, (i - 500) / 500.0);
-		ray = ft_vadd(tcam, tplane_l);
-		eye = ft_vsize(tcam) / ft_vsize(ray);
-		p = ft_raycasting(obj->player.pos, ray, m);
-		d = ft_vsize(ft_vadd(p, ft_vinit(obj->player.pos.x * -1, obj->player.pos.y * -1)));
-		d = d * eye;
-		d = 1 / d;
-		d = (d > 1) ? 1 : d;
-		w = ft_isnwse(obj->player.pos, p);
-		b = (d < 0.7 ? (((0.7 - d)) * 255) : 0);
-		if (w == 'n')
-			color = ft_rgba(0xff, 0xff , 0xff, 0);
-		else if (w == 'w')
-			color = ft_rgba(0xff, 0x00 , 0xff, 0);
-		else if (w == 's')
-			color = ft_rgba(0xff, 0xff , 0x00, 0);
-		else if (w == 'e')
-			color = ft_rgba(0xff, 0x00 , 0x00, 0);
-		ft_draw_wall_proto(&obj->c, i, d, color);
-	}
+	ft_rendering(obj->p, &obj->c, m);
 	
 	ray = ft_vinit(1, 0);
-	ray = ft_vspin(ray, obj->player.deg);
-	printf("obj->player.deg : %d\n", obj->player.deg);
+	ray = ft_vspin(ray, obj->p.deg);
+	printf("obj->player.deg : %d\n", obj->p.deg);
 	obj->draw = 1;
 	return (0);
 }
@@ -140,20 +97,6 @@ void			ft_draw_map_proto(t_canvas *area, t_map map)
 	}
 }
 
-void			ft_draw_wall_proto(t_img *img, int x, double y, int color)
-{
-	int			h;
-
-	h = (int)(y * (img->height / 2));
-	for (int iy = 0; iy < img->height; iy++)
-	{
-		if (iy > ((img->height / 2) - h) && iy < ((img->height / 2) + h))
-			img->data[iy * (img->size_line / 4) + x] = color;
-		else
-			img->data[iy * (img->size_line / 4) + x] = ft_rgba(0, 0, 0, 0xff);
-	}
-}
-
 void			ft_map_gen_proto(t_map *map)
 {
 	map->map = (char **) malloc(sizeof(char *) * 10);
@@ -185,8 +128,8 @@ int				main(void)
 	m.x = 10;
 	m.y = 10;
 
-	w.cam.cam = ft_vinit(1, 0);
-	w.cam.plane = ft_vinit(0, 0.66);
+	w.p.cam = ft_vinit(1, 0);
+	w.p.plane = ft_vinit(0, 0.66);
 
 	w.width = 800;
 	w.height = 800;
@@ -228,7 +171,7 @@ int				main(void)
 	w.player.height = 20;
 	w.player.x = 150;
 	w.player.y = 150;
-	w.player.deg = 0;
+	w.p.deg = 0;
 	w.player.img = mlx_new_image(w.window, w.player.width, w.player.height);
 	w.player.data = (int *)mlx_get_data_addr(w.player.img, &w.player.bits_per_pixel, &w.player.size_line, &w.player.endian);
 	for (int i = 0; i < w.player.height; i++)
