@@ -6,50 +6,12 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:29:11 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/28 21:57:29 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/29 00:13:13 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h>
-
-t_img				ft_new_img(void *window, int width, int height)
-{
-	t_img			rtn;
-
-	rtn.x = 0;
-	rtn.y = 0;
-	rtn.width = width;
-	rtn.height = height;
-	rtn.img = mlx_new_image(window, width, height);
-	rtn.data = (int *)mlx_get_data_addr(rtn.img,
-					&rtn.bits_per_pixel, &rtn.size_line, &rtn.endian);
-	return (rtn);
-}
-
-t_img				ft_get_img_form_xpm(void *window, char *uri)
-{
-	t_img			rtn;
-
-	rtn.x = 0;
-	rtn.y = 0;
-	rtn.img = mlx_xpm_file_to_image(window, uri, &rtn.width, &rtn.height);
-	rtn.data = (int *)mlx_get_data_addr(rtn.img,
-					&rtn.bits_per_pixel, &rtn.size_line, &rtn.endian);
-	return (rtn);
-}
-
-t_img				ft_get_img_form_png(void *window, char *uri)
-{
-	t_img			rtn;
-
-	rtn.x = 0;
-	rtn.y = 0;
-	rtn.img = mlx_png_file_to_image(window, uri, &rtn.width, &rtn.height);
-	rtn.data = (int *)mlx_get_data_addr(rtn.img,
-					&rtn.bits_per_pixel, &rtn.size_line, &rtn.endian);
-	return (rtn);
-}
 
 int				ft_key_press(int code, t_canvas *obj)
 {
@@ -82,7 +44,6 @@ int				ft_key_press(int code, t_canvas *obj)
 						((1.0 * obj->player.y) / obj->height) * obj->map.y);
 						
 	// test
-	ft_rendering(obj->p, &obj->render, obj->map, obj->tmp);
 	
 	ray = ft_vinit(1, 0);
 	ray = ft_vspin(ray, obj->p.deg);
@@ -101,6 +62,7 @@ int				ft_draw(t_canvas *obj)
 {
 	if (obj->draw == 1)
 	{
+		ft_rendering(obj);
 		mlx_clear_window(obj->window, obj->canvas);
 		mlx_put_image_to_window(obj->window, obj->canvas, obj->wallpaper.img, obj->wallpaper.x, obj->wallpaper.y);
 		mlx_put_image_to_window(obj->window, obj->canvas, obj->img.img, obj->img.x + 800, obj->img.y);

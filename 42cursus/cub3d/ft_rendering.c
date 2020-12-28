@@ -6,56 +6,44 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 16:20:14 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/28 21:39:26 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/29 00:31:16 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h>
 
-int				ft_rgba(char r, char g, char b, char a)
-{
-	int			rtn;
-
-	rtn = a & 0x000000ff;
-	rtn = (rtn << 8) | (r & 0x000000ff);
-	rtn = (rtn << 8) | (g & 0x000000ff);
-	rtn = (rtn << 8) | (b & 0x000000ff);
-	return (rtn);
-}
-
-void				ft_rendering(t_player p, t_img *c, t_map m, t_img imgs[])
+void				ft_rendering(t_canvas *canvas)
 {
 	t_vector		cam;
 	t_vector		plane;
 	t_vector		ray;
 	t_vector		target;
-	int				w;
+	int				width;
 	char			wall;
-	int				color;
-	double			b;
+	double			beam;
+	double			x_ratio;
 
 
-	cam = ft_vspin(p.cam, p.deg);
-	plane = ft_vspin(p.plane, p.deg);
-	w = 0;
-	color = 0;
-	while (w < c->width)
+	cam = ft_vspin(canvas->p.cam, canvas->p.deg);
+	plane = ft_vspin(canvas->p.plane, canvas->p.deg);
+	width = 0;
+	while (width < canvas->render.width)
 	{
-		ray = ft_vadd(cam, ft_vscala(plane, (w - (c->width / 2)) / (c->width / 2.0)));
-		target = ft_raycasting(p.pos, ray, m);
-		b = ft_vsize(ft_vadd(target, ft_vinit(p.pos.x * -1, p.pos.y * -1)));
-		b = ft_resolution(b, cam, ray);
-		wall = ft_isnwse(p.pos, target);
+		ray = ft_vadd(cam, ft_vscala(plane, (width - (canvas->render.width / 2)) / (canvas->render.width / 2.0)));
+		target = ft_raycasting(canvas->p.pos, ray, canvas->map);
+		beam = ft_vsize(ft_vadd(target, ft_vscala(canvas->p.pos, -1)));
+		beam = ft_resolution(beam, cam, ray);
+		x_ratio = ft_getxratio(target);
+		wall = ft_isnwse(canvas->p.pos, target);
 		if (wall == 'n')
-			ft_draw_wall_proto(c, w, b, color, target, imgs[2]);
+			ft_draw_wall_proto(&canvas->render, width, beam, x_ratio, canvas->tmp[2]);
 		else if (wall == 'w')
-			ft_draw_wall_proto(c, w, b, color, target, imgs[3]);
+			ft_draw_wall_proto(&canvas->render, width, beam, x_ratio, canvas->tmp[3]);
 		else if (wall == 's')
-			ft_draw_wall_proto(c, w, b, color, target, imgs[4]);
+			ft_draw_wall_proto(&canvas->render, width, beam, x_ratio, canvas->tmp[4]);
 		else if (wall == 'e')
-			ft_draw_wall_proto(c, w, b, color, target, imgs[5]);
-		w++;
+			ft_draw_wall_proto(&canvas->render, width, beam, x_ratio, canvas->tmp[5]);
+		width++;
 	}
 }
 
