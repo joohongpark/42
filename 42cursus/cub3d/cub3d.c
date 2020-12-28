@@ -6,14 +6,50 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:29:11 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/27 17:25:59 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/28 14:45:53 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h>
 
-t_map		m;
+t_img				ft_new_img(void *window, int width, int height)
+{
+	t_img			rtn;
+
+	rtn.x = 0;
+	rtn.y = 0;
+	rtn.width = width;
+	rtn.height = height;
+	rtn.img = mlx_new_image(window, width, height);
+	rtn.data = (int *)mlx_get_data_addr(rtn.img,
+					&rtn.bits_per_pixel, &rtn.size_line, &rtn.endian);
+	return (rtn);
+}
+
+t_img				ft_get_img_form_xpm(void *window, char *uri)
+{
+	t_img			rtn;
+
+	rtn.x = 0;
+	rtn.y = 0;
+	rtn.img = mlx_xpm_file_to_image(window, uri, &rtn.width, &rtn.height);
+	rtn.data = (int *)mlx_get_data_addr(rtn.img,
+					&rtn.bits_per_pixel, &rtn.size_line, &rtn.endian);
+	return (rtn);
+}
+
+t_img				ft_get_img_form_png(void *window, char *uri)
+{
+	t_img			rtn;
+
+	rtn.x = 0;
+	rtn.y = 0;
+	rtn.img = mlx_png_file_to_image(window, uri, &rtn.width, &rtn.height);
+	rtn.data = (int *)mlx_get_data_addr(rtn.img,
+					&rtn.bits_per_pixel, &rtn.size_line, &rtn.endian);
+	return (rtn);
+}
 
 int				ft_key_press(int code, t_canvas *obj)
 {
@@ -46,7 +82,7 @@ int				ft_key_press(int code, t_canvas *obj)
 						((1.0 * obj->player.y) / obj->height) * 10);
 						
 	// test
-	ft_rendering(obj->p, &obj->c, m);
+	ft_rendering(obj->p, &obj->render, obj->map);
 	
 	ray = ft_vinit(1, 0);
 	ray = ft_vspin(ray, obj->p.deg);
@@ -69,7 +105,7 @@ int				ft_draw(t_canvas *obj)
 		mlx_put_image_to_window(obj->window, obj->canvas, obj->wallpaper.img, obj->wallpaper.x, obj->wallpaper.y);
 		mlx_put_image_to_window(obj->window, obj->canvas, obj->img.img, obj->img.x + 800, obj->img.y);
 		mlx_put_image_to_window(obj->window, obj->canvas, obj->player.img, obj->player.x + 800, obj->player.y);
-		mlx_put_image_to_window(obj->window, obj->canvas, obj->c.img, obj->c.x, obj->c.y);
+		mlx_put_image_to_window(obj->window, obj->canvas, obj->render.img, obj->render.x, obj->render.y);
 		obj->draw = 0;
 	}
 	return (0);
@@ -97,11 +133,19 @@ void			ft_draw_map_proto(t_canvas *area, t_map map)
 	}
 }
 
-void			ft_map_gen_proto(t_map *map)
+void			ft_map_gen_proto(t_map *map, int x, int y)
 {
-	map->map = (char **) malloc(sizeof(char *) * 10);
-	for (size_t i = 0; i < 10; i++)
-		map->map[i] = (char *) malloc(sizeof(char) * 10);
+	int			i;
+
+	i = 0;
+	map->map = (char **) malloc(sizeof(char *) * y);
+	while (i < x)
+	{
+		map->map[i] = (char *) malloc(sizeof(char) * x);
+		i++;
+	}
+	map->x = x;
+	map->y = y;
 }
 
 int				main(void)
@@ -119,14 +163,12 @@ int				main(void)
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 	};
 	t_canvas	w;
+	int			cx, cy;
 
-	ft_map_gen_proto(&m);
+	ft_map_gen_proto(&(w.map), 10, 10);
 	for (size_t i = 0; i < 10; i++)
 		for (size_t j = 0; j < 10; j++)
-			m.map[i][j] = map[i][j];
-	m.scale = 10;
-	m.x = 10;
-	m.y = 10;
+			w.map.map[i][j] = map[i][j];
 
 	w.p.cam = ft_vinit(1, 0);
 	w.p.plane = ft_vinit(0, 0.66);
@@ -134,14 +176,14 @@ int				main(void)
 	w.width = 800;
 	w.height = 800;
 	w.window = mlx_init();
-	w.canvas = mlx_new_window(w.window, w.width * 2, w.height, "hello");
+	w.canvas = mlx_new_window(w.window, w.width * 2, w.height, "hello😂");
 
-	w.c.width = w.width;
-	w.c.height = w.height;
-	w.c.x = 0;
-	w.c.y = 0;
-	w.c.img = mlx_new_image(w.window, w.c.width, w.c.height);
-	w.c.data = (int *)mlx_get_data_addr(w.c.img, &w.c.bits_per_pixel, &w.c.size_line, &w.c.endian);
+	w.render.width = w.width;
+	w.render.height = w.height;
+	w.render.x = 0;
+	w.render.y = 0;
+	w.render.img = mlx_new_image(w.window, w.render.width, w.render.height);
+	w.render.data = (int *)mlx_get_data_addr(w.render.img, &w.render.bits_per_pixel, &w.render.size_line, &w.render.endian);
 
 	w.wallpaper.width = w.width;
 	w.wallpaper.height = w.height;
@@ -165,18 +207,26 @@ int				main(void)
 	w.img.y = 0;
 	w.img.img = mlx_new_image(w.window, w.img.width, w.img.height);
 	w.img.data = (int *)mlx_get_data_addr(w.img.img, &w.img.bits_per_pixel, &w.img.size_line, &w.img.endian);
-	ft_draw_map_proto(&w, m);
+	ft_draw_map_proto(&w, w.map);
 
-	w.player.width = 20;
-	w.player.height = 20;
-	w.player.x = 150;
-	w.player.y = 150;
 	w.p.deg = 0;
-	w.player.img = mlx_new_image(w.window, w.player.width, w.player.height);
-	w.player.data = (int *)mlx_get_data_addr(w.player.img, &w.player.bits_per_pixel, &w.player.size_line, &w.player.endian);
-	for (int i = 0; i < w.player.height; i++)
-		for (int j = 0; j < (w.player.size_line / 4); j++)
-			w.player.data[i * (w.player.size_line / 4) + j] = 0x0000FFFF;
+	//w.player = ft_get_img_form_png(w.window, "./sprite/p.png");
+
+	w.tmp[0] = ft_get_img_form_png(w.window, "./sprite/p.png");
+	w.tmp[1] = ft_new_img(w.window, w.tmp[0].width * 0.02, w.tmp[0].height * 0.02);
+	printf("(%d, %d)\n", w.tmp[0].width, w.tmp[0].height);
+	printf("(%d, %d)\n", w.tmp[1].width, w.tmp[1].height);
+
+	for (int i = 0; i < w.tmp[1].height; i++)
+	{
+		for (int j = 0; j < (w.tmp[1].size_line / 4); j++)
+		{
+			cx = j * w.tmp[0].width / w.tmp[1].width;
+			cy = i * w.tmp[0].height / w.tmp[1].height;
+			w.tmp[1].data[i * (w.tmp[1].size_line / 4) + j] = w.tmp[0].data[cy * (w.tmp[0].size_line / 4) + cx];
+		}
+	}
+	w.player = w.tmp[1];
 	
 	w.draw = 1;
 	mlx_put_image_to_window(w.window, w.canvas, w.img.img, w.img.x, w.img.y);

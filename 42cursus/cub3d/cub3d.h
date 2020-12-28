@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 02:17:10 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/27 21:00:04 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/28 13:00:52 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,13 @@ typedef struct		s_player
 	t_vector		plane;
 }					t_player;
 
+typedef struct		s_map
+{
+	char			**map;
+	int				x;
+	int				y;
+}					t_map;
+
 typedef struct		s_canvas
 {
 	void			*window;
@@ -53,20 +60,16 @@ typedef struct		s_canvas
 	int				width;
 	int				height;
 	int				draw;
+	t_map			map;
 	t_img			img;
 	t_img			player;
-	t_img			c;
+	t_img			render;
 	t_img			wallpaper;
+	t_img			tmp[10];
 	t_player		p;
 }					t_canvas;
 
-typedef struct		s_map
-{
-	char			**map;
-	int				x;
-	int				y;
-	int				scale;
-}					t_map;
+t_img				ft_get_img_form_xpm(void *window, char *uri);
 
 void				ft_draw_wall_proto(t_img *img, int x, double y, int color);
 
