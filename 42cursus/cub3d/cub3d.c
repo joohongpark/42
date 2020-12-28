@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:29:11 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/28 16:01:57 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/28 21:57:29 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int				ft_key_press(int code, t_canvas *obj)
 						((1.0 * obj->player.y) / obj->height) * obj->map.y);
 						
 	// test
-	ft_rendering(obj->p, &obj->render, obj->map);
+	ft_rendering(obj->p, &obj->render, obj->map, obj->tmp);
 	
 	ray = ft_vinit(1, 0);
 	ray = ft_vspin(ray, obj->p.deg);
@@ -181,7 +181,7 @@ int				main(void)
 			w.map.map[i][j] = map[i][j];
 
 	w.p.cam = ft_vinit(1, 0);
-	w.p.plane = ft_vinit(0, 0.66);
+	w.p.plane = ft_vinit(0, 0.56);
 
 	w.width = 800;
 	w.height = 800;
@@ -224,6 +224,10 @@ int				main(void)
 
 	w.tmp[0] = ft_get_img_form_png(w.window, "./sprite/p.png");
 	w.tmp[1] = ft_new_img(w.window, w.tmp[0].width * 0.02, w.tmp[0].height * 0.02);
+	w.tmp[2] = ft_get_img_form_png(w.window, "./sprite/n.png");
+	w.tmp[3] = ft_get_img_form_png(w.window, "./sprite/w.png");
+	w.tmp[4] = ft_get_img_form_png(w.window, "./sprite/s.png");
+	w.tmp[5] = ft_get_img_form_png(w.window, "./sprite/e.png");
 	
 	for (int i = 0; i < w.tmp[1].height; i++)
 	{

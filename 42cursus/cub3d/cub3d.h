@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 02:17:10 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/28 16:26:30 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/28 21:34:53 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ typedef struct		s_canvas
 
 t_img				ft_get_img_form_xpm(void *window, char *uri);
 
-void				ft_draw_wall_proto(t_img *img, int x, double y, int color);
 
 t_vector			ft_vinit(double x, double y);
 t_vector			ft_vadd(t_vector v, t_vector w);
@@ -84,12 +83,12 @@ t_vector			ft_xstart(t_vector player, t_vector ray);
 t_vector			ft_xinc(t_vector xgo, t_vector r);
 int					ft_checkspace(t_vector v, t_map map);
 
-int					ft_makewall(t_vector w, unsigned char r, unsigned char g, unsigned char b);
+double				ft_getxratio(t_vector w);
 char				ft_isnwse(t_vector start, t_vector end);
-void				ft_draw_wall_proto(t_img *img, int x, double y, int color);
+void				ft_draw_wall_proto(t_img *img, int x, double yr, int color, t_vector w, t_img from);
 
 int					ft_rgba(char r, char g, char b, char a);
-void				ft_rendering(t_player p, t_img *c, t_map m);
+void				ft_rendering(t_player p, t_img *c, t_map m, t_img imgs[]);
 double				ft_resolution(double raw, t_vector cam, t_vector ray);
 char				ft_decay(double raw);
 

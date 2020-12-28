@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 16:20:14 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/28 16:27:37 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/28 21:39:26 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int				ft_rgba(char r, char g, char b, char a)
 	return (rtn);
 }
 
-void				ft_rendering(t_player p, t_img *c, t_map m)
+void				ft_rendering(t_player p, t_img *c, t_map m, t_img imgs[])
 {
 	t_vector		cam;
 	t_vector		plane;
@@ -39,6 +39,7 @@ void				ft_rendering(t_player p, t_img *c, t_map m)
 	cam = ft_vspin(p.cam, p.deg);
 	plane = ft_vspin(p.plane, p.deg);
 	w = 0;
+	color = 0;
 	while (w < c->width)
 	{
 		ray = ft_vadd(cam, ft_vscala(plane, (w - (c->width / 2)) / (c->width / 2.0)));
@@ -47,14 +48,13 @@ void				ft_rendering(t_player p, t_img *c, t_map m)
 		b = ft_resolution(b, cam, ray);
 		wall = ft_isnwse(p.pos, target);
 		if (wall == 'n')
-			color = ft_makewall(target, 0xff, 0xff , 0xff);
+			ft_draw_wall_proto(c, w, b, color, target, imgs[2]);
 		else if (wall == 'w')
-			color = ft_makewall(target, 0xff, 0x00 , 0xff);
+			ft_draw_wall_proto(c, w, b, color, target, imgs[3]);
 		else if (wall == 's')
-			color = ft_makewall(target, 0xff, 0xff , 0x00);
+			ft_draw_wall_proto(c, w, b, color, target, imgs[4]);
 		else if (wall == 'e')
-			color = ft_makewall(target, 0xff, 0x00 , 0x00);
-		ft_draw_wall_proto(c, w, b, color);
+			ft_draw_wall_proto(c, w, b, color, target, imgs[5]);
 		w++;
 	}
 }
