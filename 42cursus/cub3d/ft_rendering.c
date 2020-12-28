@@ -6,11 +6,12 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 16:20:14 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/27 17:27:51 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/28 16:27:37 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <stdio.h>
 
 int				ft_rgba(char r, char g, char b, char a)
 {
@@ -46,13 +47,13 @@ void				ft_rendering(t_player p, t_img *c, t_map m)
 		b = ft_resolution(b, cam, ray);
 		wall = ft_isnwse(p.pos, target);
 		if (wall == 'n')
-			color = ft_rgba(0xff, 0xff , 0xff, 0);
+			color = ft_makewall(target, 0xff, 0xff , 0xff);
 		else if (wall == 'w')
-			color = ft_rgba(0xff, 0x00 , 0xff, 0);
+			color = ft_makewall(target, 0xff, 0x00 , 0xff);
 		else if (wall == 's')
-			color = ft_rgba(0xff, 0xff , 0x00, 0);
+			color = ft_makewall(target, 0xff, 0xff , 0x00);
 		else if (wall == 'e')
-			color = ft_rgba(0xff, 0x00 , 0x00, 0);
+			color = ft_makewall(target, 0xff, 0x00 , 0x00);
 		ft_draw_wall_proto(c, w, b, color);
 		w++;
 	}

@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 02:17:10 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/28 13:00:52 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/28 16:26:30 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ t_vector			ft_xstart(t_vector player, t_vector ray);
 t_vector			ft_xinc(t_vector xgo, t_vector r);
 int					ft_checkspace(t_vector v, t_map map);
 
+int					ft_makewall(t_vector w, unsigned char r, unsigned char g, unsigned char b);
 char				ft_isnwse(t_vector start, t_vector end);
 void				ft_draw_wall_proto(t_img *img, int x, double y, int color);
 

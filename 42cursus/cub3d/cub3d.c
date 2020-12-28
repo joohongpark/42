@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:29:11 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/28 14:45:53 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/28 16:01:57 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,21 +65,21 @@ int				ft_key_press(int code, t_canvas *obj)
 	if (code == 0x35)
 		_Exit(0);
 	else if (code == 0x7c)
-		obj->player.x += (obj->width > obj->player.x) ? 10 : 0;
+		obj->player.x += (obj->width > obj->player.x) ? 5 : 0;
 	else if (code == 0x7d)
-		obj->player.y += (obj->height > obj->player.y) ? 10 : 0;
+		obj->player.y += (obj->height > obj->player.y) ? 5 : 0;
 	else if (code == 0x7b)
-		obj->player.x -= (0 < obj->player.x) ? 10 : 0;
+		obj->player.x -= (0 < obj->player.x) ? 5 : 0;
 	else if (code == 0x7e)
-		obj->player.y -= (0 < obj->player.y) ? 10 : 0;
+		obj->player.y -= (0 < obj->player.y) ? 5 : 0;
 	else if (code == 0x00)
 		obj->p.deg -= (0 < obj->p.deg) ? 1 : -360;
 	else if (code == 0x02)
 		obj->p.deg += (360 > obj->p.deg) ? 1 : -360;
 	
 
-	obj->p.pos = ft_vinit(((1.0 * obj->player.x) / obj->width) * 10,
-						((1.0 * obj->player.y) / obj->height) * 10);
+	obj->p.pos = ft_vinit(((1.0 * obj->player.x) / obj->width) * obj->map.x,
+						((1.0 * obj->player.y) / obj->height) * obj->map.y);
 						
 	// test
 	ft_rendering(obj->p, &obj->render, obj->map);
@@ -150,24 +150,34 @@ void			ft_map_gen_proto(t_map *map, int x, int y)
 
 int				main(void)
 {
-	char		map[10][10] = {
-		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 1, 1, 1, 1, 1, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 1, 1, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+	char		map[20][20] = {
+		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 	};
 	t_canvas	w;
 	int			cx, cy;
 
-	ft_map_gen_proto(&(w.map), 10, 10);
-	for (size_t i = 0; i < 10; i++)
-		for (size_t j = 0; j < 10; j++)
+	ft_map_gen_proto(&(w.map), 20, 20);
+	for (int i = 0; i < w.map.y; i++)
+		for (int j = 0; j < w.map.x; j++)
 			w.map.map[i][j] = map[i][j];
 
 	w.p.cam = ft_vinit(1, 0);
@@ -214,9 +224,7 @@ int				main(void)
 
 	w.tmp[0] = ft_get_img_form_png(w.window, "./sprite/p.png");
 	w.tmp[1] = ft_new_img(w.window, w.tmp[0].width * 0.02, w.tmp[0].height * 0.02);
-	printf("(%d, %d)\n", w.tmp[0].width, w.tmp[0].height);
-	printf("(%d, %d)\n", w.tmp[1].width, w.tmp[1].height);
-
+	
 	for (int i = 0; i < w.tmp[1].height; i++)
 	{
 		for (int j = 0; j < (w.tmp[1].size_line / 4); j++)
