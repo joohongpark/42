@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:29:11 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/29 14:12:42 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/29 17:17:30 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_vector		ft_getdelta(int look, double delta)
 	return (rtn);
 }
 
-t_vector		ft_gotoxy(t_vector start, t_vector delta, int xmax, int ymax)
+t_vector		ft_gotoxy(t_vector start, t_vector delta, t_map map)
 {
 	t_vector	rtn;
 
@@ -35,11 +35,21 @@ t_vector		ft_gotoxy(t_vector start, t_vector delta, int xmax, int ymax)
 		rtn.x = 0;
 	if (rtn.y < 0)
 		rtn.y = 0;
-	if (rtn.x > xmax)
-		rtn.x = xmax;
-	if (rtn.y > ymax)
-		rtn.y = ymax;
-	return(rtn);
+	if (rtn.x > map.x)
+		rtn.x = map.x;
+	if (rtn.y > map.y)
+		rtn.y = map.y;
+	if (map.map[(int)rtn.y][(int)rtn.x] != 0)
+	{
+		if (map.map[(int)start.y][(int)rtn.x] == 0)
+			rtn.y = start.y;
+		else if (map.map[(int)rtn.y][(int)start.x] == 0)
+			rtn.x = start.x;
+		else
+			rtn = start;
+	}
+	//printf("space : %d\n", map.map[(int)rtn.y][(int)rtn.x]);
+	return (rtn);
 }
 
 int				ft_key_press(int code, t_canvas *obj)
@@ -54,13 +64,13 @@ int				ft_key_press(int code, t_canvas *obj)
 	if (code == 0x35)
 		_Exit(0);
 	else if (code == 0x02)
-		obj->p.pos = ft_gotoxy(obj->p.pos, ft_getdelta(obj->p.deg + 90, 0.1), obj->map.x, obj->map.y);
+		obj->p.pos = ft_gotoxy(obj->p.pos, ft_getdelta(obj->p.deg + 90, 0.1), obj->map);
 	else if (code == 0x01)
-		obj->p.pos = ft_gotoxy(obj->p.pos, ft_getdelta(obj->p.deg - 180, 0.1), obj->map.x, obj->map.y);
+		obj->p.pos = ft_gotoxy(obj->p.pos, ft_getdelta(obj->p.deg - 180, 0.1), obj->map);
 	else if (code == 0x00)
-		obj->p.pos = ft_gotoxy(obj->p.pos, ft_getdelta(obj->p.deg - 90, 0.1), obj->map.x, obj->map.y);
+		obj->p.pos = ft_gotoxy(obj->p.pos, ft_getdelta(obj->p.deg - 90, 0.1), obj->map);
 	else if (code == 0x0d)
-		obj->p.pos = ft_gotoxy(obj->p.pos, ft_getdelta(obj->p.deg, 0.1), obj->map.x, obj->map.y);
+		obj->p.pos = ft_gotoxy(obj->p.pos, ft_getdelta(obj->p.deg, 0.1), obj->map);
 	else if (code == 0x7b)
 		obj->p.deg -= (0 < obj->p.deg) ? 1 : -360;
 	else if (code == 0x7c)
@@ -171,6 +181,7 @@ int				main(void)
 
 	w.p.cam = ft_vinit(1, 0);
 	w.p.plane = ft_vinit(0, 0.56);
+	w.p.pos = ft_vinit(1.1, 1.1);
 
 	w.width = 800;
 	w.height = 800;
