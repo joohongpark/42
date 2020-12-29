@@ -6,12 +6,41 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:29:11 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/29 00:13:13 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/29 14:12:42 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h>
+
+t_vector		ft_getdelta(int look, double delta)
+{
+	t_vector	rtn;
+
+	if (look < 0)
+		look = 360 + look;
+	else if (look > 360)
+		look = look - 360;
+	rtn = ft_vinit(delta, 0);
+	rtn = ft_vspin(rtn, look);
+	return (rtn);
+}
+
+t_vector		ft_gotoxy(t_vector start, t_vector delta, int xmax, int ymax)
+{
+	t_vector	rtn;
+
+	rtn = ft_vadd(start, delta);
+	if (rtn.x < 0)
+		rtn.x = 0;
+	if (rtn.y < 0)
+		rtn.y = 0;
+	if (rtn.x > xmax)
+		rtn.x = xmax;
+	if (rtn.y > ymax)
+		rtn.y = ymax;
+	return(rtn);
+}
 
 int				ft_key_press(int code, t_canvas *obj)
 {
@@ -22,26 +51,24 @@ int				ft_key_press(int code, t_canvas *obj)
 	// 0x35 : esc
 	// w a s d : 0x0d 0 1 2
 	t_vector		ray;
-	printf("(%d, %d)\n", obj->player.x, obj->player.y);
-	printf("code : %02x\n", code);
 	if (code == 0x35)
 		_Exit(0);
-	else if (code == 0x7c)
-		obj->player.x += (obj->width > obj->player.x) ? 5 : 0;
-	else if (code == 0x7d)
-		obj->player.y += (obj->height > obj->player.y) ? 5 : 0;
-	else if (code == 0x7b)
-		obj->player.x -= (0 < obj->player.x) ? 5 : 0;
-	else if (code == 0x7e)
-		obj->player.y -= (0 < obj->player.y) ? 5 : 0;
-	else if (code == 0x00)
-		obj->p.deg -= (0 < obj->p.deg) ? 1 : -360;
 	else if (code == 0x02)
+		obj->p.pos = ft_gotoxy(obj->p.pos, ft_getdelta(obj->p.deg + 90, 0.1), obj->map.x, obj->map.y);
+	else if (code == 0x01)
+		obj->p.pos = ft_gotoxy(obj->p.pos, ft_getdelta(obj->p.deg - 180, 0.1), obj->map.x, obj->map.y);
+	else if (code == 0x00)
+		obj->p.pos = ft_gotoxy(obj->p.pos, ft_getdelta(obj->p.deg - 90, 0.1), obj->map.x, obj->map.y);
+	else if (code == 0x0d)
+		obj->p.pos = ft_gotoxy(obj->p.pos, ft_getdelta(obj->p.deg, 0.1), obj->map.x, obj->map.y);
+	else if (code == 0x7b)
+		obj->p.deg -= (0 < obj->p.deg) ? 1 : -360;
+	else if (code == 0x7c)
 		obj->p.deg += (360 > obj->p.deg) ? 1 : -360;
 	
 
-	obj->p.pos = ft_vinit(((1.0 * obj->player.x) / obj->width) * obj->map.x,
-						((1.0 * obj->player.y) / obj->height) * obj->map.y);
+	obj->player.x = (obj->p.pos.x / obj->map.x) * obj->width;
+	obj->player.y = (obj->p.pos.y / obj->map.y) * obj->height;
 						
 	// test
 	
@@ -115,14 +142,14 @@ int				main(void)
 	char		map[20][20] = {
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1},
+		{1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -150,19 +177,9 @@ int				main(void)
 	w.window = mlx_init();
 	w.canvas = mlx_new_window(w.window, w.width * 2, w.height, "hello😂");
 
-	w.render.width = w.width;
-	w.render.height = w.height;
-	w.render.x = 0;
-	w.render.y = 0;
-	w.render.img = mlx_new_image(w.window, w.render.width, w.render.height);
-	w.render.data = (int *)mlx_get_data_addr(w.render.img, &w.render.bits_per_pixel, &w.render.size_line, &w.render.endian);
-
-	w.wallpaper.width = w.width;
-	w.wallpaper.height = w.height;
-	w.wallpaper.x = 0;
-	w.wallpaper.y = 0;
-	w.wallpaper.img = mlx_new_image(w.window, w.wallpaper.width, w.wallpaper.height);
-	w.wallpaper.data = (int *)mlx_get_data_addr(w.wallpaper.img, &w.wallpaper.bits_per_pixel, &w.wallpaper.size_line, &w.wallpaper.endian);
+	w.render = ft_new_img(w.window, w.width, w.height);
+	w.wallpaper = ft_new_img(w.window, w.width, w.height);
+	
 	for (int i = 0; i < w.wallpaper.height; i++)
 	{
 		for (int j = 0; j < (w.wallpaper.size_line / 4); j++)
@@ -173,12 +190,7 @@ int				main(void)
 				w.wallpaper.data[i * (w.wallpaper.size_line / 4) + j] = ft_rgba(0xac, 0x74, 0x30, 0);
 		}
 	}
-	w.img.width = w.width;
-	w.img.height = w.height;
-	w.img.x = 0;
-	w.img.y = 0;
-	w.img.img = mlx_new_image(w.window, w.img.width, w.img.height);
-	w.img.data = (int *)mlx_get_data_addr(w.img.img, &w.img.bits_per_pixel, &w.img.size_line, &w.img.endian);
+	w.img = ft_new_img(w.window, w.width, w.height);
 	ft_draw_map_proto(&w, w.map);
 
 	w.p.deg = 0;
