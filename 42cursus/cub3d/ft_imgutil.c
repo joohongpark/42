@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 22:24:04 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/28 22:25:09 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/30 18:45:17 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_img				ft_new_img(void *window, int width, int height)
 	return (rtn);
 }
 
-t_img				ft_get_img_form_xpm(void *window, char *uri)
+t_img				ft_get_img_from_xpm(void *window, char *uri)
 {
 	t_img			rtn;
 
@@ -49,7 +49,7 @@ t_img				ft_get_img_form_xpm(void *window, char *uri)
 	return (rtn);
 }
 
-t_img				ft_get_img_form_png(void *window, char *uri)
+t_img				ft_get_img_from_png(void *window, char *uri)
 {
 	t_img			rtn;
 

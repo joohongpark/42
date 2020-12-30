@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:29:11 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/29 17:17:30 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/30 18:45:17 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ int				main(void)
 	char		map[20][20] = {
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 1},
 		{1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1},
 		{1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -207,12 +207,13 @@ int				main(void)
 	w.p.deg = 0;
 	//w.player = ft_get_img_form_png(w.window, "./sprite/p.png");
 
-	w.tmp[0] = ft_get_img_form_png(w.window, "./sprite/p.png");
+	w.tmp[0] = ft_get_img_from_png(w.window, "./sprite/p.png");
 	w.tmp[1] = ft_new_img(w.window, w.tmp[0].width * 0.02, w.tmp[0].height * 0.02);
-	w.tmp[2] = ft_get_img_form_png(w.window, "./sprite/n.png");
-	w.tmp[3] = ft_get_img_form_png(w.window, "./sprite/w.png");
-	w.tmp[4] = ft_get_img_form_png(w.window, "./sprite/s.png");
-	w.tmp[5] = ft_get_img_form_png(w.window, "./sprite/e.png");
+	w.tmp[2] = ft_get_img_from_png(w.window, "./sprite/n.png");
+	w.tmp[3] = ft_get_img_from_png(w.window, "./sprite/w.png");
+	w.tmp[4] = ft_get_img_from_png(w.window, "./sprite/s.png");
+	w.tmp[5] = ft_get_img_from_png(w.window, "./sprite/e.png");
+	w.tmp[6] = ft_get_img_from_png(w.window, "./sprite/d.png");
 	
 	for (int i = 0; i < w.tmp[1].height; i++)
 	{

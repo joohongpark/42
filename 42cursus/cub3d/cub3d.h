@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 02:17:10 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/29 00:18:48 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/30 18:45:16 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct		s_canvas
 	t_player		p;
 }					t_canvas;
 
-t_img				ft_get_img_form_xpm(void *window, char *uri);
+t_img				ft_get_img_from_xpm(void *window, char *uri);
 
 
 t_vector			ft_vinit(double x, double y);
@@ -93,7 +93,7 @@ char				ft_decay(double raw);
 
 int					ft_rgba(char r, char g, char b, char a);
 t_img				ft_new_img(void *window, int width, int height);
-t_img				ft_get_img_form_xpm(void *window, char *uri);
-t_img				ft_get_img_form_png(void *window, char *uri);
+t_img				ft_get_img_from_xpm(void *window, char *uri);
+t_img				ft_get_img_from_png(void *window, char *uri);
 
 #endif
