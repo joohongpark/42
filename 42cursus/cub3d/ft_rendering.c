@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 16:20:14 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/29 00:31:16 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/29 17:21:10 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ double				ft_resolution(double raw, t_vector cam, t_vector ray)
 	eye = ft_vsize(cam) / ft_vsize(ray);
 	rtn = raw * eye;
 	rtn = 1 / rtn;
-	return ((rtn > 1) ? 1 : rtn);
+	return (rtn);
 }
 
 char				ft_decay(double raw)

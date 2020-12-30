@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 16:49:08 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/29 00:27:05 by joopark          ###   ########.fr       */
+/*   Updated: 2020/12/29 20:51:28 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,18 @@ void			ft_draw_wall_proto(t_img *img, int x, double yr, double xratio, t_img fro
 	int			cy;
 	int			px;
 	int			py;
+	int			offset;
 
-	h = (int)(yr * (img->height / 2));
+	h = (int)(((yr > 1) ? 1 : yr) * (img->height / 2));
 	y = 0;
 	cy = 0;
 	while (y < img->height)
 	{
 		if (y > ((img->height / 2) - h) && y < ((img->height / 2) + h))
 		{
+			offset = (yr > 1) ? (from.height * (yr - 1) / (yr * 2)) : 0;
 			px = from.width * xratio;
-			py = from.height * cy / (2 * h);
+			py = from.height * cy / (img->height * yr) + offset;
 			img->data[y * (img->size_line / 4) + x] = from.data[py * (from.size_line / 4) + px];
 			cy++;
 		}
