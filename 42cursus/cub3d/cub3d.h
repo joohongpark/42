@@ -6,13 +6,14 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 02:17:10 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/30 18:45:16 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/02 18:05:10 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_CUB3D_H
 # define FT_CUB3D_H
 
+# include <libft.h>
 # include <mlx.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -82,10 +83,13 @@ t_vector			ft_raycasting(t_vector p, t_vector r, t_map m);
 t_vector			ft_xstart(t_vector player, t_vector ray);
 t_vector			ft_xinc(t_vector xgo, t_vector r);
 int					ft_checkspace(t_vector v, t_map map);
+int					ft_checksprite(t_vector v, t_map map);
 
 double				ft_getxratio(t_vector w);
 char				ft_isnwse(t_vector start, t_vector end);
+void				ft_draw_clear_xline(t_img *img, int x);
 void				ft_draw_wall_proto(t_img *img, int x, double yr, double xratio, t_img from);
+void				ft_draw_sprite_proto(t_img *img, int x, t_list **sprites, t_vector p, t_img f);
 
 void				ft_rendering(t_canvas *canvas);
 double				ft_resolution(double raw, t_vector cam, t_vector ray);
@@ -95,5 +99,8 @@ int					ft_rgba(char r, char g, char b, char a);
 t_img				ft_new_img(void *window, int width, int height);
 t_img				ft_get_img_from_xpm(void *window, char *uri);
 t_img				ft_get_img_from_png(void *window, char *uri);
+
+t_vector			ft_push(t_list **list, t_vector v);
+t_vector			ft_pop(t_list **list);
 
 #endif

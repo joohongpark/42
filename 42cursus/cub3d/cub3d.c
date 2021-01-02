@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:29:11 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/30 18:45:17 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/01 14:04:41 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int				ft_draw(t_canvas *obj)
 		mlx_put_image_to_window(obj->window, obj->canvas, obj->img.img, obj->img.x + 800, obj->img.y);
 		mlx_put_image_to_window(obj->window, obj->canvas, obj->player.img, obj->player.x + 800, obj->player.y);
 		mlx_put_image_to_window(obj->window, obj->canvas, obj->render.img, obj->render.x, obj->render.y);
+		mlx_put_image_to_window(obj->window, obj->canvas, obj->tmp[7].img, obj->tmp[7].x, obj->tmp[7].y);
 		obj->draw = 0;
 	}
 	return (0);
@@ -151,7 +152,7 @@ int				main(void)
 {
 	char		map[20][20] = {
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1},
 		{1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 1},
 		{1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1},
 		{1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -225,6 +226,8 @@ int				main(void)
 		}
 	}
 	w.player = w.tmp[1];
+
+	w.tmp[7] = ft_new_img(w.window, w.width, w.height);
 	
 	w.draw = 1;
 	mlx_put_image_to_window(w.window, w.canvas, w.img.img, w.img.x, w.img.y);

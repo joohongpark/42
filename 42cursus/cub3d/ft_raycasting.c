@@ -6,12 +6,11 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 22:45:54 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/26 16:50:28 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/01 22:18:03 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h>
 
 t_vector			ft_raycasting(t_vector p, t_vector r, t_map m)
 {
@@ -20,8 +19,6 @@ t_vector			ft_raycasting(t_vector p, t_vector r, t_map m)
 	double			xlen;
 	double			ylen;
 
-	xlen = -1;
-	ylen = -1;
 	xgo = ft_xstart(p, r);
 	ygo = ft_xstart(ft_vinit(p.y, p.x), ft_vinit(r.y, r.x));
 	while (ft_checkspace(xgo, m) == 1)
@@ -73,11 +70,27 @@ int					ft_checkspace(t_vector v, t_map map)
 		return (-1);
 	x = (int)v.x;
 	y = (int)v.y;
-	if ((x > 0) && (x * 1.0 == v.x) && map.map[y][x - 1] != 0)
+	if ((x > 0) && (x * 1.0 == v.x) && map.map[y][x - 1] == 1)
 		return (0);
-	if ((y > 0) && (y * 1.0 == v.y) && map.map[y - 1][x] != 0)
+	if ((y > 0) && (y * 1.0 == v.y) && map.map[y - 1][x] == 1)
 		return (0);
-	if (map.map[y][x] != 0)
+	if (map.map[y][x] == 1)
 		return (0);
 	return (1);
+}
+
+int					ft_checksprite(t_vector v, t_map map)
+{
+	int				x;
+	int				y;
+
+	x = (int)v.x;
+	y = (int)v.y;
+	if ((x > 0) && (x * 1.0 == v.x) && map.map[y][x - 1] > 1)
+		return (1);
+	if ((y > 0) && (y * 1.0 == v.y) && map.map[y - 1][x] > 1)
+		return (1);
+	if (map.map[y][x] > 1)
+		return (1);
+	return (0);
 }

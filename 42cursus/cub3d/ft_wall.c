@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 16:49:08 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/29 20:51:28 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/02 21:05:56 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,18 @@ char				ft_isnwse(t_vector start, t_vector end)
 	return (0);
 }
 
+void			ft_draw_clear_xline(t_img *img, int x)
+{
+	int			y;
+
+	y = 0;
+	while (y < img->height)
+	{
+		img->data[y * (img->size_line / 4) + x] = ft_rgba(0, 0, 0, 0xff);
+		y++;
+	}
+}
+
 void			ft_draw_wall_proto(t_img *img, int x, double yr, double xratio, t_img from)
 {
 	int			h;
@@ -68,5 +80,26 @@ void			ft_draw_wall_proto(t_img *img, int x, double yr, double xratio, t_img fro
 			img->data[y * (img->size_line / 4) + x] = ft_rgba(0, 0, 0, 0xff);
 		}
 		y++;
+	}
+}
+
+void				ft_draw_sprite_proto(t_img *img, int x, t_list **sprites, t_vector p, t_img f)
+{
+	double			beam;
+	t_vector		target;
+
+	if (*sprites != NULL)
+	{
+		while (*sprites != NULL)
+		{
+			target = ft_pop(sprites);
+			beam = ft_vsize(ft_vadd(target, ft_vscala(p, -1)));
+			beam = 1 / beam;
+			ft_draw_wall_proto(img, x, beam, 0.1, f);
+		}
+	}
+	else
+	{
+		ft_draw_clear_xline(img, x);
 	}
 }
