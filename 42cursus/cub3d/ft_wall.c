@@ -6,11 +6,27 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 16:49:08 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/03 13:46:52 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/03 22:26:24 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+double				ft_gettheta(t_vector v1, t_vector v2)
+{
+	//t_vector		a;
+	//t_vector		b;
+	double			denom;
+	double			nom;
+	double			rtn;
+
+	//a = ft_vadd(v1, ft_vscala(o, -1));
+	//b = ft_vadd(v2, ft_vscala(o, -1));
+	denom = ft_vsize(v1) * ft_vsize(v2);
+	nom = v1.x * v2.y - v1.y * v2.x;
+	rtn = asin(nom / denom);
+	return (rtn);
+}
 
 double				ft_getxratio(t_vector w)
 {
@@ -83,29 +99,34 @@ void			ft_draw_wall_proto(t_img *img, int x, double yr, double xratio, t_img fro
 	}
 }
 
-void				ft_draw_sprite_proto(t_img *img, int x, t_list **sprites, t_vector p, t_img f)
+void				ft_draw_sprite_proto(t_img *img, int x, t_list **sprites, t_vector p, t_vector b)
 {
 	double			beam;
+	double			visible;
 	t_vector		target;
 	int				y;
 	int				h;
 
 	ft_draw_clear_xline(img, x);
-	(void) f;
-	if (*sprites != NULL)
+	while (*sprites != NULL)
 	{
-		while (*sprites != NULL)
+		target = ft_pop(sprites);
+		target = ft_vinit(target.x + 0.5, target.y + 0.5);
+		visible = ft_gettheta(ft_vadd(target, ft_vscala(p, -1)), b);
+		//printf("(x : %f)", 180 * (visible / M_PI));
+		visible = tan(visible);
+		beam = ft_vsize(ft_vadd(target, ft_vscala(p, -1)));
+		visible = visible * beam;
+		beam = 1 / beam;
+		h = (int)(((beam > 1) ? 1 : beam) * (img->height / 2));
+		y = (img->height / 2) - h;
+		while (y < ((img->height / 2) + h))
 		{
-			target = ft_pop(sprites);
-			beam = ft_vsize(ft_vadd(target, ft_vscala(p, -1)));
-			beam = 1 / beam;
-			h = (int)(((beam > 1) ? 1 : beam) * (img->height / 2));
-			y = h;
-			while (y < 2 * h)
-			{
-				img->data[y * (img->size_line / 4) + x] = ft_rgba(0, 0, 0xff, 0x00);
-				y++;
-			}
+			if (visible < 0.5 && -0.5 < visible)
+				img->data[y * (img->size_line / 4) + x] = ft_rgba(0, 0, 255 * (0.5-visible), 0x00);
+			else
+				img->data[y * (img->size_line / 4) + x] = ft_rgba(0, 0xff, 0xff, 0x00);
+			y++;
 		}
 	}
 }
