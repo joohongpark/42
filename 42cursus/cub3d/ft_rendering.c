@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 16:20:14 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/03 20:30:43 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/03 22:33:38 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void				ft_rendering(t_canvas *canvas)
 		ray = ft_vadd(cam, ft_vscala(plane, (width - (canvas->render.width / 2)) / (canvas->render.width / 2.0)));
 		target = ft_raycasting(canvas->p.pos, ray, canvas->map);
 		lst = ft_findsprite(canvas->p.pos, target, ray, canvas->map);
-		ft_draw_sprite_proto(&canvas->tmp[7], width, &lst, canvas->p.pos, ray);
+		ft_draw_sprite_proto(canvas, width, &lst, canvas->p.pos, ray);
 		beam = ft_vsize(ft_vadd(target, ft_vscala(canvas->p.pos, -1)));
 		beam = ft_resolution(beam, cam, ray);
 		x_ratio = ft_getxratio(target);

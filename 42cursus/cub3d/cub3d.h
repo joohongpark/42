@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 02:17:10 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/03 20:30:35 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/03 22:33:52 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ double				ft_getxratio(t_vector w);
 char				ft_isnwse(t_vector start, t_vector end);
 void				ft_draw_clear_xline(t_img *img, int x);
 void				ft_draw_wall_proto(t_img *img, int x, double yr, double xratio, t_img from);
-void				ft_draw_sprite_proto(t_img *img, int x, t_list **sprites, t_vector p, t_vector b);
+void				ft_draw_sprite_proto(t_canvas *canvas, int x, t_list **sprites, t_vector p, t_vector b);
 
 void				ft_rendering(t_canvas *canvas);
 double				ft_resolution(double raw, t_vector cam, t_vector ray);
