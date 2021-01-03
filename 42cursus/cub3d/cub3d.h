@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 02:17:10 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/02 18:05:10 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/02 21:53:03 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ t_vector			ft_raycasting(t_vector p, t_vector r, t_map m);
 t_vector			ft_xstart(t_vector player, t_vector ray);
 t_vector			ft_xinc(t_vector xgo, t_vector r);
 int					ft_checkspace(t_vector v, t_map map);
-int					ft_checksprite(t_vector v, t_map map);
+t_vector			ft_checksprite(t_vector v, t_map map);
 
 double				ft_getxratio(t_vector w);
 char				ft_isnwse(t_vector start, t_vector end);

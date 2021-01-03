@@ -6,30 +6,40 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 16:20:14 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/02 21:12:51 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/03 14:37:14 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h>
 
 t_list				*ft_findsprite(t_vector s, t_vector e, t_vector b, t_map m)
 {
 	t_list			*rtn;
+	t_vector		tmp;
+	t_vector		tmp1;
+	double			delta;
+	double			len;
+	double			len2;
 
+	len = ft_vsize(ft_vadd(e, ft_vscala(s, -1)));
 	rtn = NULL;
-	if (((int)e.y) * 1.0 == e.y)
-	{
-		b = ft_vinit(b.y, b.x);
-		s = ft_vinit(s.y, s.x);
-	}
+	tmp1 = s;
+	delta = fabs(e.y - s.y) / fabs(e.x - s.x);
+	delta = isfinite(delta) ? delta : 2;
+	b = (delta > 1) ? ft_vinit(b.y, b.x) : b;
+	s = (delta > 1) ? ft_vinit(s.y, s.x) : s;
 	s = ft_xstart(s, b);
-	while (ft_checkspace((((int)e.y) * 1.0 == e.y) ? ft_vinit(s.y, s.x) : s, m) == 1)
+	while (ft_checkspace((delta > 1) ? ft_vinit(s.y, s.x) : s, m) == 1)
 	{
-		if (ft_checksprite((((int)e.y) * 1.0 == e.y) ? ft_vinit(s.y, s.x) : s, m) == 1)
-			ft_push(&rtn, (((int)e.y) * 1.0 == e.y) ? ft_vinit(s.y, s.x) : s);
+		tmp = ft_checksprite((delta > 1) ? ft_vinit(s.y, s.x) : s, m);
+		if (tmp.x != -1)
+			ft_push(&rtn, tmp);
 		s = ft_xinc(s, b);
 	}
+	tmp = ft_checksprite((delta > 1) ? ft_vinit(s.y, s.x) : s, m);
+	len2 = ft_vsize(ft_vadd(ft_vinit(tmp.x + 0.5, tmp.y + 0.5), ft_vscala(tmp1, -1)));
+	if ((tmp.x != -1) && (len2 < len))
+		ft_push(&rtn, tmp);
 	return (rtn);
 }
 

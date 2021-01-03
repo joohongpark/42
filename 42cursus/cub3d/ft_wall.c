@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 16:49:08 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/02 21:05:56 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/03 13:46:52 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,11 @@ void				ft_draw_sprite_proto(t_img *img, int x, t_list **sprites, t_vector p, t_
 {
 	double			beam;
 	t_vector		target;
+	int				y;
+	int				h;
 
+	ft_draw_clear_xline(img, x);
+	(void) f;
 	if (*sprites != NULL)
 	{
 		while (*sprites != NULL)
@@ -95,11 +99,13 @@ void				ft_draw_sprite_proto(t_img *img, int x, t_list **sprites, t_vector p, t_
 			target = ft_pop(sprites);
 			beam = ft_vsize(ft_vadd(target, ft_vscala(p, -1)));
 			beam = 1 / beam;
-			ft_draw_wall_proto(img, x, beam, 0.1, f);
+			h = (int)(((beam > 1) ? 1 : beam) * (img->height / 2));
+			y = h;
+			while (y < 2 * h)
+			{
+				img->data[y * (img->size_line / 4) + x] = ft_rgba(0, 0, 0xff, 0x00);
+				y++;
+			}
 		}
-	}
-	else
-	{
-		ft_draw_clear_xline(img, x);
 	}
 }

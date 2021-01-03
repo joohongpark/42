@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 22:45:54 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/01 22:18:03 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/02 21:54:52 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int					ft_checkspace(t_vector v, t_map map)
 	return (1);
 }
 
-int					ft_checksprite(t_vector v, t_map map)
+t_vector				ft_checksprite(t_vector v, t_map map)
 {
 	int				x;
 	int				y;
@@ -87,10 +87,10 @@ int					ft_checksprite(t_vector v, t_map map)
 	x = (int)v.x;
 	y = (int)v.y;
 	if ((x > 0) && (x * 1.0 == v.x) && map.map[y][x - 1] > 1)
-		return (1);
+		return (ft_vinit(x - 1, y));
 	if ((y > 0) && (y * 1.0 == v.y) && map.map[y - 1][x] > 1)
-		return (1);
+		return (ft_vinit(x, y - 1));
 	if (map.map[y][x] > 1)
-		return (1);
-	return (0);
+		return (ft_vinit(x, y));
+	return (ft_vinit(-1, -1));
 }
