@@ -6,17 +6,18 @@
 #    By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/21 19:03:14 by joopark           #+#    #+#              #
-#    Updated: 2021/01/01 23:03:02 by joopark          ###   ########.fr        #
+#    Updated: 2021/01/04 16:35:46 by joopark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FILES = cub3d.c ft_vector.c ft_raycasting.c ft_wall.c ft_rendering.c ft_imgutil.c ft_lifo.c
+FILES = cub3d.c ft_vector.c ft_wall.c ft_rendering.c ft_imgutil.c ft_lifo.c ft_events.c ft_move.c
+FILES += ft_raycasting.c ft_checkroom.c ft_dda_modules.c
 #OBJS = $(FILES:.c=.o)
 OBJS = ${FILES:%.c=%.o}
 NAME = cub3d
 COMPILER = gcc
 CFLAGS = -Wall -Wextra -Werror
-CLFLAGS = -lft -lmlx -framework OpenGL -framework AppKit -lz
+CLFLAGS = -lft -lmlx
 HEADERPATH = ./
 MMSPATH = ./libs/minilibx_mms_20200219
 LIBFTPATH = ./libs/libft

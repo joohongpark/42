@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 16:39:08 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/23 21:39:24 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/04 13:40:38 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ t_vector		ft_vscala(t_vector v, double s)
 	v.y *= s;
 	return (v);
 }
-
 
 t_vector		ft_vspin(t_vector v, int degree)
 {

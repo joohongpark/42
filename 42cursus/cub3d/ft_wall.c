@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 16:49:08 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/03 23:08:21 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/04 20:36:29 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void			ft_draw_wall_proto(t_img *img, int x, double yr, double xratio, t_img fro
 	cy = 0;
 	while (y < img->height)
 	{
-		if (y > ((img->height / 2) - h) && y < ((img->height / 2) + h))
+		if (y >= ((img->height / 2) - h) && y <= ((img->height / 2) + h))
 		{
 			offset = (yr > 1) ? (from.height * (yr - 1) / (yr * 2)) : 0;
 			px = from.width * xratio;
@@ -87,19 +87,14 @@ void			ft_draw_wall_proto(t_img *img, int x, double yr, double xratio, t_img fro
 			img->data[y * (img->size_line / 4) + x] = from.data[py * (from.size_line / 4) + px];
 			cy++;
 		}
-		else
-		{
-			img->data[y * (img->size_line / 4) + x] = ft_rgba(0, 0, 0, 0xff);
-		}
 		y++;
 	}
 }
 
-void				ft_draw_sprite_proto(t_canvas *canvas, int x, t_list **sprites, t_vector p, t_vector b)
+void				ft_draw_sprite_proto(t_canvas *canvas, int x, t_vector target, t_vector p, t_vector b)
 {
 	double			beam;
 	double			visible;
-	t_vector		target;
 	int				y;
 	int				h;
 	int				px;
@@ -107,31 +102,26 @@ void				ft_draw_sprite_proto(t_canvas *canvas, int x, t_list **sprites, t_vector
 	int				offset;
 	int				dy;
 
-	ft_draw_clear_xline(&canvas->tmp[7], x);
-	while (*sprites != NULL)
+	target = ft_vinit(target.x + 0.5, target.y + 0.5);
+	visible = ft_gettheta(ft_vadd(target, ft_vscala(p, -1)), b);
+	visible = tan(visible);
+	beam = ft_vsize(ft_vadd(target, ft_vscala(p, -1)));
+	visible = visible * beam;
+	beam = 1 / beam;
+	h = (int)(((beam > 1) ? 1 : beam) * (canvas->sprite_rander.height / 2));
+	y = (canvas->sprite_rander.height / 2) - h;
+	dy = 0;
+	while (y < ((canvas->sprite_rander.height / 2) + h))
 	{
-		target = ft_pop(sprites);
-		target = ft_vinit(target.x + 0.5, target.y + 0.5);
-		visible = ft_gettheta(ft_vadd(target, ft_vscala(p, -1)), b);
-		visible = tan(visible);
-		beam = ft_vsize(ft_vadd(target, ft_vscala(p, -1)));
-		visible = visible * beam;
-		beam = 1 / beam;
-		h = (int)(((beam > 1) ? 1 : beam) * (canvas->tmp[7].height / 2));
-		y = (canvas->tmp[7].height / 2) - h;
-		dy = 0;
-		while (y < ((canvas->tmp[7].height / 2) + h))
+		if (visible < 0.5 && -0.5 < visible)
 		{
-			if (visible < 0.5 && -0.5 < visible)
-			{
-				offset = (beam > 1) ? (canvas->tmp[6].height * (beam - 1) / (beam * 2)) : 0;
-				px = canvas->tmp[6].width * (0.5-visible);
-				py = canvas->tmp[6].height * dy / (canvas->tmp[7].height * beam) + offset;
-				if (ft_rgba(0, 0, 0, 0xff) != canvas->tmp[6].data[py * (canvas->tmp[6].size_line / 4) + px])
-					canvas->tmp[7].data[y * (canvas->tmp[7].size_line / 4) + x] = canvas->tmp[6].data[py * (canvas->tmp[6].size_line / 4) + px];
-				dy++;
-			}
-			y++;
+			offset = (beam > 1) ? (canvas->tmp[6].height * (beam - 1) / (beam * 2)) : 0;
+			px = canvas->tmp[6].width * (0.5-visible);
+			py = canvas->tmp[6].height * dy / (canvas->sprite_rander.height * beam) + offset;
+			if (ft_rgba(0, 0, 0, 0xff) != canvas->tmp[6].data[py * (canvas->tmp[6].size_line / 4) + px])
+				canvas->sprite_rander.data[y * (canvas->sprite_rander.size_line / 4) + x] = canvas->tmp[6].data[py * (canvas->tmp[6].size_line / 4) + px];
+			dy++;
 		}
+		y++;
 	}
 }

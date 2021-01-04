@@ -6,54 +6,23 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 16:20:14 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/03 22:33:38 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/04 20:36:16 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-t_list				*ft_findsprite(t_vector s, t_vector e, t_vector b, t_map m)
-{
-	t_list			*rtn;
-	t_vector		tmp;
-	t_vector		tmp1;
-	double			delta;
-	double			len;
-	double			len2;
-
-	len = ft_vsize(ft_vadd(e, ft_vscala(s, -1)));
-	rtn = NULL;
-	tmp1 = s;
-	delta = fabs(e.y - s.y) / fabs(e.x - s.x);
-	delta = isfinite(delta) ? delta : 2;
-	b = (delta > 1) ? ft_vinit(b.y, b.x) : b;
-	s = (delta > 1) ? ft_vinit(s.y, s.x) : s;
-	s = ft_xstart(s, b);
-	while (ft_checkspace((delta > 1) ? ft_vinit(s.y, s.x) : s, m) == 1)
-	{
-		tmp = ft_checksprite((delta > 1) ? ft_vinit(s.y, s.x) : s, m);
-		if (tmp.x != -1)
-			ft_push(&rtn, tmp);
-		s = ft_xinc(s, b);
-	}
-	tmp = ft_checksprite((delta > 1) ? ft_vinit(s.y, s.x) : s, m);
-	len2 = ft_vsize(ft_vadd(ft_vinit(tmp.x + 0.5, tmp.y + 0.5), ft_vscala(tmp1, -1)));
-	if ((tmp.x != -1) && (len2 < len))
-		ft_push(&rtn, tmp);
-	return (rtn);
-}
 
 void				ft_rendering(t_canvas *canvas)
 {
 	t_vector		cam;
 	t_vector		plane;
 	t_vector		ray;
-	t_vector		target;
-	t_list			*lst;
 	int				width;
+	t_vector		target;
 	char			wall;
 	double			beam;
 	double			x_ratio;
+	double			plane_scale;
 
 
 	cam = ft_vspin(canvas->p.cam, canvas->p.deg);
@@ -61,10 +30,11 @@ void				ft_rendering(t_canvas *canvas)
 	width = 0;
 	while (width < canvas->render.width)
 	{
-		ray = ft_vadd(cam, ft_vscala(plane, (width - (canvas->render.width / 2)) / (canvas->render.width / 2.0)));
+		ft_draw_clear_xline(&canvas->render, width);
+		ft_draw_clear_xline(&canvas->sprite_rander, width);
+		plane_scale = (width - (canvas->render.width / 2)) / (canvas->render.width / 2.0);
+		ray = ft_vadd(cam, ft_vscala(plane, plane_scale));
 		target = ft_raycasting(canvas->p.pos, ray, canvas->map);
-		lst = ft_findsprite(canvas->p.pos, target, ray, canvas->map);
-		ft_draw_sprite_proto(canvas, width, &lst, canvas->p.pos, ray);
 		beam = ft_vsize(ft_vadd(target, ft_vscala(canvas->p.pos, -1)));
 		beam = ft_resolution(beam, cam, ray);
 		x_ratio = ft_getxratio(target);
@@ -77,7 +47,21 @@ void				ft_rendering(t_canvas *canvas)
 			ft_draw_wall_proto(&canvas->render, width, beam, x_ratio, canvas->tmp[4]);
 		else if (wall == 'e')
 			ft_draw_wall_proto(&canvas->render, width, beam, x_ratio, canvas->tmp[5]);
+		ft_rendering_sprite(canvas, width, target, ray);
 		width++;
+	}
+}
+
+void				ft_rendering_sprite(t_canvas *canvas, int x, t_vector target, t_vector ray)
+{
+	t_list			*sprites;
+	t_vector		sprite_target;
+
+	sprites = ft_raycasting_sprite(canvas->p.pos, target, ray, canvas->map);
+	while (sprites != NULL)
+	{
+		sprite_target = ft_pop(&sprites);
+		ft_draw_sprite_proto(canvas, x, sprite_target, canvas->p.pos, ray);
 	}
 }
 
