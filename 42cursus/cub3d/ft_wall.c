@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 16:49:08 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/04 20:36:29 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/04 22:24:45 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,30 +65,27 @@ void			ft_draw_clear_xline(t_img *img, int x)
 	}
 }
 
-void			ft_draw_wall_proto(t_img *img, int x, double yr, double xratio, t_img from)
+void				ft_draw_yline(t_img *to, t_img from, t_vector scale, int posx)
 {
-	int			h;
-	int			y;
-	int			cy;
-	int			px;
-	int			py;
-	int			offset;
+	int				width;
+	int				h;
+	int				px;
+	int				py;
+	int				offset;
 
-	h = (int)(((yr > 1) ? 1 : yr) * (img->height / 2));
-	y = 0;
-	cy = 0;
-	while (y < img->height)
+	h = (int)(((scale.y > 1) ? 1 : scale.y) * (to->height / 2));
+	width = (to->height / 2) - h;
+	while (width < ((to->height / 2) + h))
 	{
-		if (y >= ((img->height / 2) - h) && y <= ((img->height / 2) + h))
-		{
-			offset = (yr > 1) ? (from.height * (yr - 1) / (yr * 2)) : 0;
-			px = from.width * xratio;
-			py = from.height * cy / (img->height * yr) + offset;
-			img->data[y * (img->size_line / 4) + x] = from.data[py * (from.size_line / 4) + px];
-			cy++;
-		}
-		y++;
+		offset = (scale.y > 1) ? (from.height * (scale.y - 1) / (scale.y * 2)) : 0;
+		px = from.width * scale.x;
+		py = from.height * (width - ((to->height / 2) - h)) / (to->height * scale.y);
+		py += offset;
+		if (from.data[py * (from.size_line / 4) + px] != ft_rgba(0, 0, 0, 0xff))
+			to->data[width * (to->size_line / 4) + posx] = from.data[py * (from.size_line / 4) + px];
+		width++;
 	}
+	
 }
 
 void				ft_draw_sprite_proto(t_canvas *canvas, int x, t_vector target, t_vector p, t_vector b)
@@ -97,9 +94,6 @@ void				ft_draw_sprite_proto(t_canvas *canvas, int x, t_vector target, t_vector 
 	double			visible;
 	int				y;
 	int				h;
-	int				px;
-	int				py;
-	int				offset;
 	int				dy;
 
 	target = ft_vinit(target.x + 0.5, target.y + 0.5);
@@ -111,17 +105,6 @@ void				ft_draw_sprite_proto(t_canvas *canvas, int x, t_vector target, t_vector 
 	h = (int)(((beam > 1) ? 1 : beam) * (canvas->sprite_rander.height / 2));
 	y = (canvas->sprite_rander.height / 2) - h;
 	dy = 0;
-	while (y < ((canvas->sprite_rander.height / 2) + h))
-	{
-		if (visible < 0.5 && -0.5 < visible)
-		{
-			offset = (beam > 1) ? (canvas->tmp[6].height * (beam - 1) / (beam * 2)) : 0;
-			px = canvas->tmp[6].width * (0.5-visible);
-			py = canvas->tmp[6].height * dy / (canvas->sprite_rander.height * beam) + offset;
-			if (ft_rgba(0, 0, 0, 0xff) != canvas->tmp[6].data[py * (canvas->tmp[6].size_line / 4) + px])
-				canvas->sprite_rander.data[y * (canvas->sprite_rander.size_line / 4) + x] = canvas->tmp[6].data[py * (canvas->tmp[6].size_line / 4) + px];
-			dy++;
-		}
-		y++;
-	}
+	if (visible <= 0.5 && -0.5 <= visible)
+		ft_draw_yline(&canvas->sprite_rander, canvas->tmp[6], ft_vinit((0.5 - visible), beam), x);
 }

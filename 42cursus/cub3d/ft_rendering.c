@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 16:20:14 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/04 20:36:16 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/04 22:04:33 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ void				ft_rendering(t_canvas *canvas)
 		x_ratio = ft_getxratio(target);
 		wall = ft_isnwse(canvas->p.pos, target);
 		if (wall == 'n')
-			ft_draw_wall_proto(&canvas->render, width, beam, x_ratio, canvas->tmp[2]);
+			ft_draw_yline(&canvas->render, canvas->tmp[2], ft_vinit(x_ratio, beam), width);
 		else if (wall == 'w')
-			ft_draw_wall_proto(&canvas->render, width, beam, x_ratio, canvas->tmp[3]);
+			ft_draw_yline(&canvas->render, canvas->tmp[3], ft_vinit(x_ratio, beam), width);
 		else if (wall == 's')
-			ft_draw_wall_proto(&canvas->render, width, beam, x_ratio, canvas->tmp[4]);
+			ft_draw_yline(&canvas->render, canvas->tmp[4], ft_vinit(x_ratio, beam), width);
 		else if (wall == 'e')
-			ft_draw_wall_proto(&canvas->render, width, beam, x_ratio, canvas->tmp[5]);
+			ft_draw_yline(&canvas->render, canvas->tmp[5], ft_vinit(x_ratio, beam), width);
 		ft_rendering_sprite(canvas, width, target, ray);
 		width++;
 	}
