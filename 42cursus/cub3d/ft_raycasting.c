@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 22:45:54 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/04 14:13:57 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/05 00:04:05 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_list				*ft_raycasting_sprite(t_vector s, t_vector e, t_vector b, t_map m)
 	double			len;
 	double			len2;
 
-	len = ft_vsize(ft_vadd(e, ft_vscala(s, -1)));
+	len = ft_vsize(ft_vsub(e, s));
 	rtn = NULL;
 	tmp1 = s;
 	delta = fabs(e.y - s.y) / fabs(e.x - s.x);
@@ -55,7 +55,7 @@ t_list				*ft_raycasting_sprite(t_vector s, t_vector e, t_vector b, t_map m)
 		s = ft_xinc(s, b);
 	}
 	tmp = ft_checksprite((delta > 1) ? ft_vinit(s.y, s.x) : s, m);
-	len2 = ft_vsize(ft_vadd(ft_vinit(tmp.x + 0.5, tmp.y + 0.5), ft_vscala(tmp1, -1)));
+	len2 = ft_vsize(ft_vadd(ft_vinit(tmp.x + 0.5, tmp.y + 0.5), tmp1));
 	if ((tmp.x != -1) && (len2 < len))
 		ft_push(&rtn, tmp);
 	return (rtn);

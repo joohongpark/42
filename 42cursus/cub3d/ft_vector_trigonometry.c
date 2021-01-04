@@ -1,51 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vector.c                                        :+:      :+:    :+:   */
+/*   ft_vector_trigonometry.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/23 16:39:08 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/05 00:01:05 by joopark          ###   ########.fr       */
+/*   Created: 2021/01/04 23:58:33 by joopark           #+#    #+#             */
+/*   Updated: 2021/01/05 00:00:32 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_vector		ft_vinit(double x, double y)
+t_vector		ft_vspin(t_vector v, int degree)
 {
+	double		sine;
+	double		cosine;
 	t_vector	rtn;
 
-	rtn.x = x;
-	rtn.y = y;
+	sine = sin((degree / 360.0) * 2 * M_PI);
+	cosine = cos((degree / 360.0) * 2 * M_PI);
+	rtn.x = cosine * v.x - sine * v.y;
+	rtn.y = sine * v.x + cosine * v.y;
 	return (rtn);
 }
 
-t_vector		ft_vadd(t_vector v, t_vector w)
+double				ft_gettheta(t_vector v1, t_vector v2)
 {
-	v.x += w.x;
-	v.y += w.y;
-	return (v);
-}
+	double			denom;
+	double			nom;
+	double			rtn;
 
-t_vector		ft_vsub(t_vector v, t_vector w)
-{
-	v.x -= w.x;
-	v.y -= w.y;
-	return (v);
-}
-
-t_vector		ft_vscala(t_vector v, double s)
-{
-	v.x *= s;
-	v.y *= s;
-	return (v);
-}
-
-double			ft_vsize(t_vector v)
-{
-	double		rtn;
-
-	rtn = sqrt((v.x * v.x) + (v.y * v.y));
+	denom = ft_vsize(v1) * ft_vsize(v2);
+	nom = v1.x * v2.y - v1.y * v2.x;
+	rtn = asin(nom / denom);
 	return (rtn);
 }

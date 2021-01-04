@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 02:17:10 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/04 22:09:06 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/05 00:02:01 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,12 @@ t_img				ft_get_img_from_xpm(void *window, char *uri);
 
 t_vector			ft_vinit(double x, double y);
 t_vector			ft_vadd(t_vector v, t_vector w);
+t_vector			ft_vsub(t_vector v, t_vector w);
 t_vector			ft_vscala(t_vector v, double s);
-t_vector			ft_vspin(t_vector v, int degree);
 double				ft_vsize(t_vector v);
+
+t_vector			ft_vspin(t_vector v, int degree);
+double				ft_gettheta(t_vector v1, t_vector v2);
 
 void				ft_event_register(void *window, t_canvas *obj);
 int					ft_key_press(int code, t_canvas *obj);
@@ -103,7 +106,6 @@ double				ft_getxratio(t_vector w);
 char				ft_isnwse(t_vector start, t_vector end);
 void				ft_draw_clear_xline(t_img *img, int x);
 void				ft_draw_yline(t_img *to, t_img from, t_vector scale, int posx);
-void				ft_draw_sprite_proto(t_canvas *canvas, int x, t_vector target, t_vector p, t_vector b);
 
 void				ft_rendering(t_canvas *canvas);
 void				ft_rendering_sprite(t_canvas *canvas, int x, t_vector target, t_vector ray);

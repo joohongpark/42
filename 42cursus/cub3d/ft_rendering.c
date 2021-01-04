@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 16:20:14 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/04 22:04:33 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/05 00:02:27 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void				ft_rendering(t_canvas *canvas)
 		plane_scale = (width - (canvas->render.width / 2)) / (canvas->render.width / 2.0);
 		ray = ft_vadd(cam, ft_vscala(plane, plane_scale));
 		target = ft_raycasting(canvas->p.pos, ray, canvas->map);
-		beam = ft_vsize(ft_vadd(target, ft_vscala(canvas->p.pos, -1)));
+		beam = ft_vsize(ft_vsub(target, canvas->p.pos));
 		beam = ft_resolution(beam, cam, ray);
 		x_ratio = ft_getxratio(target);
 		wall = ft_isnwse(canvas->p.pos, target);
@@ -55,13 +55,26 @@ void				ft_rendering(t_canvas *canvas)
 void				ft_rendering_sprite(t_canvas *canvas, int x, t_vector target, t_vector ray)
 {
 	t_list			*sprites;
-	t_vector		sprite_target;
+	t_vector		sprite;
+	t_vector		scale;
+	double			beam;
+	double			visible;
 
 	sprites = ft_raycasting_sprite(canvas->p.pos, target, ray, canvas->map);
 	while (sprites != NULL)
 	{
-		sprite_target = ft_pop(&sprites);
-		ft_draw_sprite_proto(canvas, x, sprite_target, canvas->p.pos, ray);
+		sprite = ft_pop(&sprites);
+		sprite = ft_vinit(sprite.x + 0.5, sprite.y + 0.5);
+		visible = ft_gettheta(ft_vsub(sprite, canvas->p.pos), ray);
+		visible = tan(visible);
+		beam = ft_vsize(ft_vsub(sprite, canvas->p.pos));
+		visible = visible * beam;
+		if (visible <= 0.5 && -0.5 <= visible)
+		{
+			beam = 1 / beam;
+			scale = ft_vinit((0.5 - visible), beam);
+			ft_draw_yline(&canvas->sprite_rander, canvas->tmp[6], scale, x);
+		}
 	}
 }
 

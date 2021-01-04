@@ -6,11 +6,12 @@
 #    By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/21 19:03:14 by joopark           #+#    #+#              #
-#    Updated: 2021/01/04 16:35:46 by joopark          ###   ########.fr        #
+#    Updated: 2021/01/04 23:59:03 by joopark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FILES = cub3d.c ft_vector.c ft_wall.c ft_rendering.c ft_imgutil.c ft_lifo.c ft_events.c ft_move.c
+FILES = cub3d.c ft_wall.c ft_rendering.c ft_imgutil.c ft_lifo.c ft_events.c ft_move.c
+FILES += ft_vector.c ft_vector_trigonometry.c
 FILES += ft_raycasting.c ft_checkroom.c ft_dda_modules.c
 #OBJS = $(FILES:.c=.o)
 OBJS = ${FILES:%.c=%.o}
