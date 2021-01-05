@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 23:05:27 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/04 17:31:40 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/05 10:44:58 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,6 @@ int				ft_key_press(int code, t_canvas *obj)
 	else if (code == 0x7c)
 		obj->p.deg += (360 > obj->p.deg) ? 1 : -360;
 	
-
-	obj->player.x = (obj->p.pos.x / obj->map.x) * obj->width;
-	obj->player.y = (obj->p.pos.y / obj->map.y) * obj->height;
 						
 	// test
 	
@@ -83,8 +80,6 @@ int				ft_draw(t_canvas *obj)
 		ft_rendering(obj);
 		mlx_clear_window(obj->window, obj->canvas);
 		mlx_put_image_to_window(obj->window, obj->canvas, obj->wallpaper.img, obj->wallpaper.x, obj->wallpaper.y);
-		mlx_put_image_to_window(obj->window, obj->canvas, obj->img.img, obj->img.x + 800, obj->img.y);
-		mlx_put_image_to_window(obj->window, obj->canvas, obj->player.img, obj->player.x + 800, obj->player.y);
 		mlx_put_image_to_window(obj->window, obj->canvas, obj->render.img, obj->render.x, obj->render.y);
 		mlx_put_image_to_window(obj->window, obj->canvas, obj->sprite_rander.img, obj->sprite_rander.x, obj->sprite_rander.y);
 		obj->draw = 0;

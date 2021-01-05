@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 02:17:10 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/05 00:02:01 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/05 10:45:15 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ typedef struct		s_canvas
 	int				height;
 	int				draw;
 	t_map			map;
-	t_img			img;
-	t_img			player;
 	t_img			render;
 	t_img			sprite_rander;
 	t_img			wallpaper;
@@ -92,7 +90,7 @@ t_vector			ft_gotoxy(t_vector start, t_vector delta, t_map map);
 t_vector			ft_getdelta(int look, double delta);
 
 t_vector			ft_raycasting(t_vector p, t_vector r, t_map m);
-t_list				*ft_raycasting_sprite(t_vector s, t_vector e, t_vector b, t_map m);
+t_list				*ft_find_sprite(t_vector s, t_vector e, t_vector b, t_map m);
 
 t_vector			ft_xstart(t_vector player, t_vector ray);
 t_vector			ft_ystart(t_vector player, t_vector ray);
@@ -104,13 +102,14 @@ t_vector			ft_checksprite(t_vector v, t_map map);
 
 double				ft_getxratio(t_vector w);
 char				ft_isnwse(t_vector start, t_vector end);
+t_img				*ft_ctoi(char wall, t_canvas *c);
 void				ft_draw_clear_xline(t_img *img, int x);
-void				ft_draw_yline(t_img *to, t_img from, t_vector scale, int posx);
+void				ft_draw_yline(t_img *to, t_img from, t_vector scale, int x);
 
 void				ft_rendering(t_canvas *canvas);
-void				ft_rendering_sprite(t_canvas *canvas, int x, t_vector target, t_vector ray);
+void				ft_draw_wall(t_canvas *c, int x, t_vector t, t_vector ray);
+void				ft_draw_sprite(t_canvas *c, int x, t_vector t, t_vector ray);
 double				ft_resolution(double raw, t_vector cam, t_vector ray);
-char				ft_decay(double raw);
 
 int					ft_rgba(char r, char g, char b, char a);
 t_img				ft_new_img(void *window, int width, int height);

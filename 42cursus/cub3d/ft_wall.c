@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 16:49:08 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/05 00:00:29 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/05 01:03:02 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,23 @@ char				ft_isnwse(t_vector start, t_vector end)
 	return (0);
 }
 
-void			ft_draw_clear_xline(t_img *img, int x)
+t_img				*ft_ctoi(char wall, t_canvas *c)
 {
-	int			y;
+	if (wall == 'n')
+		return (&c->tmp[2]);
+	else if (wall == 'w')
+		return (&c->tmp[3]);
+	else if (wall == 's')
+		return (&c->tmp[4]);
+	else if (wall == 'e')
+		return (&c->tmp[5]);
+	else
+		return (&c->tmp[2]);
+}
+
+void				ft_draw_clear_xline(t_img *img, int x)
+{
+	int				y;
 
 	y = 0;
 	while (y < img->height)
@@ -53,7 +67,7 @@ void			ft_draw_clear_xline(t_img *img, int x)
 	}
 }
 
-void				ft_draw_yline(t_img *to, t_img from, t_vector scale, int posx)
+void				ft_draw_yline(t_img *to, t_img from, t_vector scale, int x)
 {
 	int				width;
 	int				h;
@@ -71,7 +85,7 @@ void				ft_draw_yline(t_img *to, t_img from, t_vector scale, int posx)
 		py /= to->height * scale.y;
 		py += offset;
 		if (from.data[py * (from.size_line / 4) + px] != (int)0xff000000)
-			to->data[width * (to->size_line / 4) + posx] = from.data[py * (from.size_line / 4) + px];
+			to->data[width * (to->size_line / 4) + x] = from.data[py * (from.size_line / 4) + px];
 		width++;
 	}
 }

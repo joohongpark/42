@@ -6,7 +6,7 @@
 #    By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/21 19:03:14 by joopark           #+#    #+#              #
-#    Updated: 2021/01/04 23:59:03 by joopark          ###   ########.fr        #
+#    Updated: 2021/01/05 10:26:38 by joopark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ clean:
 
 fclean: clean
 	make clean -C ${MMSPATH}
-	make clean -C ${LIBFTPATH}
+	make fclean -C ${LIBFTPATH}
 	rm -f $(NAME)
 
 re: fclean all
