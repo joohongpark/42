@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 16:20:14 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/05 00:54:42 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/08 01:40:46 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void				ft_draw_sprite(t_canvas *c, int x, t_vector t, t_vector ray)
 		{
 			beam = 1 / beam;
 			scale = ft_vinit((0.5 - visible), beam);
-			ft_draw_yline(&c->sprite_rander, c->tmp[6], scale, x);
+			ft_draw_yline(&c->sprite_rander, c->sprite_texture, scale, x);
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:29:11 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/05 12:35:58 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/08 01:40:58 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,23 @@ void			ft_map_gen_proto(t_map *map, int x, int y)
 	}
 	map->x = x;
 	map->y = y;
+}
+
+void			ft_canvas_init(t_canvas *canvas)
+{
+	canvas->width = 0;
+	canvas->height = 0;
+	canvas->map.map = NULL;
+	canvas->map.x = 0;
+	canvas->map.y = 0;
+	canvas->ceilling_color = 0;
+	canvas->floor_color = 0;
+	canvas->north_texture.img = NULL;
+	canvas->south_texture.img = NULL;
+	canvas->west_texture.img = NULL;
+	canvas->east_texture.img = NULL;
+	canvas->sprite_texture.img = NULL;
+	canvas->window = mlx_init();
 }
 
 int				main(int argc, char *argv[])
@@ -53,6 +70,7 @@ int				main(int argc, char *argv[])
 	};
 	t_canvas	w;
 
+	ft_canvas_init(&w);
 	if (ft_arg(&w, argc, argv) < 0)
 	{
 		write(1, "Error\n", ft_strlen("Error\n"));
@@ -70,7 +88,6 @@ int				main(int argc, char *argv[])
 	w.p.plane = ft_vinit(0, (w.width / (w.height * 2.0)));
 	w.p.pos = ft_vinit(1.1, 1.1);
 
-	w.window = mlx_init();
 	w.canvas = mlx_new_window(w.window, w.width, w.height, "hello😂");
 
 	w.render = ft_new_img(w.window, w.width, w.height);
@@ -88,11 +105,6 @@ int				main(int argc, char *argv[])
 	}
 
 	w.p.deg = 0;
-	w.tmp[2] = ft_get_img_from_png(w.window, "./sprite/n.png");
-	w.tmp[3] = ft_get_img_from_png(w.window, "./sprite/w.png");
-	w.tmp[4] = ft_get_img_from_png(w.window, "./sprite/s.png");
-	w.tmp[5] = ft_get_img_from_png(w.window, "./sprite/e.png");
-	w.tmp[6] = ft_get_img_from_png(w.window, "./sprite/d.png");
 
 	w.sprite_rander = ft_new_img(w.window, w.width, w.height);
 	

@@ -6,18 +6,23 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 02:17:10 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/05 10:45:15 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/08 01:41:02 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_CUB3D_H
 # define FT_CUB3D_H
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1024
+# endif
+
 # include <libft.h>
 # include <mlx.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <math.h>
+# include <fcntl.h>
 
 typedef	struct		s_vector
 {
@@ -58,14 +63,21 @@ typedef struct		s_canvas
 {
 	void			*window;
 	void			*canvas;
+	int				is_save;
 	int				width;
 	int				height;
 	int				draw;
+	int				floor_color;
+	int				ceilling_color;
 	t_map			map;
 	t_img			render;
 	t_img			sprite_rander;
 	t_img			wallpaper;
-	t_img			tmp[10];
+	t_img			north_texture;
+	t_img			south_texture;
+	t_img			west_texture;
+	t_img			east_texture;
+	t_img			sprite_texture;
 	t_player		p;
 }					t_canvas;
 
@@ -118,5 +130,19 @@ t_img				ft_get_img_from_png(void *window, char *uri);
 
 t_vector			ft_push(t_list **list, t_vector v);
 t_vector			ft_pop(t_list **list);
+
+int					ft_arg(t_canvas *canvas, int argc, char *argv[]);
+int					ft_ishavesaveflag(int argc, char *argv[]);
+char				*ft_isfile(int argc, char *argv[]);
+int					ft_canvas_isvaild(t_canvas *canvas);
+
+int					ft_parser(char *dir, t_canvas *canvas);
+int					ft_line_paraer(char *line, t_canvas *canvas);
+int					ft_open_texture(char *uri, t_img *img, void *window);
+
+char				*ft_strnstack(char *stack, char *str, size_t n);
+char				*ft_getbuf(ssize_t clr, char **bp);
+int					ft_prechk(int fd, char **line, char **bufrtn, char **bp);
+int					ft_get_next_line(int fd, char **line, char **bp);
 
 #endif

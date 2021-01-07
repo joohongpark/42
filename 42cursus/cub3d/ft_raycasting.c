@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 22:45:54 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/05 00:55:45 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/08 02:03:52 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_list				*ft_find_sprite(t_vector s, t_vector e, t_vector b, t_map m)
 		s = ft_xinc(s, b);
 	}
 	tmp = ft_checksprite((delta > 1) ? ft_vinit(s.y, s.x) : s, m);
-	len = ft_vsize(ft_vadd(ft_vinit(tmp.x + 0.5, tmp.y + 0.5), s1));
+	len = ft_vsize(ft_vsub(ft_vinit(tmp.x + 0.5, tmp.y + 0.5), s1));
 	if ((tmp.x != -1) && (len < ft_vsize(ft_vsub(e, s1))))
 		ft_push(&rtn, tmp);
 	return (rtn);

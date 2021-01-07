@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 16:49:08 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/05 01:03:02 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/08 01:40:23 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,15 @@ char				ft_isnwse(t_vector start, t_vector end)
 t_img				*ft_ctoi(char wall, t_canvas *c)
 {
 	if (wall == 'n')
-		return (&c->tmp[2]);
+		return (&c->north_texture);
 	else if (wall == 'w')
-		return (&c->tmp[3]);
+		return (&c->west_texture);
 	else if (wall == 's')
-		return (&c->tmp[4]);
+		return (&c->south_texture);
 	else if (wall == 'e')
-		return (&c->tmp[5]);
+		return (&c->east_texture);
 	else
-		return (&c->tmp[2]);
+		return (&c->east_texture);
 }
 
 void				ft_draw_clear_xline(t_img *img, int x)
