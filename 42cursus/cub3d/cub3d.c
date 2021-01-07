@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:29:11 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/05 10:48:33 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/05 12:35:58 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void			ft_map_gen_proto(t_map *map, int x, int y)
 	map->y = y;
 }
 
-int				main(void)
+int				main(int argc, char *argv[])
 {
 	char		map[20][20] = {
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -53,6 +53,11 @@ int				main(void)
 	};
 	t_canvas	w;
 
+	if (ft_arg(&w, argc, argv) < 0)
+	{
+		write(1, "Error\n", ft_strlen("Error\n"));
+		exit(-1);
+	}
 	ft_map_gen_proto(&(w.map), 20, 20);
 	for (int i = 0; i < w.map.y; i++)
 		for (int j = 0; j < w.map.x; j++)
