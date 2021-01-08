@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 02:17:10 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/08 01:41:02 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/08 21:28:23 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,8 @@ int					ft_canvas_isvaild(t_canvas *canvas);
 int					ft_parser(char *dir, t_canvas *canvas);
 int					ft_line_paraer(char *line, t_canvas *canvas);
 int					ft_open_texture(char *uri, t_img *img, void *window);
+int					ft_set_screen(char *line, t_canvas *canvas);
+int					ft_set_color(char *line, t_canvas *canvas, char c);
 
 char				*ft_strnstack(char *stack, char *str, size_t n);
 char				*ft_getbuf(ssize_t clr, char **bp);

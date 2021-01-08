@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:29:11 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/08 01:40:58 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/08 21:40:49 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ int				main(int argc, char *argv[])
 		for (int j = 0; j < w.map.x; j++)
 			w.map.map[i][j] = map[i][j];
 
-	w.width = 1280;
-	w.height = 700;
+	//w.width = 1280;
+	//w.height = 700;
 
 	w.p.cam = ft_vinit(1, 0);
 	w.p.plane = ft_vinit(0, (w.width / (w.height * 2.0)));
@@ -98,9 +98,9 @@ int				main(int argc, char *argv[])
 		for (int j = 0; j < (w.wallpaper.size_line / 4); j++)
 		{
 			if (i < w.wallpaper.height / 2)
-				w.wallpaper.data[i * (w.wallpaper.size_line / 4) + j] = ft_rgba(0x89, 0xde, 0xff, 0);
+				w.wallpaper.data[i * (w.wallpaper.size_line / 4) + j] = w.floor_color;
 			else
-				w.wallpaper.data[i * (w.wallpaper.size_line / 4) + j] = ft_rgba(0xac, 0x74, 0x30, 0);
+				w.wallpaper.data[i * (w.wallpaper.size_line / 4) + j] = w.ceilling_color;
 		}
 	}
 
