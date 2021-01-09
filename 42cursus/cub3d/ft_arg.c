@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 12:24:22 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/08 01:39:09 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/09 16:48:12 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ char				*ft_isfile(int argc, char *argv[])
 int					ft_canvas_isvaild(t_canvas *canvas)
 {
 	if (
-		(canvas->width == 0) ||
-		(canvas->height = 0) ||
+		(canvas->width <= 0) ||
+		(canvas->height <= 0) ||
 		(canvas->map.map == NULL) ||
 		(canvas->north_texture.img == NULL) ||
 		(canvas->south_texture.img == NULL) ||
@@ -68,7 +68,5 @@ int					ft_canvas_isvaild(t_canvas *canvas)
 		(canvas->east_texture.img == NULL) ||
 		(canvas->sprite_texture.img == NULL))
 		return (-1);
-	//canvas->ceilling_color == 0;
-	//canvas->floor_color == 0;
 	return (1);
 }

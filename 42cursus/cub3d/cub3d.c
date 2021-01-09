@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:29:11 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/08 21:40:49 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/09 15:47:25 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ int				main(int argc, char *argv[])
 
 	ft_canvas_init(&w);
 	if (ft_arg(&w, argc, argv) < 0)
+	{
+		write(1, "Error\n", ft_strlen("Error\n"));
+		exit(-1);
+	}
+	if (ft_canvas_isvaild(&w) < 0)
 	{
 		write(1, "Error\n", ft_strlen("Error\n"));
 		exit(-1);

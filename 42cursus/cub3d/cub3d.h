@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 02:17:10 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/08 21:28:23 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/09 16:48:08 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,5 +146,9 @@ char				*ft_strnstack(char *stack, char *str, size_t n);
 char				*ft_getbuf(ssize_t clr, char **bp);
 int					ft_prechk(int fd, char **line, char **bufrtn, char **bp);
 int					ft_get_next_line(int fd, char **line, char **bp);
+
+int					ft_map(char *line, t_map *map);
+char				**ft_map_xadd(char *line, t_map *map, int x);
+int					ft_map_parser(t_map *map);
 
 #endif

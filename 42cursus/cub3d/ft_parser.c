@@ -6,11 +6,12 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 20:09:11 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/08 21:53:41 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/09 16:15:56 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <stdio.h>
 
 int					ft_parser(char *dir, t_canvas *canvas)
 {
@@ -32,6 +33,12 @@ int					ft_parser(char *dir, t_canvas *canvas)
 	}
 	if (ft_line_paraer(line, canvas) < 0)
 		return (-1);
+	for (int i = 0; i < canvas->map.y; i++)
+	{
+		for (int j = 0; j < canvas->map.x; j++)
+			printf("%c", canvas->map.map[i][j]);
+		printf("\n");
+	}
 	free(line);
 	close(fd);
 	return (1);
@@ -55,7 +62,8 @@ int					ft_line_paraer(char *line, t_canvas *canvas)
 		return (ft_set_color(line + 2, canvas, 'F'));
 	else if (ft_strncmp((const char *)line, "C ", 2) == 0)
 		return (ft_set_color(line + 2, canvas, 'C'));
-
+	else if (*line != '\0')
+		return (ft_map(line, &canvas->map));
 	return (1);
 }
 
@@ -63,20 +71,15 @@ int					ft_open_texture(char *uri, t_img *img, void *window)
 {
 	int				fd;
 
-	(void) window;
-	(void) img;
-	printf("%s\n", uri);
 	if((fd = open(uri, O_RDONLY)) < 0)
 		return (-1);
 	close(fd);
-
 	if (ft_strncmp((const char *)uri + (ft_strlen(uri) - 3), "png", 3) == 0)
 		*img = ft_get_img_from_png(window, uri);
 	else if (ft_strncmp((const char *)uri + (ft_strlen(uri) - 3), "xpm", 3) == 0)
 		*img = ft_get_img_from_xpm(window, uri);
 	else
 		return (-1);
-
 	return (1);
 }
 
