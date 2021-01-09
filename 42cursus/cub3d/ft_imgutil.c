@@ -6,15 +6,15 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 22:24:04 by joopark           #+#    #+#             */
-/*   Updated: 2020/12/30 18:45:17 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/09 22:53:51 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int				ft_rgba(char r, char g, char b, char a)
+int					ft_rgba(char r, char g, char b, char a)
 {
-	int			rtn;
+	int				rtn;
 
 	rtn = a & 0x000000ff;
 	rtn = (rtn << 8) | (r & 0x000000ff);

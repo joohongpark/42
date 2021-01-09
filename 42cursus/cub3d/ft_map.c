@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 21:56:47 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/09 22:29:26 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/09 22:41:05 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ char				**ft_map_xadd(char *line, t_map *map, int x)
 	int				i;
 	char			**m;
 
-	i = 0;
+	i = -1;
 	if (!(m = (char **)malloc(sizeof(char *) * (map->y))))
 		return (NULL);
-	while (i < map->y)
+	while (++i < map->y)
 	{
-		if (!(m[i] = (char *)malloc(sizeof(char) * ((map->x < x) ? x : map->x))))
+		if (!(m[i] = (char *)malloc((map->x < x) ? x : map->x)))
 			return (NULL);
 		if (i < (map->y - 1))
 		{
@@ -51,7 +51,6 @@ char				**ft_map_xadd(char *line, t_map *map, int x)
 			if (map->map != NULL)
 				free(map->map);
 		}
-		i++;
 	}
 	return (m);
 }

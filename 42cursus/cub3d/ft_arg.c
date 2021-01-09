@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 12:24:22 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/09 20:47:32 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/09 22:50:57 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int					ft_arg(t_canvas *canvas, int argc, char *argv[])
 {
 	char			*path;
 
-	//canvas->north_texture = ft_get_img_from_png(canvas->window, "./sprite/n.png");
 	if (argc < 2 || argc > 3)
 		return (-1);
 	canvas->is_save = ft_ishavesaveflag(argc, argv);
@@ -49,7 +48,8 @@ char				*ft_isfile(int argc, char *argv[])
 	i = 1;
 	while (i < argc)
 	{
-		if (ft_strnstr((const char *)argv[i], ".cub", ft_strlen(argv[i])) != NULL)
+		if (ft_strnstr((const char *)argv[i], ".cub",
+			ft_strlen(argv[i])) != NULL)
 			return (argv[i]);
 		i++;
 	}

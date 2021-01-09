@@ -6,17 +6,17 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 23:58:33 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/05 00:00:32 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/09 22:57:09 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_vector		ft_vspin(t_vector v, int degree)
+t_vector			ft_vspin(t_vector v, int degree)
 {
-	double		sine;
-	double		cosine;
-	t_vector	rtn;
+	double			sine;
+	double			cosine;
+	t_vector		rtn;
 
 	sine = sin((degree / 360.0) * 2 * M_PI);
 	cosine = cos((degree / 360.0) * 2 * M_PI);

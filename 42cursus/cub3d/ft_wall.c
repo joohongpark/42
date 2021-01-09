@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 16:49:08 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/08 01:40:23 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/09 22:59:26 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,10 @@ void				ft_draw_yline(t_img *to, t_img from, t_vector scale, int x)
 		py /= to->height * scale.y;
 		py += offset;
 		if (from.data[py * (from.size_line / 4) + px] != (int)0xff000000)
-			to->data[width * (to->size_line / 4) + x] = from.data[py * (from.size_line / 4) + px];
+		{
+			to->data[width * (to->size_line / 4) + x] =
+				from.data[py * (from.size_line / 4) + px];
+		}
 		width++;
 	}
 }

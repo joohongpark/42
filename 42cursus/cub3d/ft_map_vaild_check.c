@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 22:28:46 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/09 22:37:08 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/09 22:44:49 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,26 +85,27 @@ int					ft_map_set(t_map *map)
 {
 	int				x;
 	int				y;
+	char			c;
 
-	y = 0;
-	while (y < map->y)
+	y = -1;
+	while (++y < map->y)
 	{
-		x = 0;
-		while (x < map->x)
+		x = -1;
+		while (++x < map->x)
 		{
-			if (map->map[y][x] == '1')
+			c = map->map[y][x];
+			if (c == '1')
 				map->map[y][x] = 'w';
-			else if (map->map[y][x] == '0')
+			else if (c == '0')
 				map->map[y][x] = 's';
-			else if (map->map[y][x] == '2')
+			else if (c == '2')
 				map->map[y][x] = 'b';
-			else if (map->map[y][x] == '\0')
+			else if (c == '\0')
 				map->map[y][x] = 'w';
-			else if (map->map[y][x] != 's' && map->map[y][x] != 'w' && map->map[y][x] != 'b')
+			else if (c != 's' && c != 'w' && c != 'b')
 				return (-1);
 			x = x + 1;
 		}
-		y = y + 1;
 	}
 	return (1);
 }
