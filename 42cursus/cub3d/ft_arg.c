@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 12:24:22 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/09 16:48:12 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/09 20:47:32 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int					ft_canvas_isvaild(t_canvas *canvas)
 		(canvas->west_texture.img == NULL) ||
 		(canvas->east_texture.img == NULL) ||
 		(canvas->sprite_texture.img == NULL))
+		return (-1);
+	if (ft_map_parser(canvas) < 0)
 		return (-1);
 	return (1);
 }

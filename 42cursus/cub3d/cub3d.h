@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 02:17:10 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/09 16:48:08 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/09 22:34:22 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,18 @@
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024
+# endif
+
+# ifndef WALL
+#  define WALL 'w'
+# endif
+
+# ifndef SPRITE
+#  define SPRITE 'b'
+# endif
+
+# ifndef SPACE
+#  define SPACE 's'
 # endif
 
 # include <libft.h>
@@ -149,6 +161,10 @@ int					ft_get_next_line(int fd, char **line, char **bp);
 
 int					ft_map(char *line, t_map *map);
 char				**ft_map_xadd(char *line, t_map *map, int x);
-int					ft_map_parser(t_map *map);
+
+int					ft_map_parser(t_canvas *canvas);
+void				ft_dfs(t_map *map, int x, int y, int *is_false);
+int					ft_findplayer(t_map *map, int *x, int *y);
+int					ft_map_set(t_map *map);
 
 #endif

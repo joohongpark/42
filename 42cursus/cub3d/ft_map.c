@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 21:56:47 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/09 16:48:00 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/09 22:29:26 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,4 @@ char				**ft_map_xadd(char *line, t_map *map, int x)
 		i++;
 	}
 	return (m);
-}
-
-int					ft_map_parser(t_map *map)
-{
-	(void) map;
-	
-	return (1);
 }

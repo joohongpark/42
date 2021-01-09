@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 14:59:03 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/04 15:07:34 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/09 18:58:54 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ t_vector		ft_gotoxy(t_vector start, t_vector delta, t_map map)
 		rtn.x = map.x;
 	if (rtn.y > map.y)
 		rtn.y = map.y;
-	if (map.map[(int)rtn.y][(int)rtn.x] != 0)
+	if (map.map[(int)rtn.y][(int)rtn.x] != SPACE)
 	{
-		if (map.map[(int)start.y][(int)rtn.x] == 0)
+		if (map.map[(int)start.y][(int)rtn.x] == SPACE)
 			rtn.y = start.y;
-		else if (map.map[(int)rtn.y][(int)start.x] == 0)
+		else if (map.map[(int)rtn.y][(int)start.x] == SPACE)
 			rtn.x = start.x;
 		else
 			rtn = start;

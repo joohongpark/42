@@ -6,12 +6,11 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 20:09:11 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/09 16:15:56 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/09 17:53:28 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h>
 
 int					ft_parser(char *dir, t_canvas *canvas)
 {
@@ -33,12 +32,6 @@ int					ft_parser(char *dir, t_canvas *canvas)
 	}
 	if (ft_line_paraer(line, canvas) < 0)
 		return (-1);
-	for (int i = 0; i < canvas->map.y; i++)
-	{
-		for (int j = 0; j < canvas->map.x; j++)
-			printf("%c", canvas->map.map[i][j]);
-		printf("\n");
-	}
 	free(line);
 	close(fd);
 	return (1);

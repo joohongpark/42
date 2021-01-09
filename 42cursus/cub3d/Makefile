@@ -6,14 +6,14 @@
 #    By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/21 19:03:14 by joopark           #+#    #+#              #
-#    Updated: 2021/01/08 21:56:54 by joopark          ###   ########.fr        #
+#    Updated: 2021/01/09 22:29:37 by joopark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FILES = cub3d.c ft_wall.c ft_rendering.c ft_imgutil.c ft_lifo.c ft_events.c ft_move.c
 FILES += ft_vector.c ft_vector_trigonometry.c
 FILES += ft_raycasting.c ft_checkroom.c ft_dda_modules.c
-FILES += ft_arg.c ft_parser.c ft_get_next_line.c ft_map.c
+FILES += ft_arg.c ft_parser.c ft_get_next_line.c ft_map.c ft_map_vaild_check.c
 #OBJS = $(FILES:.c=.o)
 OBJS = ${FILES:%.c=%.o}
 NAME = cub3d
