@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:29:11 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/09 20:46:10 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/10 23:10:10 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int				main(int argc, char *argv[])
 	t_canvas	w;
 
 	ft_canvas_init(&w);
+
 	if (ft_arg(&w, argc, argv) < 0)
 	{
 		write(1, "Error\n", ft_strlen("Error\n"));
@@ -81,7 +82,14 @@ int				main(int argc, char *argv[])
 	w.p.deg = 0;
 
 	w.sprite_rander = ft_new_img(w.window, w.width, w.height);
-	
+	if (w.is_save == 1)
+	{
+		if (ft_save_image("./test.bmp", &w) < 0)
+		{
+			write(1, "Error\n", ft_strlen("Error\n"));
+			exit(-1);
+		}
+	}
 	w.draw = 1;
 	ft_event_register(w.canvas, &w);
 	mlx_loop_hook(w.window, &ft_draw, &w);

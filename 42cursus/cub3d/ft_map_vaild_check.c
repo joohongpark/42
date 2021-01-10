@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 22:28:46 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/09 22:44:49 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/10 23:18:25 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int					ft_map_set(t_map *map)
 				map->map[y][x] = 's';
 			else if (c == '2')
 				map->map[y][x] = 'b';
-			else if (c == '\0')
+			else if (c == '\0' || c == ' ')
 				map->map[y][x] = 'w';
 			else if (c != 's' && c != 'w' && c != 'b')
 				return (-1);

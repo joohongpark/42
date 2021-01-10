@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 02:17:10 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/09 22:34:22 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/10 20:57:18 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,14 @@
 # include <stdlib.h>
 # include <math.h>
 # include <fcntl.h>
+
+typedef struct		s_bmp
+{
+	char			*data;
+	int				width;
+	int				height;
+	int				filesize;
+}					t_bmp;
 
 typedef	struct		s_vector
 {
@@ -166,5 +174,10 @@ int					ft_map_parser(t_canvas *canvas);
 void				ft_dfs(t_map *map, int x, int y, int *is_false);
 int					ft_findplayer(t_map *map, int *x, int *y);
 int					ft_map_set(t_map *map);
+
+t_bmp				ft_bmp_init(int width, int height);
+void				ft_bmp_write(t_bmp *bmp, t_img img);
+int					ft_bmp_save(char *filename, t_bmp bmp);
+int					ft_save_image(char *filename, t_canvas *canvas);
 
 #endif
