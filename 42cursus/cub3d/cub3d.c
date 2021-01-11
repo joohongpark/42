@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:29:11 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/11 14:43:58 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/11 15:21:57 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int				main(int argc, char *argv[])
 	ft_canvas_set(&canvas);
 	if (canvas.is_save == 1)
 	{
-		if (ft_save_image("./test.bmp", &canvas) < 0)
+		if (ft_save_image("./capture.bmp", &canvas) < 0)
 			ft_exit();
 		exit(0);
 	}

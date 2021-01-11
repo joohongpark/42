@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 02:17:10 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/11 14:50:07 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/11 15:21:44 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,5 +197,10 @@ void			ft_init_key(t_keys *keys);
 int				ft_push_key(int key, t_keys *keys);
 int				ft_pull_key(int key, t_keys *keys);
 int				ft_key_ispressed(t_keys *keys);
+
+void			ft_canvas_init(t_canvas *canvas);
+void			ft_canvas_set(t_canvas *canvas);
+void			ft_exit(void);
+int				main(int argc, char *argv[]);
 
 #endif

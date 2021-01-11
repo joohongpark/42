@@ -1,0 +1,15 @@
+R 320 320
+NO ./sprite/n.png
+SO ./sprite/s.png
+WE ./sprite/w.png
+EA ./sprite/e.png
+
+S ./sprite/d.png
+F 137,222,255
+C 172,116,48
+
+111111
+1N0101
+102001
+100001
+111111
