@@ -6,12 +6,11 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 07:45:58 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/10 20:58:28 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/11 14:09:42 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h>
 
 t_bmp				ft_bmp_init(int width, int height)
 {

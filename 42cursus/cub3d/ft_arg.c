@@ -6,12 +6,11 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 12:24:22 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/09 22:50:57 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/11 14:09:45 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h>
 
 int					ft_arg(t_canvas *canvas, int argc, char *argv[])
 {

@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 16:49:08 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/09 22:59:26 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/11 02:14:27 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void				ft_draw_clear_xline(t_img *img, int x)
 	y = 0;
 	while (y < img->height)
 	{
-		img->data[y * (img->size_line / 4) + x] = ft_rgba(0, 0, 0, 0xff);
+		img->data[y * (img->size_line / 4) + x] = (int)0xff000000;
 		y++;
 	}
 }

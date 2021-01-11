@@ -6,7 +6,7 @@
 #    By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/21 19:03:14 by joopark           #+#    #+#              #
-#    Updated: 2021/01/10 18:13:09 by joopark          ###   ########.fr        #
+#    Updated: 2021/01/11 00:16:18 by joopark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ FILES += ft_vector.c ft_vector_trigonometry.c
 FILES += ft_raycasting.c ft_checkroom.c ft_dda_modules.c
 FILES += ft_arg.c ft_parser.c ft_get_next_line.c ft_map.c ft_map_vaild_check.c
 FILES += ft_bmp.c
+FILES += ft_keys.c
 #OBJS = $(FILES:.c=.o)
 OBJS = ${FILES:%.c=%.o}
 NAME = cub3d

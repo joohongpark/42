@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 16:20:14 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/08 01:40:46 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/11 02:11:46 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,27 @@ double				ft_resolution(double raw, t_vector cam, t_vector ray)
 	rtn = raw * eye;
 	rtn = 1 / rtn;
 	return (rtn);
+}
+
+void				ft_set_background(t_canvas *canvas)
+{
+	int				i;
+	int				j;
+	int				iw;
+
+	iw = canvas->wallpaper.size_line / 4;
+	i = 0;
+	while (i < canvas->wallpaper.height)
+	{
+		j = 0;
+		while (j < iw)
+		{
+			if (i < canvas->wallpaper.height / 2)
+				canvas->wallpaper.data[i * iw + j] = canvas->floor_color;
+			else
+				canvas->wallpaper.data[i * iw + j] = canvas->ceilling_color;
+			j++;
+		}
+		i++;
+	}
 }

@@ -6,12 +6,11 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 22:28:46 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/10 23:18:25 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/11 14:02:16 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h>
 
 int					ft_map_parser(t_canvas *canvas)
 {
