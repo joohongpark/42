@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 02:17:10 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/11 15:21:44 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/11 22:30:53 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,8 +165,8 @@ t_vector		ft_push(t_list **list, t_vector v);
 t_vector		ft_pop(t_list **list);
 
 int				ft_arg(t_canvas *canvas, int argc, char *argv[]);
-int				ft_ishavesaveflag(int argc, char *argv[]);
-char			*ft_isfile(int argc, char *argv[]);
+int				ft_ishavesaveflag(int argc, char *argv[], int c);
+char			*ft_isfile(int argc, char *argv[], int *c);
 int				ft_canvas_isvaild(t_canvas *canvas);
 
 int				ft_parser(char *dir, t_canvas *canvas);
