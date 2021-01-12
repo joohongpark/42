@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 12:24:22 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/11 22:34:09 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/12 19:27:13 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ char				*ft_isfile(int argc, char *argv[], int *c)
 	{
 		if (ft_strnstr((const char *)argv[i], ".cub",
 			ft_strlen(argv[i])) != NULL)
-			{
-				*c = i;
-				return (argv[i]);
-			}
+		{
+			*c = i;
+			return (argv[i]);
+		}
 		i++;
 	}
 	return (NULL);
