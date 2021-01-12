@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 02:17:10 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/11 22:30:53 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/12 16:18:52 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,6 @@ t_vector		ft_vspin(t_vector v, int degree);
 double			ft_gettheta(t_vector v1, t_vector v2);
 
 void			ft_event_register(void *window, t_canvas *obj);
-int				ft_okgo(t_canvas *o);
 int				ft_exit_press(int code);
 int				ft_frame_gen(t_canvas *obj);
 void			ft_draw(t_canvas *obj);
