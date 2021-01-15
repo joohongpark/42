@@ -6,12 +6,12 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 02:17:10 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/12 15:03:59 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/15 02:29:14 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_CUB3D_H
-# define FT_CUB3D_H
+#ifndef FT_CUB3D_BONUS_H
+# define FT_CUB3D_BONUS_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024
