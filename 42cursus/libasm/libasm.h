@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 18:17:29 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/16 18:23:05 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/18 00:41:36 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,5 @@
 # include <unistd.h>
 
 size_t		ft_strlen(const char *s);
-char		addascii(char c);
-
+char		*ft_strcpy(char *dst, const char *src);
 #endif

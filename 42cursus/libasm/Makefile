@@ -1,4 +1,4 @@
-FILES = ft_strlen.s
+FILES = ft_strlen.s ft_strcpy.s
 OBJS = $(FILES:.s=.o)
 NAME = libasm.a
 ASMCOMPILER = /Users/joohongpark/Downloads/nasm-2.15.05/nasm
