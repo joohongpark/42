@@ -6,23 +6,26 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 18:21:08 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/18 17:11:48 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/18 22:12:32 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libasm.h>
 #include <stdio.h>
 #include <string.h>
+#include <sys/errno.h>
 
 void		strlen_test(void);
 void		strcpy_test(void);
 void		strcmp_test(void);
+void		write_test(void);
 
 int main (void)
 {
 	strlen_test();
 	strcpy_test();
 	strcmp_test();
+	write_test();
 	return (0);
 }
 
@@ -67,4 +70,17 @@ void		strcmp_test(void)
 		printf("error at strcmp #5\n");
 	if (ft_strcmp("he\0llo.", "hello!") != strcmp("he\0llo.", "hello!"))
 		printf("error at strcmp #6\n");
+}
+
+void		write_test(void)
+{
+	long	rtn;
+	printf("write test\n");
+	write(1, "print string by write\n", strlen("print string by write\n"));
+	ft_write(1, "print string by write\n", strlen("print string by write\n"));
+	rtn = ft_write(-1, "hi", 2);
+	printf("[ft_write error test]errno : %d\n", errno);
+	errno = 0;
+	rtn = write(-1, "hi", 2);
+	printf("[write error test]errno : %d\n", errno);
 }
