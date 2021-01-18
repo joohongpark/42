@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 18:21:08 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/18 00:49:09 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/18 17:11:48 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@
 
 void		strlen_test(void);
 void		strcpy_test(void);
+void		strcmp_test(void);
 
 int main (void)
 {
 	strlen_test();
 	strcpy_test();
+	strcmp_test();
 	return (0);
 }
 
@@ -48,4 +50,21 @@ void		strcpy_test(void)
 		printf("error at strcpy #2\n");
 	printf("ft_strcpy\t: [%s]\n", buf_ft_strcpy);
 	printf("strcpy\t\t: [%s]\n", buf_strcpy);
+}
+
+void		strcmp_test(void)
+{
+	printf("strcmp test\n");
+	if (ft_strcmp("equal", "equal") != strcmp("equal", "equal"))
+		printf("error at strcmp #1\n");
+	if (ft_strcmp("not equal", "n0t equal") != strcmp("not equal", "n0t equal"))
+		printf("error at strcmp #2\n");
+	if (ft_strcmp("", "") != strcmp("", ""))
+		printf("error at strcmp #3\n");
+	if (ft_strcmp("hello!", "hello.") != strcmp("hello!", "hello."))
+		printf("error at strcmp #4\n");
+	if (ft_strcmp("hello.", "hello!") != strcmp("hello.", "hello!"))
+		printf("error at strcmp #5\n");
+	if (ft_strcmp("he\0llo.", "hello!") != strcmp("he\0llo.", "hello!"))
+		printf("error at strcmp #6\n");
 }
