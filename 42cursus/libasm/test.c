@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 18:21:08 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/18 22:12:32 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/18 22:28:22 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void		strlen_test(void);
 void		strcpy_test(void);
 void		strcmp_test(void);
 void		write_test(void);
+void		read_test(void);
 
 int main (void)
 {
@@ -26,6 +27,7 @@ int main (void)
 	strcpy_test();
 	strcmp_test();
 	write_test();
+	read_test();
 	return (0);
 }
 
@@ -83,4 +85,21 @@ void		write_test(void)
 	errno = 0;
 	rtn = write(-1, "hi", 2);
 	printf("[write error test]errno : %d\n", errno);
+}
+
+void		read_test(void)
+{
+	char	buf_ft_read[1000] = {0, };
+	char	buf_read[1000] = {0, };
+	long	rtn;
+	printf("read test\n");
+	read(0, buf_read, 1000);
+	printf("[read]\n%s\n", buf_read);
+	ft_read(0, buf_ft_read, 1000);
+	printf("[ft_read]\n%s\n", buf_ft_read);
+	rtn = read(-1, buf_read, 1000);
+	printf("[read error test]errno : %d\n", errno);
+	errno = 0;
+	rtn = ft_read(-1, buf_ft_read, 1000);
+	printf("[ft_read error test]errno : %d\n", errno);
 }
