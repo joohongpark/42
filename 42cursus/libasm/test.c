@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 18:21:08 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/18 22:28:22 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/19 15:33:25 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void		strcpy_test(void);
 void		strcmp_test(void);
 void		write_test(void);
 void		read_test(void);
+void		strdup_test(void);
 
 int main (void)
 {
@@ -28,6 +29,7 @@ int main (void)
 	strcmp_test();
 	write_test();
 	read_test();
+	strdup_test();
 	return (0);
 }
 
@@ -102,4 +104,18 @@ void		read_test(void)
 	errno = 0;
 	rtn = ft_read(-1, buf_ft_read, 1000);
 	printf("[ft_read error test]errno : %d\n", errno);
+}
+
+void		strdup_test(void)
+{
+	char	*s1;
+	char	*s2;
+	int		rtn;
+	printf("strdup test\n");
+	s1 = strdup("copy test #1");
+	s2 = ft_strdup("copy test #1");
+	printf("strdup : [%s]\n", s1);
+	printf("ft_strdup : [%s]\n", s2);
+	free(s1);
+	free(s2);
 }
