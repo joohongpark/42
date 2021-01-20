@@ -5,6 +5,7 @@ global		_ft_atoi_base
 section		.text
 _ft_atoi_base:		PUSH	RBP						; 프롤로그
 					MOV		RBP, RSP				; 프롤로그
+					SUB		RSP, 256				; 이 함수에서 쓸 스택 길이만큼 미리 빼놓음
 					MOV		RBX, RBP				; 오프셋
 					SUB		RBX, 256				; 스택은 역 오프셋이으로 256 뺌
 					JMP		_basedigit_clr			; 크기가 256인 배열을 클리어하기 위한 루틴
@@ -30,6 +31,18 @@ _basedigit_main:	CMP		BYTE [RBX], 0			; 널 문자가 올때까지 반복한다.
 					CMP		DL, 43					; +
 					JE		_basedigit_nok			; 점프
 					CMP		DL, 45					; -
+					JE		_basedigit_nok			; 점프
+					CMP		DL, 9					; \t
+					JE		_basedigit_nok			; 점프
+					CMP		DL, 10					; \n
+					JE		_basedigit_nok			; 점프
+					CMP		DL, 11					; \v
+					JE		_basedigit_nok			; 점프
+					CMP		DL, 12					; \f
+					JE		_basedigit_nok			; 점프
+					CMP		DL, 13					; \r
+					JE		_basedigit_nok			; 점프
+					CMP		DL, 32					; space
 					JE		_basedigit_nok			; 점프
 					INC		RBX						; 포인터 1 증가
 					JMP		_basedigit_main			; 반복
@@ -69,15 +82,15 @@ _sign:				CMP		BYTE [RDI], 43			; +
 					JE		_rtn_minus				; -	일때
 					JMP		_ft_atoi_base4			; 다음 단계로
 
-_rtn_plus:			MOV		RAX, 1					; 1
+_rtn_plus:			IMUL	RAX, 1					; 1
 					INC		RDI						; 포인터 증가
 					JMP		_sign					; 반복
 
-_rtn_minus:			MOV		RAX, -1					; -1
+_rtn_minus:			IMUL	RAX, -1					; -1
 					INC		RDI						; 포인터 증가
 					JMP		_sign					; 반복
 
-_ft_atoi_base4:		PUSH	RAX
+_ft_atoi_base4:		MOV		QWORD [RBP - 8], RAX	; RAX 임시 저장
 					XOR		RAX, RAX
 					JMP		_ft_atoi_base5
 
@@ -99,9 +112,8 @@ _isvaild_ok:		IMUL	RAX, RDX				; base (RDX) 곱함
 
 _isvaild_end:		JMP		_end
 
-_end:				POP		RDX
+_end:				MOV		RDX, QWORD [RBP - 8]
 					IMUL	RAX, RDX				; 부호 곱함
+					ADD		RSP, 256				; 스택포인터 원복
 					POP		RBP						; 에필로그
 					RET								; 종료 (RAX 리턴)
-
-;XCHG	RDX, RAX				; swap
