@@ -1,22 +1,31 @@
 FILES = ft_strlen.s ft_strcpy.s ft_strcmp.s ft_write.s ft_read.s ft_strdup.s
+FILES_BONUS = ft_atoi_base.s
 OBJS = $(FILES:.s=.o)
+OBJS_BONUS = $(FILES_BONUS:.s=.o)
 NAME = libasm.a
 ASMCOMPILER = /Users/joohongpark/Downloads/nasm-2.15.05/nasm
 #ASMCOMPILER = nasm
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 HEADERPATH = ./
 ASMFLAGS = -fmacho64
 ASMLIB = asm
 ASMLIBPATH = ./
 
 test:
-	gcc $(CFLAGS) $(OBJS) -I$(HEADERPATH) -l$(ASMLIB) -L$(ASMLIBPATH) test.c -o test
+	gcc $(CFLAGS) -I$(HEADERPATH) -l$(ASMLIB) -L$(ASMLIBPATH) test.c -o test
+
+testbonus:
+	gcc $(CFLAGS) -I$(HEADERPATH) -l$(ASMLIB) -L$(ASMLIBPATH) test_bonus.c -o test
 
 %.o: %.s
 	$(ASMCOMPILER) $(ASMFLAGS) $<
 
 $(NAME): $(OBJS)
 	ar rc $(NAME) $(OBJS)
+	ranlib $(NAME)
+
+bonus: $(OBJS) $(OBJS_BONUS)
+	ar rc $(NAME) $(OBJS) $(OBJS_BONUS)
 	ranlib $(NAME)
 
 all: $(NAME)

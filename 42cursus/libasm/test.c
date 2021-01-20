@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 18:21:08 by joopark           #+#    #+#             */
-/*   Updated: 2021/01/19 15:33:25 by joopark          ###   ########.fr       */
+/*   Updated: 2021/01/19 16:17:23 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ void		strdup_test(void)
 {
 	char	*s1;
 	char	*s2;
-	int		rtn;
 	printf("strdup test\n");
 	s1 = strdup("copy test #1");
 	s2 = ft_strdup("copy test #1");
