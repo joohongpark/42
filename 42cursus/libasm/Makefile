@@ -5,7 +5,7 @@ OBJS_BONUS = $(FILES_BONUS:.s=.o)
 NAME = libasm.a
 #ASMCOMPILER = /Users/joohongpark/Downloads/nasm-2.15.05/nasm
 ASMCOMPILER = nasm
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 HEADERPATH = ./
 ASMFLAGS = -fmacho64
 ASMLIB = asm
