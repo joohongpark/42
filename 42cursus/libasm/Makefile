@@ -3,9 +3,9 @@ FILES_BONUS = ft_atoi_base.s ft_list_push_front.s ft_list_size.s ft_list_sort.s 
 OBJS = $(FILES:.s=.o)
 OBJS_BONUS = $(FILES_BONUS:.s=.o)
 NAME = libasm.a
-ASMCOMPILER = /Users/joohongpark/Downloads/nasm-2.15.05/nasm
-#ASMCOMPILER = nasm
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+#ASMCOMPILER = /Users/joohongpark/Downloads/nasm-2.15.05/nasm
+ASMCOMPILER = nasm
+CFLAGS = -Wall -Wextra -Werror
 HEADERPATH = ./
 ASMFLAGS = -fmacho64
 ASMLIB = asm
@@ -32,6 +32,7 @@ all: $(NAME)
 
 clean:
 	rm -f $(OBJS)
+	rm -f $(OBJS_BONUS)
 
 fclean: clean
 	rm -f $(NAME)
