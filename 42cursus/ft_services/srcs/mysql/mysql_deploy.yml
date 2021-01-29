@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment # 생성하고자 하는 자원의 종류 (디플로이먼트)
+metadata:
+  name: mysqlp
+spec:
+  replicas: 3 # 복제본 개수
+  selector: # 레플리카셋으로 구분되는 조건
+    matchLabels:
+      app: mysql # 라벨1
+      tier: app # 라벨2
+  template: # 생성할 pod들의 템플릿
+    metadata:
+      labels:
+        app: mysql
+        tier: app
+    spec:
+      containers:
+        - name: mysql
+          image: ft_services/mysql:0.1

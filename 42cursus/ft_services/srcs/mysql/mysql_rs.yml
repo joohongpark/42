@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysqlp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mysql
+      tier: app
+  template:
+    metadata:
+      labels:
+        app: mysql
+        tier: app
+    spec:
+      containers:
+        - name: mysql
+          image: ft_services/mysql:0.1
