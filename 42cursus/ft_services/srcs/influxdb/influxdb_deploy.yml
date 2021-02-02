@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment # 생성하고자 하는 자원의 종류 (디플로이먼트)
 metadata:
-  name: mysql # Deployment Name
+  name: influxdb # Deployment Name
 spec:
   replicas: 1 # pod 복제본 개수
   selector: # 구분되는 조건
     matchLabels:
       app: ft_services # 라벨1 (앱 이름)
-      tier: mysql # 라벨2
+      tier: influxdb # 라벨2
   template: # 생성할 pod들의 템플릿
     metadata:
       labels:
         app: ft_services # 라벨1 (앱 이름)
-        tier: mysql # 라벨2
+        tier: influxdb # 라벨2
     spec:
       containers:
-        - name: mysql # 컨테이너 이름
-          image: ft_services/mysql:0.1
+        - name: influxdb # 컨테이너 이름
+          image: ft_services/influxdb:0.1
