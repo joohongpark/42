@@ -9,4 +9,4 @@ data:
     - name: default
       protocol: layer2
       addresses:
-      - 192.168.64.7-192.168.64.7
+      - CLUSTER_IP_ADDR-CLUSTER_IP_ADDR
