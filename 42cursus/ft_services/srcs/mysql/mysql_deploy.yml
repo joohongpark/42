@@ -16,4 +16,4 @@ spec:
     spec:
       containers:
         - name: mysql # 컨테이너 이름
-          image: ft_services/mysql:0.1
+          image: ft_services/mysql:0.2

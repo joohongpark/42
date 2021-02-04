@@ -8,6 +8,7 @@ RUN apk --no-cache add nginx php7-mysqli php7-fpm php7-mbstring php7-json php7-s
 && tar -zxvf phpMyAdmin-5.0.4-all-languages.tar.gz --strip-components=1 -C /html \
 && mv /tmp/init/config.inc.php /html \
 && mv /tmp/init/phpmyadmin.conf /etc/nginx/http.d \
+&& chown -R nobody /html/ \
 && mkdir /run/nginx
 
 EXPOSE 5000
