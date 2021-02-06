@@ -14,13 +14,13 @@ sed -i '' -e "s/CLUSTER_IP_ADDR/$IP/g" srcs/nginx/files/https.conf
 sed -i '' -e "s/CLUSTER_IP_ADDR/$IP/g" srcs/mysql/files/wp_db.sql
 
 # 4. dockerfile build
-docker build -t "ft_services/wordpress:0.1" srcs/wordpress
-docker build -t "ft_services/nginx:0.2" srcs/nginx
-docker build -t "ft_services/phpmyadmin:0.3" srcs/phpmyadmin
-docker build -t "ft_services/ftps:0.1" srcs/ftps
-docker build -t "ft_services/grafana:0.1" srcs/grafana
-docker build -t "ft_services/influxdb:0.1" srcs/influxdb
-docker build -t "ft_services/mysql:0.3" srcs/mysql
+docker build -t "ft_services/wordpress:0.2" srcs/wordpress
+docker build -t "ft_services/nginx:0.3" srcs/nginx
+docker build -t "ft_services/phpmyadmin:0.4" srcs/phpmyadmin
+docker build -t "ft_services/ftps:0.2" srcs/ftps
+docker build -t "ft_services/grafana:0.2" srcs/grafana
+docker build -t "ft_services/influxdb:0.2" srcs/influxdb
+docker build -t "ft_services/mysql:0.4" srcs/mysql
 
 # 5. Deployment apply
 kubectl apply -f srcs/wordpress/wordpress_deploy.yml
@@ -28,7 +28,6 @@ kubectl apply -f srcs/nginx/nginx_deploy.yml
 kubectl apply -f srcs/phpmyadmin/phpmyadmin_deploy.yml
 kubectl apply -f srcs/ftps/ftps_deploy.yml
 kubectl apply -f srcs/grafana/grafana_deploy.yml
-kubectl apply -f srcs/nginx/nginx_deploy.yml
 kubectl apply -f srcs/influxdb/influxdb_deploy.yml
 kubectl apply -f srcs/mysql/mysql_deploy.yml
 

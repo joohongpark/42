@@ -1,4 +1,5 @@
 #!/bin/sh
+telegraf --config telegraf.conf &
 if [ -d "/var/lib/mysql/mysql" ]; then
     mysqld_safe --user=root --datadir=/var/lib/mysql
 else

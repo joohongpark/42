@@ -16,4 +16,4 @@ spec:
     spec:
       containers:
         - name: wordpress # 컨테이너 이름
-          image: ft_services/wordpress:0.1
+          image: ft_services/wordpress:0.2

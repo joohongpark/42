@@ -16,4 +16,4 @@ spec:
     spec:
       containers:
         - name: phpmyadmin # 컨테이너 이름
-          image: ft_services/phpmyadmin:0.3
+          image: ft_services/phpmyadmin:0.4

@@ -2,8 +2,9 @@ FROM alpine:latest
 
 COPY files /tmp/init/
 
-RUN apk --no-cache add mysql mysql-client \
+RUN apk --no-cache add mysql mysql-client telegraf \
 && mv /tmp/init/run.sh / \
+&& mv /tmp/init/telegraf.conf / \
 && mv /tmp/init/mariadb-server.cnf /etc/my.cnf.d/
 
 EXPOSE 3306

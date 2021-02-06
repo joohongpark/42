@@ -1,7 +1,11 @@
 FROM alpine:latest
 
-RUN apk --no-cache add grafana
+COPY files /tmp/init
+
+RUN apk --no-cache add grafana telegraf \
+&& mv /tmp/init/telegraf.conf / \
+&& mv /tmp/init/run.sh /
 
 EXPOSE 3000
 
-CMD ["grafana-server", "-homepath", "/usr/share/grafana"]
+CMD ["sh", "run.sh"]

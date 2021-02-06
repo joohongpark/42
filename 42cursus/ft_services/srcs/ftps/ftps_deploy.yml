@@ -16,4 +16,4 @@ spec:
     spec:
       containers:
         - name: ftps # 컨테이너 이름
-          image: ft_services/ftps:0.1
+          image: ft_services/ftps:0.2

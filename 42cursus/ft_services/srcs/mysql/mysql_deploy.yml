@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: mysql # 컨테이너 이름
-          image: ft_services/mysql:0.3
+          image: ft_services/mysql:0.4
           volumeMounts: # 퍼시스턴스 볼륨 접근
           - name: mysql-data-v
             mountPath: /var/lib/mysql

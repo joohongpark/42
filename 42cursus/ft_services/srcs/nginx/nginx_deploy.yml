@@ -16,4 +16,4 @@ spec:
     spec:
       containers:
         - name: nginx # 컨테이너 이름
-          image: ft_services/nginx:0.2
+          image: ft_services/nginx:0.3
