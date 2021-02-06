@@ -19,7 +19,7 @@ docker build -t "ft_services/nginx:0.3" srcs/nginx
 docker build -t "ft_services/phpmyadmin:0.4" srcs/phpmyadmin
 docker build -t "ft_services/ftps:0.2" srcs/ftps
 docker build -t "ft_services/grafana:0.2" srcs/grafana
-docker build -t "ft_services/influxdb:0.2" srcs/influxdb
+docker build -t "ft_services/influxdb:0.3" srcs/influxdb
 docker build -t "ft_services/mysql:0.4" srcs/mysql
 
 # 5. Deployment apply
@@ -33,6 +33,7 @@ kubectl apply -f srcs/mysql/mysql_deploy.yml
 
 # 5-1. Persistent Volume Clame apply
 kubectl apply -f srcs/persistentvolume/pvc-mysql.yml
+kubectl apply -f srcs/persistentvolume/pvc-influxdb.yml
 
 # 6. clusterip apply
 kubectl apply -f srcs/clusterip/influxdb_clusterip.yml
