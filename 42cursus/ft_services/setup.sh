@@ -18,7 +18,7 @@ docker build -t "ft_services/wordpress:0.2" srcs/wordpress
 docker build -t "ft_services/nginx:0.3" srcs/nginx
 docker build -t "ft_services/phpmyadmin:0.4" srcs/phpmyadmin
 docker build -t "ft_services/ftps:0.2" srcs/ftps
-docker build -t "ft_services/grafana:0.2" srcs/grafana
+docker build -t "ft_services/grafana:0.3" srcs/grafana
 docker build -t "ft_services/influxdb:0.3" srcs/influxdb
 docker build -t "ft_services/mysql:0.4" srcs/mysql
 

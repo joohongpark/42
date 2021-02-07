@@ -16,4 +16,4 @@ spec:
     spec:
       containers:
         - name: grafana # 컨테이너 이름
-          image: ft_services/grafana:0.2
+          image: ft_services/grafana:0.3
