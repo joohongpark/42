@@ -1,6 +1,9 @@
 #!/bin/bash
 
 # 1. minikube 시작
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
+chmod +x minikube
+export PATH=$PATH:$(pwd)
 minikube start --driver=hyperkit
 
 # 2. minikube 환경변수 set
@@ -56,3 +59,6 @@ sed -i '' -e "s/$IP/CLUSTER_IP_ADDR/g" srcs/ftps/files/vsftpd.conf
 sed -i '' -e "s/$IP/CLUSTER_IP_ADDR/g" srcs/metallb/metallb.yml
 sed -i '' -e "s/$IP/CLUSTER_IP_ADDR/g" srcs/nginx/files/https.conf
 sed -i '' -e "s/$IP/CLUSTER_IP_ADDR/g" srcs/mysql/files/wp_db.sql
+
+# 10. IP 출력
+echo "Kubernetes Cluster IP : $IP"
