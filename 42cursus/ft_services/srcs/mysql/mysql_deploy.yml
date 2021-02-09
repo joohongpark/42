@@ -17,6 +17,12 @@ spec:
       containers:
         - name: mysql # 컨테이너 이름
           image: ft_services/mysql:0.4
+          livenessProbe:
+            exec:
+              command: ["mysqladmin", "ping"]
+            initialDelaySeconds: 20
+            periodSeconds: 20
+            timeoutSeconds: 5
           volumeMounts: # 퍼시스턴스 볼륨 접근
           - name: mysql-data-v
             mountPath: /var/lib/mysql
