@@ -6,12 +6,12 @@
 #    By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/09 01:43:43 by joopark           #+#    #+#              #
-#    Updated: 2021/02/10 15:49:28 by joopark          ###   ########.fr        #
+#    Updated: 2021/02/16 14:41:35 by joopark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FILES = minishell.c
-FILES += ft_get_next_line.c
+FILES += ft_get_next_line.c ft_signal.c ft_exec.c
 OBJS = ${FILES:%.c=%.o}
 NAME = minishell
 COMPILER = gcc
