@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 01:45:40 by joopark           #+#    #+#             */
-/*   Updated: 2021/02/16 14:41:46 by joopark          ###   ########.fr       */
+/*   Updated: 2021/02/17 13:25:46 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,7 @@ void			ft_sigint(int code);
 void			ft_sigkill(int code);
 
 pid_t			ft_exec(char *file, char *argv[], char *envp[]);
+
+char			*ft_getline(char **bp);
 
 #endif

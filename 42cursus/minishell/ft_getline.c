@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_signal.c                                        :+:      :+:    :+:   */
+/*   ft_getline.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/16 14:02:14 by joopark           #+#    #+#             */
-/*   Updated: 2021/02/17 13:26:04 by joopark          ###   ########.fr       */
+/*   Created: 2021/02/17 13:08:12 by joopark           #+#    #+#             */
+/*   Updated: 2021/02/17 14:04:16 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdio.h>
 
-void			ft_signal(void)
+char			*ft_getline(char **bp)
 {
-	signal(SIGINT, ft_sigint);
-	signal(SIGQUIT, ft_sigkill);
-}
-
-void			ft_sigint(int code)
-{
-	write(1, "\b\b", 2);
-	printf("[SIGNAL] %d at %s\n", code, __func__);
-}
-
-void			ft_sigkill(int code)
-{
-	write(1, "\b\b", 2);
-	printf("[SIGNAL] %d at %s\n", code, __func__);
+	int			gnl;
+	size_t		len;
+	char		*line;
+	char		*rtn;
+	
+	rtn = NULL;
+	while (1)
+	{
+		gnl = ft_get_next_line(0, &line, bp);
+		len = ft_strlen(line);
+		if (gnl == -1 || (gnl == 0 && len == 0 && rtn == NULL))
+			exit(EXIT_FAILURE);
+		rtn = ft_strnstack(rtn, line, len);
+		free(line);
+		if (gnl == 1)
+			break;
+	}
+	return (rtn);
 }

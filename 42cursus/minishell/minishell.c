@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 01:45:32 by joopark           #+#    #+#             */
-/*   Updated: 2021/02/16 14:51:44 by joopark          ###   ########.fr       */
+/*   Updated: 2021/02/17 14:05:21 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int				main(int argc, char *argv[], char *envp[])
 {
 	(void) argc;
 	(void) argv;
-	int			gnl;
-	char		*line;
+	(void) envp;
 	char		*bp;
+	char		*line;
 	char *arg1 = "/bin/sleep";
 	char *arg2 = "sub process";
 	char *arg[3];
@@ -31,11 +31,9 @@ int				main(int argc, char *argv[], char *envp[])
 	while (1)
 	{
 		ft_putstr_fd("\n$> ", 1);
-		gnl = ft_get_next_line(0, &line, &bp);
-		if (gnl == -1)
-			exit(EXIT_FAILURE);
+		line = ft_getline(&bp);
 		write(1, line, ft_strlen(line));
-		ft_exec("/bin/echo", arg, envp);
+		//ft_exec("/bin/echo", arg, envp);
 		free(line);
 	}
 	return (0);
