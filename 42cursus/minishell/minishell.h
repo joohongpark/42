@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 01:45:40 by joopark           #+#    #+#             */
-/*   Updated: 2021/02/17 13:25:46 by joopark          ###   ########.fr       */
+/*   Updated: 2021/02/18 22:45:56 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <libft.h>
 # include <unistd.h>
 # include <signal.h>
+# include <sys/stat.h>
+# include <sys/errno.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024
@@ -31,7 +33,11 @@ void			ft_sigint(int code);
 void			ft_sigkill(int code);
 
 pid_t			ft_exec(char *file, char *argv[], char *envp[]);
+int				ft_isexecutable(char *file);
+char			*ft_find_exec(char *envp[], char *cmd);
 
 char			*ft_getline(char **bp);
+
+char			*ft_getenv(char *envp[], char *key);
 
 #endif
