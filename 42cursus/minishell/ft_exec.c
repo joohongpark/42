@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
 
 pid_t			ft_exec(char *file, char *argv[], char *envp[])
 {

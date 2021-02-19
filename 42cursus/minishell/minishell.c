@@ -18,24 +18,31 @@ int				main(int argc, char *argv[], char *envp[])
 {
 	(void) argc;
 	(void) argv;
-	(void) envp;
 	char		*bp;
 	char		*line;
 	char		*exec;
 	char		*arg[] = {
-		"/bin/echo",
-		"sub process",
+		NULL,
 		NULL
 	};
+	pid_t		a;
+	pid_t		b;
+	int			stat_loc;
 
 	ft_signal();
-	printf("%s\n", ft_find_exec(envp, "bash"));
 	while (1)
 	{
 		ft_putstr_fd("\n$> ", 1);
 		line = ft_getline(&bp);
+		exec = ft_find_exec(envp, line);
 		write(1, line, ft_strlen(line));
-		ft_exec("/bin/echo", arg, envp);
+		if (exec != NULL)
+		{
+			arg[0] = exec;
+			a = ft_exec(exec, arg, envp);
+			b = wait(&stat_loc);
+			printf("pid1 : %d, pid2 : %d, stat_loc : %d\n", a, b, stat_loc);
+		}
 		free(line);
 	}
 	return (0);

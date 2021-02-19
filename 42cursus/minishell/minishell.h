@@ -18,6 +18,7 @@
 # include <signal.h>
 # include <sys/stat.h>
 # include <sys/errno.h>
+# include <sys/wait.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024
