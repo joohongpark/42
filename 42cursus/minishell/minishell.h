@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 01:45:40 by joopark           #+#    #+#             */
-/*   Updated: 2021/02/18 22:45:56 by joopark          ###   ########.fr       */
+/*   Updated: 2021/02/21 14:11:24 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,8 @@ char			*ft_find_exec(char *envp[], char *cmd);
 char			*ft_getline(char **bp);
 
 char			*ft_getenv(char *envp[], char *key);
+
+char			**parse_exec(char *cmd);
+char			*ft_remove_quote(char *cmd);
 
 #endif

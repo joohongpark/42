@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 01:45:32 by joopark           #+#    #+#             */
-/*   Updated: 2021/02/18 23:00:48 by joopark          ###   ########.fr       */
+/*   Updated: 2021/02/21 14:34:58 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ int				main(int argc, char *argv[], char *envp[])
 	char		*bp;
 	char		*line;
 	char		*exec;
-	char		*arg[] = {
-		NULL,
-		NULL
-	};
+	char		**arg;
 	pid_t		a;
 	pid_t		b;
 	int			stat_loc;
@@ -34,13 +31,13 @@ int				main(int argc, char *argv[], char *envp[])
 	{
 		ft_putstr_fd("\n$> ", 1);
 		line = ft_getline(&bp);
-		exec = ft_find_exec(envp, line);
-		write(1, line, ft_strlen(line));
-		if (exec != NULL)
+		arg = parse_exec(line);
+		//write(1, line, ft_strlen(line));
+		if (arg[0] != NULL)
 		{
-			arg[0] = exec;
+			exec = ft_find_exec(envp, arg[0]);
 			a = ft_exec(exec, arg, envp);
-			b = wait(&stat_loc);
+			b = waitpid(a, &stat_loc, 0);
 			printf("pid1 : %d, pid2 : %d, stat_loc : %d\n", a, b, stat_loc);
 		}
 		free(line);
