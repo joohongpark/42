@@ -6,14 +6,20 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 00:08:50 by joopark           #+#    #+#             */
-/*   Updated: 2021/02/21 15:09:01 by joopark          ###   ########.fr       */
+/*   Updated: 2021/02/21 22:30:53 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdio.h>
 
-char			**parse_exec(char *cmd)
+int				ft_parse_path(char *cmd)
+{
+	(void) cmd;
+	return (-1);
+}
+
+char			**ft_parse_exec(char *cmd)
 {
 	char		**rtn;
 	int			i;
