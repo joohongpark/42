@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hroh <hroh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/18 22:14:27 by joopark           #+#    #+#             */
-/*   Updated: 2021/02/18 22:45:50 by joopark          ###   ########.fr       */
+/*   Created: 2021/02/24 16:38:27 by hroh              #+#    #+#             */
+/*   Updated: 2021/03/03 16:18:04 by hroh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-char			*ft_getenv(char *envp[], char *key)
+int		ft_pwd(int fd[])
 {
-	int			i;
+	char *path;
 
-	i = 0;
-	while (envp[i] != NULL)
-	{
-		if (ft_strncmp(envp[i], key, 4) == 0)
-		{
-			return (envp[i] + ft_strlen(key) + 1);
-		}
-		i++;
-	}
-	return (NULL);
+	path = getcwd(NULL, 0);
+	ft_putendl_fd(path, fd[1]);
+	free(path);
+	return (0);
 }

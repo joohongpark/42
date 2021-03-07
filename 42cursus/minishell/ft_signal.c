@@ -6,12 +6,11 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 14:02:14 by joopark           #+#    #+#             */
-/*   Updated: 2021/02/17 13:26:04 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/05 12:31:04 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
 
 void			ft_signal(void)
 {
@@ -21,12 +20,41 @@ void			ft_signal(void)
 
 void			ft_sigint(int code)
 {
-	write(1, "\b\b", 2);
-	printf("[SIGNAL] %d at %s\n", code, __func__);
+	int			stat_loc;
+	pid_t		pid;
+
+	(void)code;
+	pid = wait3(&stat_loc, 0, NULL);
+	if (pid == -1)
+	{
+		ft_putstr_fd("\b\b  \b\b", STDOUT_FILENO);
+		ft_putstr_fd("\n", STDOUT_FILENO);
+		ft_prompt();
+		g_status = 1;
+	}
+	else
+	{
+		ft_putstr_fd("\n", STDOUT_FILENO);
+		g_status = 130;
+	}
 }
 
 void			ft_sigkill(int code)
 {
-	write(1, "\b\b", 2);
-	printf("[SIGNAL] %d at %s\n", code, __func__);
+	int			stat_loc;
+	pid_t		pid;
+
+	(void)code;
+	pid = wait3(&stat_loc, 0, NULL);
+	if (pid == -1)
+	{
+		ft_putstr_fd("\b\b  \b\b", STDOUT_FILENO);
+	}
+	else
+	{
+		ft_putstr_fd("Quit: ", STDOUT_FILENO);
+		ft_putnbr_fd(stat_loc, STDOUT_FILENO);
+		ft_putstr_fd("\n", STDOUT_FILENO);
+		g_status = 131;
+	}
 }
