@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 01:45:40 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/05 12:10:00 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/08 12:11:14 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void			ft_loginmsg(char *file);
 char			*ft_msgstr(char *file);
 void			ft_ansi_escape(int i, int fd);
 int				ft_check_builtins(char *cmd);
-void			ft_exec_builtins(char **arg, char **envp[], int fd[]);
+int				ft_exec_builtins(char **arg, char **envp[], int fd[]);
 int				ft_cd(char **arg, char **envp[], int fd[]);
 int				ft_echo(char **arg, char *envp[], int fd[]);
 int				ft_env(char *envp[], int fd[]);
@@ -83,6 +83,8 @@ int				ft_unset(char **arg, char **envp[], int fd[]);
 int				ft_export_arg(char *key, char *val, char **envp[], int fd[]);
 int				ft_isvalid_key(char *key);
 void			ft_sort_2d_arr(char **arr);
-void			ft_put_err_msg(char *s1, char *s2, char *s3, int fd);
-
+int				ft_put_err_msg(char *s1, char *s2, char *s3, int fd);
+void			ft_unset_str(char *str, char **envp[]);
+char			*ft_replace_env_in_arg(char *arg, char *p
+				, char *envp[], int free_yn);
 #endif
