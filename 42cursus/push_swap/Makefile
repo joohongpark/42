@@ -6,7 +6,7 @@
 #    By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/21 19:03:14 by joopark           #+#    #+#              #
-#    Updated: 2021/01/12 02:16:52 by joopark          ###   ########.fr        #
+#    Updated: 2021/03/09 23:18:43 by joopark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,16 +27,10 @@ LIBFTPATH = ./libft
 %.o: %.c
 	$(COMPILER) ${CFLAGS} -I${HEADER_COM} -I${LIBFTPATH} -c -o $@ $<
 
-libft:
+all: $(OBJS_COM) $(OBJS_CHECKER) $(OBJS_PUSH_SWAP)
 	make bonus -C ${LIBFTPATH}
-
-$(TARGET_CHECKER): $(OBJS_COM) $(OBJS_CHECKER) libft
 	$(COMPILER) $(CFLAGS) $(CLFLAGS) $(OBJS_CHECKER) $(OBJS_COM) -I$(HEADER_COM) -I${LIBFTPATH} -L$(LIBFTPATH) -o $(TARGET_CHECKER)
-
-$(TARGET_PUSH_SWAP): $(OBJS_COM) $(OBJS_PUSH_SWAP) libft
-	$(COMPILER) $(CFLAGS) $(CLFLAGS) $(OBJS_PUSH_SWAP) $(OBJS_COM) -I$(HEADER_COM) -I${LIBFTPATH} -L$(LIBFTPATH) -o $(TARGET_CHECKER)
-
-all: $(TARGET_CHECKER) $(TARGET_PUSH_SWAP)
+	$(COMPILER) $(CFLAGS) $(CLFLAGS) $(OBJS_PUSH_SWAP) $(OBJS_COM) -I$(HEADER_COM) -I${LIBFTPATH} -L$(LIBFTPATH) -o $(TARGET_PUSH_SWAP)
 
 clean:
 	make clean -C ${LIBFTPATH}
