@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/08 19:13:47 by joopark           #+#    #+#             */
-/*   Updated: 2020/10/09 02:26:20 by joopark          ###   ########.fr       */
+/*   Created: 2020/10/06 20:08:04 by joopark           #+#    #+#             */
+/*   Updated: 2021/03/10 23:38:41 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <common.h>
 
-char				*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+int					ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	char			*rtn;
-	unsigned int	i;
-	unsigned int	len;
+	size_t			i;
+	unsigned char	*p1;
+	unsigned char	*p2;
 
-	if (s == NULL || f == NULL)
-		return (NULL);
-	len = ft_strlen((char *)s);
 	i = 0;
-	if (!(rtn = (char *)malloc(sizeof(char) * (len + 1))))
-		return (NULL);
-	while (i < len)
+	p1 = (unsigned char *)s1;
+	p2 = (unsigned char *)s2;
+	while (!(*p1 == '\0' && *p2 == '\0') && i < n)
 	{
-		rtn[i] = f(i, s[i]);
+		if (*p1 != *p2)
+			return ((int)(*p1 - *p2));
+		p1++;
+		p2++;
 		i++;
 	}
-	rtn[i] = '\0';
-	return (rtn);
+	return (0);
 }
