@@ -6,13 +6,13 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 20:26:36 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/10 23:53:57 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/11 00:26:59 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <common.h>
 
-int				ft_op(t_list **stack_a, t_list **stack_b, char *op)
+int	ft_op(t_list **stack_a, t_list **stack_b, char *op)
 {
 	if (ft_strncmp(op, "sa", 3) == 0)
 		return (ft_swap(stack_a));
@@ -40,7 +40,7 @@ int				ft_op(t_list **stack_a, t_list **stack_b, char *op)
 		return (1);
 }
 
-int				ft_swap(t_list **stack)
+int	ft_swap(t_list **stack)
 {
 	int			first;
 	int			second;
@@ -62,7 +62,7 @@ int				ft_swap(t_list **stack)
 	return (rtn);
 }
 
-int				ft_push(t_list **stacka, t_list **stackb)
+int	ft_push(t_list **stacka, t_list **stackb)
 {
 	int			val;
 	int			status;
@@ -74,7 +74,7 @@ int				ft_push(t_list **stacka, t_list **stackb)
 	return (status);
 }
 
-int				ft_rotate(t_list **stack)
+int	ft_rotate(t_list **stack)
 {
 	int			val;
 	int			status;
@@ -86,7 +86,7 @@ int				ft_rotate(t_list **stack)
 	return (status);
 }
 
-int				ft_reverse_rotate(t_list **stack)
+int	ft_reverse_rotate(t_list **stack)
 {
 	int			val;
 	int			status;

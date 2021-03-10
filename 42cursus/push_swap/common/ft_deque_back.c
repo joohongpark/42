@@ -6,13 +6,13 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:19:31 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/10 18:17:12 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/11 00:25:51 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <common.h>
 
-int					ft_deque_back_push(t_list **list, int value)
+int	ft_deque_back_push(t_list **list, int value)
 {
 	t_list			*lst;
 	int				*insert;
@@ -28,7 +28,7 @@ int					ft_deque_back_push(t_list **list, int value)
 	return (0);
 }
 
-int					ft_deque_back_pop(t_list **list, int *value)
+int	ft_deque_back_pop(t_list **list, int *value)
 {
 	t_list			*element;
 	t_list			*element_tmp;
@@ -52,7 +52,7 @@ int					ft_deque_back_pop(t_list **list, int *value)
 	return (0);
 }
 
-int					ft_deque_back_peak(t_list **list, int *value)
+int	ft_deque_back_peak(t_list **list, int *value)
 {
 	if (*list == NULL)
 		return (-1);

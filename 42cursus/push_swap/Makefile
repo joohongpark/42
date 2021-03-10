@@ -6,7 +6,7 @@
 #    By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/21 19:03:14 by joopark           #+#    #+#              #
-#    Updated: 2021/03/10 23:55:49 by joopark          ###   ########.fr        #
+#    Updated: 2021/03/10 23:58:55 by joopark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,6 @@ clean:
 	rm -f $(OBJS_COM) $(OBJS_CHECKER) $(OBJS_PUSH_SWAP)
 
 fclean: clean
-	rm -f $(TARGET_CHECKER) $(TARGET_PUSH_SWAP)
+	rm -f $(NAME_CHECKER) $(NAME_PUSH_SWAP)
 
 re: fclean all

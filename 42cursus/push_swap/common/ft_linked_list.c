@@ -6,13 +6,13 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 20:05:48 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/10 20:11:35 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/11 00:27:53 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <common.h>
 
-void		ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
 	t_list	*tmp;
 
@@ -29,7 +29,7 @@ void		ft_lstadd_back(t_list **lst, t_list *new)
 	}
 }
 
-void		ft_lstadd_front(t_list **lst, t_list *new)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
 	if (lst != NULL && new != NULL)
 	{
@@ -38,7 +38,7 @@ void		ft_lstadd_front(t_list **lst, t_list *new)
 	}
 }
 
-void		ft_lstdelone(t_list *lst, void (*del)(void *))
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
 	if (lst == NULL)
 		return ;
@@ -46,18 +46,19 @@ void		ft_lstdelone(t_list *lst, void (*del)(void *))
 	free(lst);
 }
 
-t_list		*ft_lstnew(void *content)
+t_list	*ft_lstnew(void *content)
 {
 	t_list	*rtn;
 
-	if (!(rtn = (t_list *)malloc(sizeof(t_list))))
+	rtn = (t_list *)malloc(sizeof(t_list));
+	if (rtn == NULL)
 		return (NULL);
 	rtn->content = content;
 	rtn->next = NULL;
 	return (rtn);
 }
 
-t_list		*ft_lstlast(t_list *lst)
+t_list	*ft_lstlast(t_list *lst)
 {
 	if (lst == NULL)
 		return (NULL);
