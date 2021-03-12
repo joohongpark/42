@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:21:22 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/10 23:37:26 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/12 12:28:05 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1024
+# endif
 
 typedef struct		s_list
 {
@@ -29,6 +33,24 @@ void				ft_lstadd_front(t_list **lst, t_list *new);
 void				ft_lstdelone(t_list *lst, void (*del)(void *));
 t_list				*ft_lstnew(void *content);
 t_list				*ft_lstlast(t_list *lst);
+int					ft_atoi(const char *str, int *value);
+
+size_t				ft_strlen(char *str);
+size_t				ft_strlcpy(char *dst, const char *src, size_t dstsize);
+char				*ft_strnstr(const char *haystack, const char *needle, size_t len);
+int					ft_str_is_int(char *str);
+
+int					ft_lstdupchk(t_list *lst, int element);
+int					ft_lstissort(t_list *lst);
+
+void				*ft_memcpy(void *dst, const void *src, size_t n);
+void				*ft_memset(void *b, int c, size_t len);
+
+char				*ft_strnstack(char *stack, char *str, size_t n);
+char				*ft_getbuf(ssize_t clr, char **bp);
+int					ft_prechk(int fd, char **line, char **bufrtn, char **bp);
+int					ft_getbyn(char *buf, char **line);
+int					ft_get_next_line(int fd, char **line, char **bp);
 
 int					ft_deque_back_push(t_list **list, int value);
 int					ft_deque_back_pop(t_list **list, int *value);

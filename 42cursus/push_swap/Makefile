@@ -6,7 +6,7 @@
 #    By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/21 19:03:14 by joopark           #+#    #+#              #
-#    Updated: 2021/03/10 23:58:55 by joopark          ###   ########.fr        #
+#    Updated: 2021/03/11 20:24:33 by joopark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,11 @@ NAME_CHECKER = checker
 NAME_PUSH_SWAP = push_swap
 FILES_COM = ./common/ft_linked_list.c
 FILES_COM += ./common/ft_strncmp.c
+FILES_COM += ./common/ft_atoi.c
+FILES_COM += ./common/ft_mem.c
+FILES_COM += ./common/ft_string.c
+FILES_COM += ./common/ft_get_next_line.c
+FILES_COM += ./common/ft_lst_tools.c
 FILES_COM += ./common/ft_deque_front.c
 FILES_COM += ./common/ft_deque_back.c
 FILES_COM += ./common/ft_stack_opration.c
