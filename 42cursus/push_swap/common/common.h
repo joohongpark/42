@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:21:22 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/12 12:28:05 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/15 15:27:48 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,8 @@ int					ft_swap(t_list **stack);
 int					ft_push(t_list **stacka, t_list **stackb);
 int					ft_rotate(t_list **stack);
 int					ft_reverse_rotate(t_list **stack);
+
+void				ft_insert_stack(t_list **stack_a, int argc, char *argv[]);
+void				ft_err_exit(t_list **stack_a, t_list **stack_b);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/21 19:03:14 by joopark           #+#    #+#              #
-#    Updated: 2021/03/11 20:24:33 by joopark          ###   ########.fr        #
+#    Updated: 2021/03/15 15:32:45 by joopark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ FILES_COM += ./common/ft_lst_tools.c
 FILES_COM += ./common/ft_deque_front.c
 FILES_COM += ./common/ft_deque_back.c
 FILES_COM += ./common/ft_stack_opration.c
+FILES_COM += ./common/ft_stack_util.c
 FILES_CHECKER = checker.c
 FILES_PUSH_SWAP = push_swap.c
 OBJS_COM = ${FILES_COM:%.c=%.o}
@@ -38,7 +39,7 @@ $(NAME_CHECKER): $(OBJS_COM) $(OBJS_CHECKER)
 	$(COMPILER) $(CFLAGS) $(OBJS_CHECKER) $(OBJS_COM) -I$(HEADER_COM) -o $(NAME_CHECKER)
 
 $(NAME_PUSH_SWAP): $(OBJS_COM) $(OBJS_PUSH_SWAP)
-	$(COMPILER) $(CFLAGS) $(OBJS_CHECKER) $(OBJS_COM) -I$(HEADER_COM) -o $(NAME_PUSH_SWAP)
+	$(COMPILER) $(CFLAGS) $(OBJS_PUSH_SWAP) $(OBJS_COM) -I$(HEADER_COM) -o $(NAME_PUSH_SWAP)
 
 all: $(NAME_CHECKER) $(NAME_PUSH_SWAP)
 
