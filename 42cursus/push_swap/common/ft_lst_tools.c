@@ -36,3 +36,27 @@ int	ft_lstissort(t_list *lst)
 	}
 	return (0);
 }
+
+int	ft_lstprevval(t_list *lst, int element, int *val)
+{
+	t_list *tmp;
+
+	tmp = lst;
+	while (lst != NULL)
+	{
+		*val = *((int *)lst->content);
+		if (*val == element)
+		{
+			if (lst == tmp)
+				return (1);
+			else
+			{
+				*val = *((int *)tmp->content);
+				return (0);
+			}
+		}
+		tmp = lst;
+		lst = lst->next;
+	}
+	return (-1);
+}

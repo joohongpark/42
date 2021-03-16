@@ -44,6 +44,14 @@ int	test_first_pivot(t_list **stack_a, t_list **stack_b, t_list **t_pivot)
 	return (0);
 }
 
+int	test_bstack_pre(t_list **stack_a, t_list **stack_b, t_list **t_pivot)
+{
+
+	rtn = ft_lstprevval(stack_a, 3, &tmp);
+	printf("rtn : %d, prev : %d]\n", rtn, tmp);
+
+}
+
 int	test_bstack_pivot(t_list **stack_a, t_list **stack_b, t_list **t_pivot)
 {
 	int	pivot_a;
@@ -67,9 +75,11 @@ int				main(int argc, char *argv[])
 	t_list		*stack_b;
 	t_list		*pivot;
 	int			tmp;
+	int			rtn;
 
 
 	(void)tmp;
+	(void)rtn;
 	stack_a = NULL;
 	stack_b = NULL;
 	pivot = NULL;
@@ -79,6 +89,7 @@ int				main(int argc, char *argv[])
 	while (ft_lstissort(stack_a) == -1)
 		test_first_pivot(&stack_a, &stack_b, &pivot);
 	test_bstack_pivot(&stack_a, &stack_b, &pivot);
+
 	/*
 	while (ft_deque_front_pop(&pivot, &tmp) == 0)
 		printf("pivot : %d\n", tmp);

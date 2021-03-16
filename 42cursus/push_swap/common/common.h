@@ -42,6 +42,7 @@ int					ft_str_is_int(char *str);
 
 int					ft_lstdupchk(t_list *lst, int element);
 int					ft_lstissort(t_list *lst);
+int					ft_lstprevval(t_list *lst, int element, int *val);
 
 void				*ft_memcpy(void *dst, const void *src, size_t n);
 void				*ft_memset(void *b, int c, size_t len);
