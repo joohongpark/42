@@ -40,8 +40,10 @@ size_t				ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char				*ft_strnstr(const char *haystack, const char *needle, size_t len);
 int					ft_str_is_int(char *str);
 
+int 				ft_lstsize(t_list *lst);
 int					ft_lstdupchk(t_list *lst, int element);
 int					ft_lstissort(t_list *lst);
+int					ft_lstisrevsort(t_list *lst);
 int					ft_lstprevval(t_list *lst, int element, int *val);
 
 void				*ft_memcpy(void *dst, const void *src, size_t n);

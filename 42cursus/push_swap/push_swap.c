@@ -44,12 +44,71 @@ int	test_first_pivot(t_list **stack_a, t_list **stack_b, t_list **t_pivot)
 	return (0);
 }
 
+int	ft_check_ps_none(t_list **stack_b, int pivot)
+{
+	int	elem;
+
+	if (ft_deque_front_peak(stack_b, &elem) != 0)
+		return (-1);
+	if (elem == pivot)
+		return (0);
+	return (-1);
+}
+
+int	ft_check_ps_one(t_list **stack_b, int pivot)
+{
+	int	elem[2];
+
+	if (ft_deque_front_pop(stack_b, &elem[0]) != 0)
+		return (-1);
+	if (ft_deque_front_peak(stack_b, &elem[1]) != 0)
+		return (-1);
+	if (ft_deque_front_push(stack_b, elem[0]) != 0)
+		return (-1);
+	if (elem[1] == pivot)
+		return (0);
+	return (1);
+}
+
+int	ft_check_ps_two(t_list **stack_b, int pivot)
+{
+	int	elem[3];
+
+	if (ft_deque_front_pop(stack_b, &elem[0]) != 0)
+		return (-1);
+	if (ft_deque_front_pop(stack_b, &elem[1]) != 0)
+		return (-1);
+	if (ft_deque_front_peak(stack_b, &elem[2]) != 0)
+		return (-1);
+	if (ft_deque_front_push(stack_b, elem[1]) != 0)
+		return (-1);
+	if (ft_deque_front_push(stack_b, elem[0]) != 0)
+		return (-1);
+	if (elem[2] == pivot)
+		return (0);
+	return (1);
+}
+
 int	test_bstack_pre(t_list **stack_a, t_list **stack_b, t_list **t_pivot)
 {
+	int	pivot[2];
 
-	rtn = ft_lstprevval(stack_a, 3, &tmp);
-	printf("rtn : %d, prev : %d]\n", rtn, tmp);
-
+	(void)stack_a;
+	if (ft_deque_front_pop(t_pivot, &pivot[0]) != 0)
+		return (-1);
+	if (ft_deque_front_pop(t_pivot, &pivot[1]) != 0)
+	{
+		printf("fin\n");
+		return (0);
+	}
+	if (ft_check_ps_none(stack_b, pivot[1]) == 0)
+		printf("case 1\n");
+	if (ft_check_ps_one(stack_b, pivot[1]) == 0)
+		printf("case 2\n");
+	if (ft_check_ps_two(stack_b, pivot[1]) == 0)
+		printf("case 3\n");
+	printf("case 4\n");
+	return (0);
 }
 
 int	test_bstack_pivot(t_list **stack_a, t_list **stack_b, t_list **t_pivot)
@@ -88,7 +147,7 @@ int				main(int argc, char *argv[])
 	ft_insert_stack(&stack_a, argc, argv);
 	while (ft_lstissort(stack_a) == -1)
 		test_first_pivot(&stack_a, &stack_b, &pivot);
-	test_bstack_pivot(&stack_a, &stack_b, &pivot);
+	test_bstack_pre(&stack_a, &stack_b, &pivot);
 
 	/*
 	while (ft_deque_front_pop(&pivot, &tmp) == 0)
