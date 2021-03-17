@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:21:22 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/15 15:27:48 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/16 22:38:06 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ int 				ft_lstsize(t_list *lst);
 int					ft_lstdupchk(t_list *lst, int element);
 int					ft_lstissort(t_list *lst);
 int					ft_lstisrevsort(t_list *lst);
+
 int					ft_lstprevval(t_list *lst, int element, int *val);
+int					ft_lstdist(t_list *lst, int element);
 
 void				*ft_memcpy(void *dst, const void *src, size_t n);
 void				*ft_memset(void *b, int c, size_t len);
@@ -70,5 +72,9 @@ int					ft_reverse_rotate(t_list **stack);
 
 void				ft_insert_stack(t_list **stack_a, int argc, char *argv[]);
 void				ft_err_exit(t_list **stack_a, t_list **stack_b);
+
+int					ft_a_stack_pivot(t_list **sa, t_list **sb, int n, int pivot);
+int					ft_b_stack_pivot(t_list **sa, t_list **sb, int n, int pivot);
+void				ft_cmd_n(t_list **sa, t_list **sb, char *cmd, int n);
 
 #endif
