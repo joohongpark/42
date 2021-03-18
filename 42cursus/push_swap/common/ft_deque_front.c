@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:19:31 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/11 00:26:08 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/18 11:21:01 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,8 @@ int	ft_deque_front_pop(t_list **list, int *value)
 
 int	ft_deque_front_peak(t_list **list, int *value)
 {
-	t_list			*element;
-
 	if (*list == NULL)
 		return (-1);
-	element = ft_lstlast(*list);
-	*value = *((int *)element->content);
+	*value = *((int *)(*list)->content);
 	return (0);
 }
