@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:21:22 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/16 22:38:06 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/18 11:28:24 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int					ft_lstdupchk(t_list *lst, int element);
 int					ft_lstissort(t_list *lst);
 int					ft_lstisrevsort(t_list *lst);
 
-int					ft_lstprevval(t_list *lst, int element, int *val);
+int					ft_lstoverval(t_list *lst, int element, int *val);
 int					ft_lstdist(t_list *lst, int element);
 
 void				*ft_memcpy(void *dst, const void *src, size_t n);

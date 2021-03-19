@@ -6,13 +6,13 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:24:12 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/16 16:03:08 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/18 13:46:03 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <common.h>
 
-int	ft_lstprevval(t_list *lst, int element, int *val)
+int	ft_lstoverval(t_list *lst, int element, int *val)
 {
 	t_list *tmp;
 
