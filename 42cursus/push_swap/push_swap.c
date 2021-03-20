@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:20:02 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/20 19:05:01 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/20 19:39:34 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int				main(int argc, char *argv[])
 	t_list		*pivot;
 	t_list		*pivot_between_ab;
 	int			tmp;
+	int			tmp1;
 	int			rtn;
 	int			pivot_a;
 	int			pivot_a_pos;
@@ -154,7 +155,6 @@ int				main(int argc, char *argv[])
 					ft_cmd_n(&stack_a, &stack_b, "pa", tmp);
 					break ;
 				}
-
 				// 2-2-2-2-1. b 스택에 대해 pivot할 pivot 값을 정한다.
 				// 2-2-2-2-1-1. 만약 b 스택 내 pivot도 존재하지 않고, a와 b 스택 사이 pivot도 존재하지 않으면 b 스택의 바닥 값을 새 pivot으로 삼는다.
 				if (pivot == NULL && pivot_between_ab == NULL)
@@ -163,23 +163,19 @@ int				main(int argc, char *argv[])
 						write(1, "2-2-2-2-1-1\n", 12);
 					if (ft_deque_back_peak(&stack_b, &pivot_b) == -1)
 						return (-1);
-					// 만약에 이 pivot 값이 top이라면 pa 연산을 수행한다.
-					if (ft_lstdist(stack_b, pivot_b) == 0)
+					// b 스택을 pivot 기준으로 나누고 a와 b 스택 사이 pivot에 이 값을 추가한다.
+					if (debug == 1)
 					{
-						ft_cmd_n(&stack_a, &stack_b, "pa", 1);
+						write(1, "[", 1);
+						ft_putnbr_fd(pivot_b, 1);
+						write(1, "]\n", 2);
 					}
-					// 아니라면 b 스택을 pivot 기준으로 나누고 a와 b 스택 사이 pivot에 이 값을 추가한다.
-					else
+					tmp1 = ft_lstdist(stack_b, pivot_b);
+					tmp = ft_b_stack_pivot(&stack_a, &stack_b, ft_lstdist(stack_b, pivot_b), pivot_b);
+					// b pivot에선 pivot보다 작은 것들을 밑으로 보내는데 어차피 Pivot보다 작으므로 다시 돌릴 필요 없지 않나?
+					//ft_cmd_n(&stack_a, &stack_b, "rrb", tmp);
+					if (tmp1 != 0)
 					{
-						if (debug == 1)
-						{
-							write(1, "[", 1);
-							ft_putnbr_fd(pivot_b, 1);
-							write(1, "]\n", 2);
-						}
-						tmp = ft_b_stack_pivot(&stack_a, &stack_b, ft_lstdist(stack_b, pivot_b), pivot_b);
-						// b pivot에선 pivot보다 작은 것들을 밑으로 보내는데 어차피 Pivot보다 작으므로 다시 돌릴 필요 없지 않나?
-						//ft_cmd_n(&stack_a, &stack_b, "rrb", tmp);
 						if (ft_deque_front_push(&pivot_between_ab, pivot_b) == -1)
 							return (-1);
 					}
@@ -205,24 +201,24 @@ int				main(int argc, char *argv[])
 					{
 						if (debug == 1)
 							write(1, "2-2-2-2-1-2-2\n", 14);
-						// 만약에 이 pivot 값이 top이라면 pa 연산을 두번 수행하고 pivot 값을 뽑는다.
+						// 만약에 이 pivot 값이 top이라면 pivot 값을 뽑는다.
 						if (ft_lstoverval(stack_b, pivot_b, &pivot_b) == 0)
 						{
-							ft_cmd_n(&stack_a, &stack_b, "pa", 2);
 							if (ft_deque_front_pop(&pivot_between_ab, &pivot_b) == -1)
 								return (-1);
 						}
-						else
+						if (debug == 1)
 						{
-							if (debug == 1)
-							{
-								write(1, "[", 1);
-								ft_putnbr_fd(pivot_b, 1);
-								write(1, "]\n", 2);
-							}
-							tmp = ft_b_stack_pivot(&stack_a, &stack_b, ft_lstdist(stack_b, pivot_b), pivot_b);
-							// b pivot에선 pivot보다 작은 것들을 밑으로 보내는데 어차피 Pivot보다 작으므로 다시 돌릴 필요 없지 않나?
-							//ft_cmd_n(&stack_a, &stack_b, "rrb", tmp);
+							write(1, "[", 1);
+							ft_putnbr_fd(pivot_b, 1);
+							write(1, "]\n", 2);
+						}
+						tmp1 = ft_lstdist(stack_b, pivot_b);
+						tmp = ft_b_stack_pivot(&stack_a, &stack_b, ft_lstdist(stack_b, pivot_b), pivot_b);
+						// b pivot에선 pivot보다 작은 것들을 밑으로 보내는데 어차피 Pivot보다 작으므로 다시 돌릴 필요 없지 않나?
+						//ft_cmd_n(&stack_a, &stack_b, "rrb", tmp);
+						if (tmp1 != 0)
+						{
 							if (ft_deque_front_push(&pivot_between_ab, pivot_b) == -1)
 								return (-1);
 						}
@@ -249,24 +245,24 @@ int				main(int argc, char *argv[])
 					{
 						if (debug == 1)
 							write(1, "2-2-2-2-1-3-2\n", 14);
-						// 만약에 이 pivot 값이 top이라면 pa 연산을 두번 수행하고 pivot 값을 뽑는다.
+						// 만약에 이 pivot 값이 top이라면 pivot 값을 뽑는다.
 						if (ft_lstoverval(stack_b, pivot_b, &pivot_b) == 0)
 						{
-							ft_cmd_n(&stack_a, &stack_b, "pa", 2);
 							if (ft_deque_front_pop(&pivot, &pivot_b) == -1)
 								return (-1);
 						}
-						else
+						tmp1 = ft_lstdist(stack_b, pivot_b);
+						if (debug == 1)
 						{
-							if (debug == 1)
-							{
-								write(1, "[", 1);
-								ft_putnbr_fd(pivot_b, 1);
-								write(1, "]\n", 2);
-							}
-							tmp = ft_b_stack_pivot(&stack_a, &stack_b, ft_lstdist(stack_b, pivot_b), pivot_b);
-							// b pivot에선 pivot보다 작은 것들을 밑으로 보내는데 어차피 Pivot보다 작으므로 다시 돌릴 필요 없지 않나?
-							//ft_cmd_n(&stack_a, &stack_b, "rrb", tmp);
+							write(1, "[", 1);
+							ft_putnbr_fd(pivot_b, 1);
+							write(1, "]\n", 2);
+						}
+						tmp = ft_b_stack_pivot(&stack_a, &stack_b, ft_lstdist(stack_b, pivot_b), pivot_b);
+						// b pivot에선 pivot보다 작은 것들을 밑으로 보내는데 어차피 Pivot보다 작으므로 다시 돌릴 필요 없지 않나?
+						//ft_cmd_n(&stack_a, &stack_b, "rrb", tmp);
+						if (tmp1 != 0)
+						{
 							if (ft_deque_front_push(&pivot_between_ab, pivot_b) == -1)
 								return (-1);
 						}
@@ -279,6 +275,15 @@ int				main(int argc, char *argv[])
 		{
 			if (debug == 1)
 				write(1, "pivot_a_pos == 1\n", 17);
+			// 이부분 효율적으로 수정해야함. top이 더 크면 swap하는 구문임.
+			if (ft_deque_front_pop(&stack_a, &tmp) == -1)
+				return (-1);
+			if (ft_deque_front_peak(&stack_a, &tmp1) == -1)
+				return (-1);
+			if (ft_deque_front_push(&stack_a, tmp) == -1)
+				return (-1);
+			if (tmp > tmp1)
+				ft_cmd_n(&stack_a, &stack_b, "sa", 1);
 			if (ft_deque_front_peak(&stack_a, &pivot_a) == -1)
 				return (-1);
 		}
@@ -292,12 +297,13 @@ int				main(int argc, char *argv[])
 				printf("error (?)\n");
 				break ;
 			}
-			tmp = ft_a_stack_pivot(&stack_a, &stack_b, ft_lstdist(stack_a, tmp), tmp);
-			if (tmp > 0)
+			tmp1 = ft_lstdist(stack_a, tmp);
+			tmp = ft_a_stack_pivot(&stack_a, &stack_b, tmp1, tmp);
+			if (tmp1 > 0)
 			{
 				ft_cmd_n(&stack_a, &stack_b, "pb", 1);
-				ft_cmd_n(&stack_a, &stack_b, "rra", tmp);
 			}
+			ft_cmd_n(&stack_a, &stack_b, "rra", tmp);
 			// a 스택과 b 스택 사이에 있는 피봇 추가
 			if (ft_deque_front_peak(&stack_b, &pivot_b) == -1)
 				return (-1);
@@ -311,7 +317,7 @@ int				main(int argc, char *argv[])
 		}
 		ft_deque_front_push(&pivot, pivot_a);
 		i++;
-		if (i > 23)
+		if (i > 15430)
 		{
 			if (debug == 1)
 			{
