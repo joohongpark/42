@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:20:02 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/22 14:19:19 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/23 03:07:15 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,42 @@
  * 처음 ft_insert_stack을 이용해서 a 스택에 집어 넣을 때는 back에 접근해 집어넣으므로 데이터는 왼쪽 -> 오른쪽 순서로 쌓인다.
  * 이 과제에서 사용하는 스택의 bottom은 deque의 back (list의 끝) 이며 top은 deque의 front (리스트의 시작)이다.
 */
+
+int	test_three_sort_a(t_list **stack_a, t_list **stack_b)
+{
+	int	elem[3];
+
+	if (ft_lstsize(*stack_a) < 2)
+		return (0);
+	if (ft_deque_front_pop(stack_a, &elem[0]) == -1)
+		return (-1);
+	if (ft_deque_front_pop(stack_a, &elem[1]) == -1)
+		return (-1);
+	if (ft_deque_front_peak(stack_a, &elem[2]) == -1)
+		return (-1);
+	if (ft_deque_front_push(stack_a, elem[1]) == -1)
+		return (-1);
+	if (ft_deque_front_push(stack_a, elem[0]) == -1)
+		return (-1);
+	if (elem[0] > elem[1])
+		ft_cmd_n(stack_a, stack_b, "sa", 1);
+	if (ft_lstsize(*stack_a) <= 3)
+	{
+		if (elem[2] < elem[0] || elem[2] < elem[1])
+			ft_cmd_n(stack_a, stack_b, "rra", 1);
+		ft_stacka_head_swap(stack_a, stack_b);
+	}
+	else
+	{
+		if (elem[2] < elem[0] || elem[2] < elem[1])
+			ft_cmd_n(stack_a, stack_b, "pb", 1);
+		ft_stacka_head_swap(stack_a, stack_b);
+		if (elem[2] < elem[0] || elem[2] < elem[1])
+			ft_cmd_n(stack_a, stack_b, "pa", 1);
+		ft_stacka_head_swap(stack_a, stack_b);
+	}
+	return (0);
+}
 
 int	test_get_center(t_list *stack, int depth, int *val)
 {
@@ -83,14 +119,14 @@ int	test_first_pivot(t_list **stack_a, t_list **stack_b, t_list **t_pivot)
 	{
 		if (test_get_center(*stack_a, ft_lstsize(*stack_a), &pivot) != 0)
 			return (-1);
+		ft_deque_front_push(t_pivot, pivot);
+		ft_a_stack_pivot(stack_a, stack_b, ft_lstsize(*stack_a), pivot);
+		ft_cmd_n(stack_a, stack_b, "pa", 1);
 	}
 	else
 	{
-		if (ft_deque_back_peak(stack_a, &pivot) == -1)
-			return (-1);
+		test_three_sort_a(stack_a, stack_b);
 	}
-	ft_deque_front_push(t_pivot, pivot);
-	ft_a_stack_pivot(stack_a, stack_b, ft_lstsize(*stack_a), pivot);
 	return (0);
 }
 
@@ -199,7 +235,6 @@ int				main(int argc, char *argv[])
 	// 1. stack a 에 대해 정렬될때까지 pivot 나누기 수행
 	while (ft_lstissort(stack_a) == -1)
 		test_first_pivot(&stack_a, &stack_b, &pivot);
-	ft_cmd_n(&stack_a, &stack_b, "pa", 1);
 	// 2. pivot 사이에 원소들이 정렬될 때 까지 (pivot 사이 원소들이 정렬되면 Pivot 원소를 pop함.)
 	while (pivot != NULL || pivot_between_ab != NULL)
 	{
@@ -242,6 +277,12 @@ int				main(int argc, char *argv[])
 		else if (pivot_a_pos == 1)
 		{
 			ft_stacka_head_swap(&stack_a, &stack_b);
+			if (ft_deque_front_peak(&stack_a, &pivot_a) == -1)
+				return (-1);
+		}
+		else if (pivot_a_pos == 2)
+		{
+			test_three_sort_a(&stack_a, &stack_b);
 			if (ft_deque_front_peak(&stack_a, &pivot_a) == -1)
 				return (-1);
 		}
