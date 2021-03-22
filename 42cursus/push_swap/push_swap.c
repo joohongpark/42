@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:20:02 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/22 14:00:29 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/22 14:19:19 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,19 @@ int	test_first_pivot(t_list **stack_a, t_list **stack_b, t_list **t_pivot)
 {
 	int	pivot;
 
-	if (ft_deque_back_peak(stack_a, &pivot) == -1)
-		return (-1);
+	if (ft_lstsize(*stack_a) > 3)
+	{
+		if (test_get_center(*stack_a, ft_lstsize(*stack_a), &pivot) != 0)
+			return (-1);
+	}
+	else
+	{
+		if (ft_deque_back_peak(stack_a, &pivot) == -1)
+			return (-1);
+	}
 	ft_deque_front_push(t_pivot, pivot);
-	return (ft_a_stack_pivot(stack_a, stack_b, ft_lstsize(*stack_a) - 1, pivot));
+	ft_a_stack_pivot(stack_a, stack_b, ft_lstsize(*stack_a), pivot);
+	return (0);
 }
 
 int	test_bstack_pivot(t_list **stack_a, t_list **stack_b, t_list **pivots, int pivot)
@@ -190,6 +199,7 @@ int				main(int argc, char *argv[])
 	// 1. stack a 에 대해 정렬될때까지 pivot 나누기 수행
 	while (ft_lstissort(stack_a) == -1)
 		test_first_pivot(&stack_a, &stack_b, &pivot);
+	ft_cmd_n(&stack_a, &stack_b, "pa", 1);
 	// 2. pivot 사이에 원소들이 정렬될 때 까지 (pivot 사이 원소들이 정렬되면 Pivot 원소를 pop함.)
 	while (pivot != NULL || pivot_between_ab != NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 16:22:48 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/22 13:56:37 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/22 14:04:31 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,24 @@ int	ft_b_stack_pivot(t_list **sa, t_list **sb, int n, int pivot)
 {
 	int	rtn;
 	int	tmp;
+	int	p;
 
 	rtn = 0;
+	p = 0;
 	while (n > 0)
 	{
 		if (ft_deque_front_peak(sb, &tmp) == -1)
 			return (-1);
-		if (pivot == tmp)
-			break ;
 		if (pivot > tmp)
-		{
-			ft_op(sa, sb, "rb");
-			write(1, "rb\n", 3);
-			rtn++;
-		}
+			rtn += ft_cmd_n(sa, sb, "rb", 1);
 		else
-		{
-			ft_op(sa, sb, "pa");
-			write(1, "pa\n", 3);
-		}
+			ft_cmd_n(sa, sb, "pa", 1);
+		if (pivot == tmp)
+			p = ft_cmd_n(sa, sb, "ra", 1);
 		n--;
 	}
+	if (p == 1)
+		ft_cmd_n(sa, sb, "rra", 1);
 	return (rtn);
 }
 
