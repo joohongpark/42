@@ -6,7 +6,7 @@
 #    By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/21 19:03:14 by joopark           #+#    #+#              #
-#    Updated: 2021/03/16 16:23:19 by joopark          ###   ########.fr        #
+#    Updated: 2021/03/22 02:04:57 by joopark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ FILES_COM += ./common/ft_deque_back.c
 FILES_COM += ./common/ft_stack_opration.c
 FILES_COM += ./common/ft_stack_util.c
 FILES_COM += ./common/ft_sort_tools.c
+FILES_COM += ./common/ft_quicksort.c
 FILES_CHECKER = checker.c
 FILES_PUSH_SWAP = push_swap.c
 OBJS_COM = ${FILES_COM:%.c=%.o}

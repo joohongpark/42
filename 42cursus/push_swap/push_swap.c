@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:20:02 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/21 13:35:26 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/22 14:00:29 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,27 @@
  * 처음 ft_insert_stack을 이용해서 a 스택에 집어 넣을 때는 back에 접근해 집어넣으므로 데이터는 왼쪽 -> 오른쪽 순서로 쌓인다.
  * 이 과제에서 사용하는 스택의 bottom은 deque의 back (list의 끝) 이며 top은 deque의 front (리스트의 시작)이다.
 */
+
+int	test_get_center(t_list *stack, int depth, int *val)
+{
+	int	*list;
+	int	i;
+
+	list = malloc(sizeof(int) * depth);
+	i = 0;
+	if (list == NULL)
+		return (-1);
+	while (stack != NULL && i != depth)
+	{
+		list[i] = *((int *)stack->content);
+		stack = stack->next;
+		i++;
+	}
+	ft_quicksort(list, 0, depth - 1);
+	*val = list[depth / 2];
+	free(list);
+	return (0);
+}
 
 void		ft_putnbr_fd(int n, int fd)
 {
@@ -69,11 +90,26 @@ int	test_bstack_pivot(t_list **stack_a, t_list **stack_b, t_list **pivots, int p
 	int	pivot_dist;
 
 	pivot_dist = ft_lstdist(*stack_b, pivot);
-	ft_b_stack_pivot(stack_a, stack_b, pivot_dist, pivot);
-	if (pivot_dist != 0)
+	if (pivot_dist == 1)
+		ft_stackb_head_swap(stack_a, stack_b);
+	if (ft_lstissort_len(*stack_b, pivot_dist) != 0)
 	{
-		if (ft_deque_front_push(pivots, pivot) == -1)
-			return (-1);
+		ft_b_stack_pivot(stack_a, stack_b, pivot_dist, pivot);
+		if (pivot_dist != 0)
+		{
+			if (ft_deque_front_push(pivots, pivot) == -1)
+				return (-1);
+		}
+	}
+	else
+	{
+		while (pivot_dist)
+		{
+			if (pivot_dist != 1)
+				ft_cmd_n(stack_a, stack_b, "rrb", 1);
+			ft_cmd_n(stack_a, stack_b, "pa", 1);
+			pivot_dist--;
+		}
 	}
 	return (0);
 }
@@ -113,7 +149,8 @@ void	test_pre_sort(t_list **stack_a, t_list **stack_b)
 		ft_cmd_n(stack_a, stack_b, "pb", size);
 		while (size)
 		{
-			ft_cmd_n(stack_a, stack_b, "rrb", 1);
+			if (size != 1)
+				ft_cmd_n(stack_a, stack_b, "rrb", 1);
 			ft_cmd_n(stack_a, stack_b, "pa", 1);
 			size--;
 		}
@@ -146,7 +183,10 @@ int				main(int argc, char *argv[])
 		return (0);
 	ft_insert_stack(&stack_a, argc, argv);
 	// 0. 전처리
+	//if (test_get_center(stack_a, ft_lstsize(stack_a), &tmp) == 0)
+	//	printf("pivot : %d\n", tmp);
 	test_pre_sort(&stack_a, &stack_b);
+	//return (0);
 	// 1. stack a 에 대해 정렬될때까지 pivot 나누기 수행
 	while (ft_lstissort(stack_a) == -1)
 		test_first_pivot(&stack_a, &stack_b, &pivot);
@@ -191,15 +231,7 @@ int				main(int argc, char *argv[])
 		// 2-3. 만약 pivot 스택의 top이 a 스택의 top의 바로 밑 값이라면 -> 여기서 pivot은 무조건 top보다 원소 하나만큼 큼
 		else if (pivot_a_pos == 1)
 		{
-			// 이부분 효율적으로 수정해야함. top이 더 크면 swap하는 구문임.
-			if (ft_deque_front_pop(&stack_a, &tmp) == -1)
-				return (-1);
-			if (ft_deque_front_peak(&stack_a, &tmp1) == -1)
-				return (-1);
-			if (ft_deque_front_push(&stack_a, tmp) == -1)
-				return (-1);
-			if (tmp > tmp1)
-				ft_cmd_n(&stack_a, &stack_b, "sa", 1);
+			ft_stacka_head_swap(&stack_a, &stack_b);
 			if (ft_deque_front_peak(&stack_a, &pivot_a) == -1)
 				return (-1);
 		}
@@ -212,19 +244,34 @@ int				main(int argc, char *argv[])
 				break ;
 			}
 			tmp1 = ft_lstdist(stack_a, tmp);
-			tmp = ft_a_stack_pivot(&stack_a, &stack_b, tmp1, tmp);
-			if (tmp1 > 0)
+			if (ft_lstissort_len(stack_a, tmp1) == 0)
 			{
-				ft_cmd_n(&stack_a, &stack_b, "pb", 1);
+				if (ft_deque_front_peak(&stack_a, &pivot_a) == -1)
+					return (-1);
 			}
-			ft_cmd_n(&stack_a, &stack_b, "rra", tmp);
-			// a 스택과 b 스택 사이에 있는 피봇 추가
-			if (ft_deque_front_peak(&stack_b, &pivot_b) == -1)
-				return (-1);
-			ft_deque_front_push(&pivot_between_ab, pivot_b);
+			else
+			{
+				tmp = ft_a_stack_pivot(&stack_a, &stack_b, tmp1, tmp);
+				if (tmp1 > 0)
+				{
+					ft_cmd_n(&stack_a, &stack_b, "pb", 1);
+				}
+				ft_cmd_n(&stack_a, &stack_b, "rra", tmp);
+				// a 스택과 b 스택 사이에 있는 피봇 추가
+				if (ft_deque_front_peak(&stack_b, &pivot_b) == -1)
+					return (-1);
+				ft_deque_front_push(&pivot_between_ab, pivot_b);
+			}
 		}
 		ft_deque_front_push(&pivot, pivot_a);
 		i++;
+		if (i > 15000)
+		{
+ 				__dump("stack_a", &stack_a);
+ 				__dump("stack_b", &stack_b);
+ 				__dump("pivot", &pivot);
+ 				__dump("pivot_between_ab", &pivot_between_ab);
+		}
 	}
 
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:24:12 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/18 13:46:03 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/21 14:48:06 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,34 @@ int	ft_lstdist(t_list *lst, int element)
 		size++;
 	}
 	return (-1);
+}
+
+int	ft_lstissort_len(t_list *lst, int len)
+{
+	int	small;
+
+	while (lst != NULL && len != 0)
+	{
+		small = *((int *)lst->content);
+		if (lst->next != NULL && *((int *)lst->next->content) < small)
+			return (-1);
+		lst = lst->next;
+		len--;
+	}
+	return (0);
+}
+
+int	ft_lstisrevsort_len(t_list *lst, int len)
+{
+	int	big;
+
+	while (lst != NULL && len != 0)
+	{
+		big = *((int *)lst->content);
+		if (lst->next != NULL && *((int *)lst->next->content) > big)
+			return (-1);
+		lst = lst->next;
+		len--;
+	}
+	return (0);
 }
