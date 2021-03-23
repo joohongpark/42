@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:20:02 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/23 03:07:15 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/23 16:37:51 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,18 +114,26 @@ void __dump(char *memo, t_list **stack)
 int	test_first_pivot(t_list **stack_a, t_list **stack_b, t_list **t_pivot)
 {
 	int	pivot;
+	int	len;
 
-	if (ft_lstsize(*stack_a) > 3)
+	len = ft_lstsize(*stack_a);
+	if (len > 3)
 	{
-		if (test_get_center(*stack_a, ft_lstsize(*stack_a), &pivot) != 0)
+		if (test_get_center(*stack_a, len, &pivot) != 0)
 			return (-1);
 		ft_deque_front_push(t_pivot, pivot);
-		ft_a_stack_pivot(stack_a, stack_b, ft_lstsize(*stack_a), pivot);
-		ft_cmd_n(stack_a, stack_b, "pa", 1);
+		ft_a_stack_pivot(stack_a, stack_b, len, pivot);
+		//ft_cmd_n(stack_a, stack_b, "pa", 1);
 	}
-	else
+	else if (len == 3 || len == 2)
 	{
-		test_three_sort_a(stack_a, stack_b);
+		if (len == 3)
+			test_three_sort_a(stack_a, stack_b);
+		else
+			ft_stacka_head_swap(stack_a, stack_b);
+		if (ft_deque_front_peak(stack_a, &pivot) == -1)
+			return (-1);
+		ft_deque_front_push(t_pivot, pivot);
 	}
 	return (0);
 }
@@ -188,7 +196,7 @@ void	test_pre_sort(t_list **stack_a, t_list **stack_b)
 {
 	int	size;
 
-	if (ft_lstisrevsort(*stack_a) == 0)
+	if (ft_lstisrevsort(*stack_a) == 0 && ft_lstsize(*stack_a) > 3)
 	{
 		size = ft_lstsize(*stack_a);
 		ft_cmd_n(stack_a, stack_b, "pb", size);
@@ -235,6 +243,18 @@ int				main(int argc, char *argv[])
 	// 1. stack a 에 대해 정렬될때까지 pivot 나누기 수행
 	while (ft_lstissort(stack_a) == -1)
 		test_first_pivot(&stack_a, &stack_b, &pivot);
+	if (ft_deque_front_peak(&stack_a, &tmp) == -1)
+		return (-1);
+	if (ft_deque_front_peak(&pivot, &tmp1) == -1)
+	{
+		if (ft_deque_front_push(&stack_a, tmp) == -1)
+			return (-1);
+	}
+	else
+	{
+		if (tmp != tmp1)
+			ft_cmd_n(&stack_a, &stack_b, "pa", 1);
+	}
 	// 2. pivot 사이에 원소들이 정렬될 때 까지 (pivot 사이 원소들이 정렬되면 Pivot 원소를 pop함.)
 	while (pivot != NULL || pivot_between_ab != NULL)
 	{
