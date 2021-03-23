@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:20:02 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/23 17:30:18 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/23 19:47:28 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,8 @@ int				main(int argc, char *argv[])
 	t_list		*pivot_between_ab;
 	int			tmp;
 	int			tmp1;
+	int			pivot_over;
+	int			dist;
 	int			rtn;
 	int			pivot_a;
 	int			pivot_a_pos;
@@ -244,21 +246,18 @@ int				main(int argc, char *argv[])
 		// 2-4. 만약 pivot 스택의 top이 a 스택의 top과 차이가 2 이상 난다면 -> a 스택 pivot
 		else
 		{
-			if (ft_lstoverval(stack_a, pivot_a, &tmp) == -1)
-			{
-				printf("error (?)\n");
-				break ;
-			}
-			tmp1 = ft_lstdist(stack_a, tmp);
-			if (ft_lstissort_len(stack_a, tmp1) == 0)
+			if (ft_lstoverval(stack_a, pivot_a, &pivot_over) == -1)
+				return (-1);
+			dist = pivot_a_pos - 1;
+			if (ft_lstissort_len(stack_a, dist + 1) == 0)
 			{
 				if (ft_deque_front_peak(&stack_a, &pivot_a) == -1)
 					return (-1);
 			}
 			else
 			{
-				tmp = ft_a_stack_pivot(&stack_a, &stack_b, tmp1, tmp);
-				if (tmp1 > 0)
+				tmp = ft_a_stack_pivot(&stack_a, &stack_b, dist, pivot_over);
+				if (dist > 0)
 				{
 					ft_cmd_n(&stack_a, &stack_b, "pb", 1);
 				}
