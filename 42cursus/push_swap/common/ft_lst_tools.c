@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:24:12 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/16 15:39:05 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/23 16:55:12 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,22 @@ int	ft_lstisrevsort(t_list *lst)
 		lst = lst->next;
 	}
 	return (0);
+}
+
+int	*ft_get_elem(t_list *stack, int depth)
+{
+	int	*list;
+	int	i;
+
+	list = malloc(sizeof(int) * depth);
+	i = 0;
+	if (list == NULL)
+		return (NULL);
+	while (stack != NULL && i != depth)
+	{
+		list[i] = *((int *)stack->content);
+		stack = stack->next;
+		i++;
+	}
+	return (list);
 }

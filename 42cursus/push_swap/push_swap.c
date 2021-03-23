@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:20:02 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/23 16:37:51 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/23 17:30:18 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,57 +20,13 @@
  * 이 과제에서 사용하는 스택의 bottom은 deque의 back (list의 끝) 이며 top은 deque의 front (리스트의 시작)이다.
 */
 
-int	test_three_sort_a(t_list **stack_a, t_list **stack_b)
-{
-	int	elem[3];
-
-	if (ft_lstsize(*stack_a) < 2)
-		return (0);
-	if (ft_deque_front_pop(stack_a, &elem[0]) == -1)
-		return (-1);
-	if (ft_deque_front_pop(stack_a, &elem[1]) == -1)
-		return (-1);
-	if (ft_deque_front_peak(stack_a, &elem[2]) == -1)
-		return (-1);
-	if (ft_deque_front_push(stack_a, elem[1]) == -1)
-		return (-1);
-	if (ft_deque_front_push(stack_a, elem[0]) == -1)
-		return (-1);
-	if (elem[0] > elem[1])
-		ft_cmd_n(stack_a, stack_b, "sa", 1);
-	if (ft_lstsize(*stack_a) <= 3)
-	{
-		if (elem[2] < elem[0] || elem[2] < elem[1])
-			ft_cmd_n(stack_a, stack_b, "rra", 1);
-		ft_stacka_head_swap(stack_a, stack_b);
-	}
-	else
-	{
-		if (elem[2] < elem[0] || elem[2] < elem[1])
-			ft_cmd_n(stack_a, stack_b, "pb", 1);
-		ft_stacka_head_swap(stack_a, stack_b);
-		if (elem[2] < elem[0] || elem[2] < elem[1])
-			ft_cmd_n(stack_a, stack_b, "pa", 1);
-		ft_stacka_head_swap(stack_a, stack_b);
-	}
-	return (0);
-}
-
 int	test_get_center(t_list *stack, int depth, int *val)
 {
 	int	*list;
-	int	i;
 
-	list = malloc(sizeof(int) * depth);
-	i = 0;
+	list = ft_get_elem(stack, depth);
 	if (list == NULL)
 		return (-1);
-	while (stack != NULL && i != depth)
-	{
-		list[i] = *((int *)stack->content);
-		stack = stack->next;
-		i++;
-	}
 	ft_quicksort(list, 0, depth - 1);
 	*val = list[depth / 2];
 	free(list);
@@ -128,7 +84,7 @@ int	test_first_pivot(t_list **stack_a, t_list **stack_b, t_list **t_pivot)
 	else if (len == 3 || len == 2)
 	{
 		if (len == 3)
-			test_three_sort_a(stack_a, stack_b);
+			ft_stacka_three_swap(stack_a, stack_b);
 		else
 			ft_stacka_head_swap(stack_a, stack_b);
 		if (ft_deque_front_peak(stack_a, &pivot) == -1)
@@ -192,25 +148,6 @@ int	test_bstack_pivot_exist(t_list **stack_a, t_list **stack_b, t_list **pivots)
 	return (0);
 }
 
-void	test_pre_sort(t_list **stack_a, t_list **stack_b)
-{
-	int	size;
-
-	if (ft_lstisrevsort(*stack_a) == 0 && ft_lstsize(*stack_a) > 3)
-	{
-		size = ft_lstsize(*stack_a);
-		ft_cmd_n(stack_a, stack_b, "pb", size);
-		while (size)
-		{
-			if (size != 1)
-				ft_cmd_n(stack_a, stack_b, "rrb", 1);
-			ft_cmd_n(stack_a, stack_b, "pa", 1);
-			size--;
-		}
-		
-	}
-}
-
 int				main(int argc, char *argv[])
 {
 	t_list		*stack_a;
@@ -236,9 +173,7 @@ int				main(int argc, char *argv[])
 		return (0);
 	ft_insert_stack(&stack_a, argc, argv);
 	// 0. 전처리
-	//if (test_get_center(stack_a, ft_lstsize(stack_a), &tmp) == 0)
-	//	printf("pivot : %d\n", tmp);
-	test_pre_sort(&stack_a, &stack_b);
+	ft_stack_pre(&stack_a, &stack_b);
 	//return (0);
 	// 1. stack a 에 대해 정렬될때까지 pivot 나누기 수행
 	while (ft_lstissort(stack_a) == -1)
@@ -302,7 +237,7 @@ int				main(int argc, char *argv[])
 		}
 		else if (pivot_a_pos == 2)
 		{
-			test_three_sort_a(&stack_a, &stack_b);
+			ft_stacka_three_swap(&stack_a, &stack_b);
 			if (ft_deque_front_peak(&stack_a, &pivot_a) == -1)
 				return (-1);
 		}

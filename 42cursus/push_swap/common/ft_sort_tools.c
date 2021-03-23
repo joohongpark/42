@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 16:22:48 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/23 02:34:48 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/23 16:43:00 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,40 +72,4 @@ int	ft_cmd_n(t_list **sa, t_list **sb, char *cmd, int n)
 		n--;
 	}
 	return (1);
-}
-
-int	ft_stacka_head_swap(t_list **stack_a, t_list **stack_b)
-{
-	int	top;
-	int	bottom;
-
-	if (ft_lstsize(*stack_a) < 2)
-		return (0);
-	if (ft_deque_front_pop(stack_a, &top) == -1)
-		return (-1);
-	if (ft_deque_front_peak(stack_a, &bottom) == -1)
-		return (-1);
-	if (ft_deque_front_push(stack_a, top) == -1)
-		return (-1);
-	if (bottom < top)
-		ft_cmd_n(stack_a, stack_b, "sa", 1);
-	return (0);
-}
-
-int	ft_stackb_head_swap(t_list **stack_a, t_list **stack_b)
-{
-	int	top;
-	int	bottom;
-
-	if (ft_lstsize(*stack_b) < 2)
-		return (0);
-	if (ft_deque_front_pop(stack_b, &top) == -1)
-		return (-1);
-	if (ft_deque_front_peak(stack_b, &bottom) == -1)
-		return (-1);
-	if (ft_deque_front_push(stack_b, top) == -1)
-		return (-1);
-	if (bottom > top)
-		ft_cmd_n(stack_a, stack_b, "sb", 1);
-	return (0);
 }

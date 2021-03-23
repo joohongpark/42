@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:21:22 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/22 13:49:08 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/23 17:24:44 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int					ft_lstoverval(t_list *lst, int element, int *val);
 int					ft_lstdist(t_list *lst, int element);
 int					ft_lstissort_len(t_list *lst, int len);
 int					ft_lstisrevsort_len(t_list *lst, int len);
+int					*ft_get_elem(t_list *stack, int depth);
 
 void				*ft_memcpy(void *dst, const void *src, size_t n);
 void				*ft_memset(void *b, int c, size_t len);
@@ -78,10 +79,16 @@ void				ft_err_exit(t_list **stack_a, t_list **stack_b);
 int					ft_a_stack_pivot(t_list **sa, t_list **sb, int n, int pivot);
 int					ft_b_stack_pivot(t_list **sa, t_list **sb, int n, int pivot);
 int					ft_cmd_n(t_list **sa, t_list **sb, char *cmd, int n);
+
+void				ft_stacka_rev(t_list **stack_a, t_list **stack_b, int len);
 int					ft_stacka_head_swap(t_list **stack_a, t_list **stack_b);
+int					ft_stacka_three_swap(t_list **stack_a, t_list **stack_b);
+
 int					ft_stackb_head_swap(t_list **stack_a, t_list **stack_b);
 
 void				ft_quicksort(int *data, int start, int end);
 void				ft_quicksort_swap(int *a, int *b);
+
+void				ft_stack_pre(t_list **stack_a, t_list **stack_b);
 
 #endif
