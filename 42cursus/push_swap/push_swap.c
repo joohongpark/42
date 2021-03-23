@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:20:02 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/23 19:47:28 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/23 22:45:48 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,25 +99,27 @@ int	test_bstack_pivot(t_list **stack_a, t_list **stack_b, t_list **pivots, int p
 	int	pivot_dist;
 
 	pivot_dist = ft_lstdist(*stack_b, pivot);
-	if (pivot_dist == 1)
+	if (pivot_dist == 0)
+	{
+		ft_cmd_n(stack_a, stack_b, "pa", 1);
+	}
+	else if (pivot_dist == 1)
+	{
 		ft_stackb_head_swap(stack_a, stack_b);
-	if (ft_lstissort_len(*stack_b, pivot_dist) != 0)
+		ft_cmd_n(stack_a, stack_b, "pa", 2);
+	}
+	else if (pivot_dist == 2)
+	{
+		ft_stackb_three_swap(stack_a, stack_b);
+		ft_cmd_n(stack_a, stack_b, "pa", 3);
+	}
+	else 
 	{
 		ft_b_stack_pivot(stack_a, stack_b, pivot_dist, pivot);
 		if (pivot_dist != 0)
 		{
 			if (ft_deque_front_push(pivots, pivot) == -1)
 				return (-1);
-		}
-	}
-	else
-	{
-		while (pivot_dist)
-		{
-			if (pivot_dist != 1)
-				ft_cmd_n(stack_a, stack_b, "rrb", 1);
-			ft_cmd_n(stack_a, stack_b, "pa", 1);
-			pivot_dist--;
 		}
 	}
 	return (0);
@@ -192,67 +194,59 @@ int				main(int argc, char *argv[])
 		if (tmp != tmp1)
 			ft_cmd_n(&stack_a, &stack_b, "pa", 1);
 	}
+	//write(1, "====\n", 5);
 	// 2. pivot 사이에 원소들이 정렬될 때 까지 (pivot 사이 원소들이 정렬되면 Pivot 원소를 pop함.)
 	while (pivot != NULL || pivot_between_ab != NULL)
 	{
+		//write(1, "loop\n", 5);
 		if (ft_deque_front_pop(&pivot, &pivot_a) == -1)
 			return (-1);
 		pivot_a_pos = ft_lstdist(stack_a, pivot_a);
-		if (pivot_a_pos == -1)
+		if (pivot_a_pos == -1 || ((pivot_a_pos == 0) && (ft_lstissort(stack_a) == -1)))
 		{
-			write(1, "error (pivot_a_pos == -1)\n", 26);
+			write(1, "error (pivot_a_pos == -1) or error (2-2-1)\n", 43);
 			return (0);
 		}
-		else if (pivot_a_pos == 0)
+		if (pivot_a_pos == 0)
 		{
-			if (ft_lstissort(stack_a) == -1)
+			if (stack_b == NULL)
+				break ;
+			if (pivot == NULL && pivot_between_ab == NULL)
 			{
-				write(1, "error (2-2-1)\n", 14);
-				return (0);
+				if (ft_deque_back_peak(&stack_b, &pivot_b) == -1)
+				{
+					return (1);
+				}
+				test_bstack_pivot(&stack_a, &stack_b, &pivot_between_ab, pivot_b);
 			}
+			else if (pivot_between_ab != NULL)
+				test_bstack_pivot_exist(&stack_a, &stack_b, &pivot_between_ab);
 			else
-			{
-				if (ft_lstisrevsort(stack_b) == 0)
-				{
-					tmp = ft_lstsize(stack_b);
-					ft_cmd_n(&stack_a, &stack_b, "pa", tmp);
-					break ;
-				}
-				if (pivot == NULL && pivot_between_ab == NULL)
-				{
-					if (ft_deque_back_peak(&stack_b, &pivot_b) == -1)
-						return (-1);
-					test_bstack_pivot(&stack_a, &stack_b, &pivot_between_ab, pivot_b);
-				}
-				else if (pivot_between_ab != NULL)
-					test_bstack_pivot_exist(&stack_a, &stack_b, &pivot_between_ab);
-				else
-					test_bstack_pivot_exist(&stack_a, &stack_b, &pivot);
-			}
+				test_bstack_pivot_exist(&stack_a, &stack_b, &pivot);
 		}
 		// 2-3. 만약 pivot 스택의 top이 a 스택의 top의 바로 밑 값이라면 -> 여기서 pivot은 무조건 top보다 원소 하나만큼 큼
 		else if (pivot_a_pos == 1)
 		{
 			ft_stacka_head_swap(&stack_a, &stack_b);
 			if (ft_deque_front_peak(&stack_a, &pivot_a) == -1)
-				return (-1);
+				return (2);
 		}
 		else if (pivot_a_pos == 2)
 		{
 			ft_stacka_three_swap(&stack_a, &stack_b);
 			if (ft_deque_front_peak(&stack_a, &pivot_a) == -1)
-				return (-1);
+				return (3);
 		}
 		// 2-4. 만약 pivot 스택의 top이 a 스택의 top과 차이가 2 이상 난다면 -> a 스택 pivot
 		else
 		{
 			if (ft_lstoverval(stack_a, pivot_a, &pivot_over) == -1)
-				return (-1);
+				return (4);
 			dist = pivot_a_pos - 1;
 			if (ft_lstissort_len(stack_a, dist + 1) == 0)
 			{
 				if (ft_deque_front_peak(&stack_a, &pivot_a) == -1)
-					return (-1);
+					return (5);
 			}
 			else
 			{
@@ -264,7 +258,7 @@ int				main(int argc, char *argv[])
 				ft_cmd_n(&stack_a, &stack_b, "rra", tmp);
 				// a 스택과 b 스택 사이에 있는 피봇 추가
 				if (ft_deque_front_peak(&stack_b, &pivot_b) == -1)
-					return (-1);
+					return (6);
 				ft_deque_front_push(&pivot_between_ab, pivot_b);
 			}
 		}
