@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 16:22:48 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/23 20:11:29 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/24 03:42:12 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	ft_a_stack_pivot(t_list **sa, t_list **sb, int n, int pivot)
 			rtn += ft_cmd_n(sa, sb, "ra", 1);
 		else
 			ft_cmd_n(sa, sb, "pb", 1);
+		if (pivot == tmp && (i + 1) != n)
+			p = 1;
 		if (pivot == tmp && ft_lstsize(*sb) > 1 && (i + 1) != n)
 			p = ft_cmd_n(sa, sb, "rb", 1);
 		i++;
@@ -57,6 +59,8 @@ int	ft_b_stack_pivot(t_list **sa, t_list **sb, int n, int pivot)
 			rtn += ft_cmd_n(sa, sb, "rb", 1);
 		else
 			ft_cmd_n(sa, sb, "pa", 1);
+		if (pivot == tmp && (i + 1) != n)
+			p = 1;
 		if (pivot == tmp && ft_lstsize(*sa) > 1 && (i + 1) != n)
 			p = ft_cmd_n(sa, sb, "ra", 1);
 		i++;
