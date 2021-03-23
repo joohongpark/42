@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:20:02 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/23 22:45:48 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/24 03:09:43 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,30 @@ int	test_bstack_pivot(t_list **stack_a, t_list **stack_b, t_list **pivots, int p
 	return (0);
 }
 
+int	ft_bstack_pivot(t_list **stack_a, t_list **stack_b, t_list **pivots)
+{
+	int	pivot;
+	int	pivot_len;
+
+	pivot_len = ft_lstsize(*stack_b);
+	if (pivot_len == 2)
+		ft_stackb_head_swap(stack_a, stack_b);
+	if (pivot_len == 3)
+		ft_stackb_three_swap(stack_a, stack_b);
+	if (pivot_len > 0 && pivot_len < 4)
+		ft_cmd_n(stack_a, stack_b, "pa", pivot_len);
+	else 
+	{
+		if (test_get_center(*stack_b, pivot_len, &pivot) != 0)
+			return (-1);
+		ft_b_stack_pivot(stack_a, stack_b, pivot_len, pivot);
+		ft_cmd_n(stack_a, stack_b, "pb", 1);
+		if (ft_deque_front_push(pivots, pivot) == -1)
+			return (-1);
+	}
+	return (0);
+}
+
 int	test_bstack_pivot_exist(t_list **stack_a, t_list **stack_b, t_list **pivots)
 {
 	int pivot;
@@ -145,6 +169,12 @@ int	test_bstack_pivot_exist(t_list **stack_a, t_list **stack_b, t_list **pivots)
 			if (ft_deque_front_pop(pivots, &pivot) == -1)
 				return (-1);
 		}
+		else
+		{
+			write(1, "bye\n", 4);
+			exit(1);
+		}
+		
 		test_bstack_pivot(stack_a, stack_b, pivots, pivot);
 	}
 	return (0);
@@ -212,13 +242,7 @@ int				main(int argc, char *argv[])
 			if (stack_b == NULL)
 				break ;
 			if (pivot == NULL && pivot_between_ab == NULL)
-			{
-				if (ft_deque_back_peak(&stack_b, &pivot_b) == -1)
-				{
-					return (1);
-				}
-				test_bstack_pivot(&stack_a, &stack_b, &pivot_between_ab, pivot_b);
-			}
+				ft_bstack_pivot(&stack_a, &stack_b, &pivot_between_ab);
 			else if (pivot_between_ab != NULL)
 				test_bstack_pivot_exist(&stack_a, &stack_b, &pivot_between_ab);
 			else
