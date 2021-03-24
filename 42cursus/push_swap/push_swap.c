@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:20:02 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/24 03:09:43 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/24 11:40:18 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,54 +94,23 @@ int	test_first_pivot(t_list **stack_a, t_list **stack_b, t_list **t_pivot)
 	return (0);
 }
 
-int	test_bstack_pivot(t_list **stack_a, t_list **stack_b, t_list **pivots, int pivot)
-{
-	int	pivot_dist;
-
-	pivot_dist = ft_lstdist(*stack_b, pivot);
-	if (pivot_dist == 0)
-	{
-		ft_cmd_n(stack_a, stack_b, "pa", 1);
-	}
-	else if (pivot_dist == 1)
-	{
-		ft_stackb_head_swap(stack_a, stack_b);
-		ft_cmd_n(stack_a, stack_b, "pa", 2);
-	}
-	else if (pivot_dist == 2)
-	{
-		ft_stackb_three_swap(stack_a, stack_b);
-		ft_cmd_n(stack_a, stack_b, "pa", 3);
-	}
-	else 
-	{
-		ft_b_stack_pivot(stack_a, stack_b, pivot_dist, pivot);
-		if (pivot_dist != 0)
-		{
-			if (ft_deque_front_push(pivots, pivot) == -1)
-				return (-1);
-		}
-	}
-	return (0);
-}
-
-int	ft_bstack_pivot(t_list **stack_a, t_list **stack_b, t_list **pivots)
+int	test_bstack_pivot(t_list **stack_a, t_list **stack_b, t_list **pivots)
 {
 	int	pivot;
-	int	pivot_len;
+	int	stack_len;
 
-	pivot_len = ft_lstsize(*stack_b);
-	if (pivot_len == 2)
+	stack_len = ft_lstsize(*stack_b);
+	if (stack_len == 2)
 		ft_stackb_head_swap(stack_a, stack_b);
-	if (pivot_len == 3)
+	if (stack_len == 3)
 		ft_stackb_three_swap(stack_a, stack_b);
-	if (pivot_len > 0 && pivot_len < 4)
-		ft_cmd_n(stack_a, stack_b, "pa", pivot_len);
+	if (stack_len > 0 && stack_len < 4)
+		ft_cmd_n(stack_a, stack_b, "pa", stack_len);
 	else 
 	{
-		if (test_get_center(*stack_b, pivot_len, &pivot) != 0)
+		if (test_get_center(*stack_b, stack_len, &pivot) != 0)
 			return (-1);
-		ft_b_stack_pivot(stack_a, stack_b, pivot_len, pivot);
+		ft_b_stack_pivot(stack_a, stack_b, stack_len, pivot);
 		ft_cmd_n(stack_a, stack_b, "pb", 1);
 		if (ft_deque_front_push(pivots, pivot) == -1)
 			return (-1);
@@ -149,33 +118,25 @@ int	ft_bstack_pivot(t_list **stack_a, t_list **stack_b, t_list **pivots)
 	return (0);
 }
 
-int	test_bstack_pivot_exist(t_list **stack_a, t_list **stack_b, t_list **pivots)
+int	test_btoastack(t_list **stack_a, t_list **stack_b, t_list **pivots)
 {
 	int pivot;
-	int	pivot_over;
+	int	pivot_dist;
 
-	if (ft_deque_front_peak(pivots, &pivot) == -1)
+	if (ft_deque_front_pop(pivots, &pivot) == -1)
 		return (-1);
-	if (ft_lstdist(*stack_b, pivot) == 0)
+	pivot_dist = ft_lstdist(*stack_b, pivot);
+	if (pivot_dist == 1)
+		ft_stackb_head_swap(stack_a, stack_b);
+	if (pivot_dist == 2)
+		ft_stackb_three_swap(stack_a, stack_b);
+	if (pivot_dist >= 0 && pivot_dist < 3)
+		ft_cmd_n(stack_a, stack_b, "pa", pivot_dist + 1);
+	else 
 	{
-		if (ft_deque_front_pop(pivots, &pivot) == -1)
+		ft_cmd_n(stack_a, stack_b, "pa", pivot_dist);
+		if (ft_deque_front_push(pivots, pivot) == -1)
 			return (-1);
-		ft_cmd_n(stack_a, stack_b, "pa", 1);
-	}
-	else
-	{
-		if (ft_lstoverval(*stack_b, pivot, &pivot_over) == 0)
-		{
-			if (ft_deque_front_pop(pivots, &pivot) == -1)
-				return (-1);
-		}
-		else
-		{
-			write(1, "bye\n", 4);
-			exit(1);
-		}
-		
-		test_bstack_pivot(stack_a, stack_b, pivots, pivot);
 	}
 	return (0);
 }
@@ -242,11 +203,11 @@ int				main(int argc, char *argv[])
 			if (stack_b == NULL)
 				break ;
 			if (pivot == NULL && pivot_between_ab == NULL)
-				ft_bstack_pivot(&stack_a, &stack_b, &pivot_between_ab);
+				test_bstack_pivot(&stack_a, &stack_b, &pivot_between_ab);
 			else if (pivot_between_ab != NULL)
-				test_bstack_pivot_exist(&stack_a, &stack_b, &pivot_between_ab);
+				test_btoastack(&stack_a, &stack_b, &pivot_between_ab);
 			else
-				test_bstack_pivot_exist(&stack_a, &stack_b, &pivot);
+				test_btoastack(&stack_a, &stack_b, &pivot);
 		}
 		// 2-3. 만약 pivot 스택의 top이 a 스택의 top의 바로 밑 값이라면 -> 여기서 pivot은 무조건 top보다 원소 하나만큼 큼
 		else if (pivot_a_pos == 1)
