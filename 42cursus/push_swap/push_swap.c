@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:20:02 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/24 17:48:43 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/25 02:26:28 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,8 @@ int	test_btoastack(t_list **stack_a, t_list **stack_b, t_list **pivots)
 {
 	int pivot;
 	int	pivot_dist;
+	int	rev;
+	int	tmp;
 
 	if (ft_deque_front_pop(pivots, &pivot) == -1)
 		return (-1);
@@ -156,11 +158,19 @@ int	test_btoastack(t_list **stack_a, t_list **stack_b, t_list **pivots)
 		ft_stackb_head_swap(stack_a, stack_b);
 	if (pivot_dist == 2)
 		ft_stackb_three_swap(stack_a, stack_b);
-	if (pivot_dist >= 0 && pivot_dist < 3)
+	if ((pivot_dist >= 0 && pivot_dist < 3) || ft_lstisrevsort_len(*stack_b, pivot_dist + 1) == 0)
 		ft_cmd_n(stack_a, stack_b, "pa", pivot_dist + 1);
 	else 
 	{
-		ft_cmd_n(stack_a, stack_b, "pa", pivot_dist);
+		if (test_get_center(*stack_b, pivot_dist, &pivot) != 0)
+			return (-1);
+		rev = ft_b_stack_pivot(stack_a, stack_b, pivot_dist, pivot);
+		if (ft_deque_front_peak(stack_b, &tmp) == -1)
+			return (-1);
+		if (ft_deque_front_push(pivots, tmp) == -1)
+			return (-1);
+		ft_cmd_n(stack_a, stack_b, "rrb", rev);
+		ft_cmd_n(stack_a, stack_b, "pb", 1);
 		if (ft_deque_front_push(pivots, pivot) == -1)
 			return (-1);
 	}
