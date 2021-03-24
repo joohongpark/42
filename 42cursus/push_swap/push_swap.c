@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:20:02 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/24 13:53:26 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/24 14:00:35 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,6 @@ int				main(int argc, char *argv[])
 	t_list		*stack_a;
 	t_list		*stack_b;
 	t_list		*pivot;
-	t_list		*pivot_between_ab;
 	int			tmp;
 	int			tmp1;
 	int			pivot_over;
@@ -159,7 +158,6 @@ int				main(int argc, char *argv[])
 	stack_a = NULL;
 	stack_b = NULL;
 	pivot = NULL;
-	pivot_between_ab = NULL;
 	i = 0;
 	if (argc < 2)
 		return (0);
@@ -182,7 +180,7 @@ int				main(int argc, char *argv[])
 	}
 	//write(1, "====\n", 5);
 	// 2. pivot 사이에 원소들이 정렬될 때 까지 (pivot 사이 원소들이 정렬되면 Pivot 원소를 pop함.)
-	while (pivot != NULL || pivot_between_ab != NULL)
+	while (pivot != NULL)
 	{
 		//write(1, "loop\n", 5);
 		if (ft_deque_front_peak(&pivot, &pivot_a) == -1)
@@ -199,10 +197,8 @@ int				main(int argc, char *argv[])
 				return (-1);
 			if (stack_b == NULL)
 				break ;
-			if (pivot == NULL && pivot_between_ab == NULL)
-				test_bstack_pivot(&stack_a, &stack_b, &pivot_between_ab);
-			else if (pivot_between_ab != NULL)
-				test_btoastack(&stack_a, &stack_b, &pivot_between_ab);
+			if (pivot == NULL)
+				test_bstack_pivot(&stack_a, &stack_b, &pivot);
 			else
 				test_btoastack(&stack_a, &stack_b, &pivot);
 			ft_deque_front_push(&pivot, pivot_a);
@@ -221,13 +217,16 @@ int				main(int argc, char *argv[])
 		}
 		else
 		{
+			if (ft_deque_front_pop(&pivot, &pivot_a) == -1)
+				return (-1);
 			if (test_get_center(stack_a, pivot_a_pos, &pivot_over) != 0)
 				return (-1);
 			tmp = ft_a_stack_pivot(&stack_a, &stack_b, pivot_a_pos, pivot_over);
 			ft_cmd_n(&stack_a, &stack_b, "rra", tmp);
 			if (ft_deque_front_peak(&stack_b, &pivot_b) == -1)
 				return (6);
-			ft_deque_front_push(&pivot_between_ab, pivot_b);
+			ft_deque_front_push(&pivot, pivot_b);
+			ft_deque_front_push(&pivot, pivot_a);
 		}
 		//ft_deque_front_push(&pivot, pivot_a);
 		i++;
@@ -236,7 +235,6 @@ int				main(int argc, char *argv[])
  				__dump("stack_a", &stack_a);
  				__dump("stack_b", &stack_b);
  				__dump("pivot", &pivot);
- 				__dump("pivot_between_ab", &pivot_between_ab);
 		}
 	}
 
