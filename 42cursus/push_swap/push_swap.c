@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:20:02 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/24 14:00:35 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/24 15:01:41 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,16 +79,15 @@ int	test_first_pivot(t_list **stack_a, t_list **stack_b, t_list **t_pivot)
 			ft_stacka_three_swap(stack_a, stack_b);
 		else if (len == 2)
 			ft_stacka_head_swap(stack_a, stack_b);
-		if (ft_deque_front_peak(stack_a, &pivot) == -1)
-			return (-1);
 	}
 	else
 	{
 		if (test_get_center(*stack_a, len, &pivot) != 0)
 			return (-1);
 		ft_a_stack_pivot(stack_a, stack_b, len, pivot);
+		//ft_cmd_n(stack_a, stack_b, "pb", 1);
+		ft_deque_front_push(t_pivot, pivot);
 	}
-	ft_deque_front_push(t_pivot, pivot);
 	return (0);
 }
 
@@ -144,11 +143,10 @@ int				main(int argc, char *argv[])
 	t_list		*stack_a;
 	t_list		*stack_b;
 	t_list		*pivot;
+	int			stack_a_head;
 	int			tmp;
-	int			tmp1;
 	int			pivot_over;
 	int			rtn;
-	int			pivot_a;
 	int			pivot_a_pos;
 	int			pivot_b;
 	int			i;
@@ -166,26 +164,15 @@ int				main(int argc, char *argv[])
 	// 1. stack a 에 대해 정렬될때까지 pivot 나누기 수행
 	while (ft_lstissort(stack_a) == -1)
 		test_first_pivot(&stack_a, &stack_b, &pivot);
-	if (ft_deque_front_peak(&stack_a, &tmp) == -1)
+	if (ft_deque_front_peak(&stack_a, &stack_a_head) == -1)
 		return (-1);
-	if (ft_deque_front_peak(&pivot, &tmp1) == -1)
-	{
-		if (ft_deque_front_push(&stack_a, tmp) == -1)
-			return (-1);
-	}
-	else
-	{
-		if (tmp != tmp1)
-			ft_cmd_n(&stack_a, &stack_b, "pa", 1);
-	}
+	
 	//write(1, "====\n", 5);
 	// 2. pivot 사이에 원소들이 정렬될 때 까지 (pivot 사이 원소들이 정렬되면 Pivot 원소를 pop함.)
-	while (pivot != NULL)
+	while (1)
 	{
 		//write(1, "loop\n", 5);
-		if (ft_deque_front_peak(&pivot, &pivot_a) == -1)
-			return (-1);
-		pivot_a_pos = ft_lstdist(stack_a, pivot_a);
+		pivot_a_pos = ft_lstdist(stack_a, stack_a_head);
 		if (pivot_a_pos == -1 || ((pivot_a_pos == 0) && (ft_lstissort(stack_a) == -1)))
 		{
 			write(1, "error (pivot_a_pos == -1) or error (2-2-1)\n", 43);
@@ -193,32 +180,24 @@ int				main(int argc, char *argv[])
 		}
 		if (pivot_a_pos == 0)
 		{
-			if (ft_deque_front_pop(&pivot, &pivot_a) == -1)
-				return (-1);
 			if (stack_b == NULL)
 				break ;
 			if (pivot == NULL)
 				test_bstack_pivot(&stack_a, &stack_b, &pivot);
 			else
 				test_btoastack(&stack_a, &stack_b, &pivot);
-			ft_deque_front_push(&pivot, pivot_a);
 		}
 		else if (pivot_a_pos == 1 || pivot_a_pos == 2 || (ft_lstissort_len(stack_a, pivot_a_pos) == 0))
 		{
-			if (ft_deque_front_pop(&pivot, &pivot_a) == -1)
-				return (-1);
 			if (pivot_a_pos == 1)
 				ft_stacka_head_swap(&stack_a, &stack_b);
 			else if (pivot_a_pos == 2)
 				ft_stacka_three_swap(&stack_a, &stack_b);
-			if (ft_deque_front_peak(&stack_a, &pivot_a) == -1)
+			if (ft_deque_front_peak(&stack_a, &stack_a_head) == -1)
 				return (3);
-			ft_deque_front_push(&pivot, pivot_a);
 		}
 		else
 		{
-			if (ft_deque_front_pop(&pivot, &pivot_a) == -1)
-				return (-1);
 			if (test_get_center(stack_a, pivot_a_pos, &pivot_over) != 0)
 				return (-1);
 			tmp = ft_a_stack_pivot(&stack_a, &stack_b, pivot_a_pos, pivot_over);
@@ -226,7 +205,6 @@ int				main(int argc, char *argv[])
 			if (ft_deque_front_peak(&stack_b, &pivot_b) == -1)
 				return (6);
 			ft_deque_front_push(&pivot, pivot_b);
-			ft_deque_front_push(&pivot, pivot_a);
 		}
 		//ft_deque_front_push(&pivot, pivot_a);
 		i++;
