@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:20:02 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/24 15:01:41 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/24 17:48:43 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,35 @@ int	test_first_pivot(t_list **stack_a, t_list **stack_b, t_list **t_pivot)
 	return (0);
 }
 
+int	test_stacka_proc(t_list **stack_a, t_list **stack_b, t_list **t_pivot, int *head)
+{
+	int	pivot;
+	int	len;
+	int	tmp;
+
+	len = ft_lstdist(*stack_a, *head);
+	if (len < 3 || (ft_lstissort_len(*stack_a, len) == 0))
+	{
+		if (len == 2)
+			ft_stacka_three_swap(stack_a, stack_b);
+		else if (len == 1)
+			ft_stacka_head_swap(stack_a, stack_b);
+		if (ft_deque_front_peak(stack_a, head) == -1)
+			return (-1);
+	}
+	else
+	{
+		if (test_get_center(*stack_a, len, &pivot) != 0)
+			return (-1);
+		tmp = ft_a_stack_pivot(stack_a, stack_b, len, pivot);
+		ft_cmd_n(stack_a, stack_b, "rra", tmp);
+		if (ft_deque_front_peak(stack_b, &pivot) == -1)
+			return (-1);
+		ft_deque_front_push(t_pivot, pivot);
+	}
+	return (0);
+}
+
 int	test_bstack_pivot(t_list **stack_a, t_list **stack_b, t_list **pivots)
 {
 	int	pivot;
@@ -145,10 +174,8 @@ int				main(int argc, char *argv[])
 	t_list		*pivot;
 	int			stack_a_head;
 	int			tmp;
-	int			pivot_over;
 	int			rtn;
 	int			pivot_a_pos;
-	int			pivot_b;
 	int			i;
 
 	(void)tmp;
@@ -187,25 +214,8 @@ int				main(int argc, char *argv[])
 			else
 				test_btoastack(&stack_a, &stack_b, &pivot);
 		}
-		else if (pivot_a_pos == 1 || pivot_a_pos == 2 || (ft_lstissort_len(stack_a, pivot_a_pos) == 0))
-		{
-			if (pivot_a_pos == 1)
-				ft_stacka_head_swap(&stack_a, &stack_b);
-			else if (pivot_a_pos == 2)
-				ft_stacka_three_swap(&stack_a, &stack_b);
-			if (ft_deque_front_peak(&stack_a, &stack_a_head) == -1)
-				return (3);
-		}
 		else
-		{
-			if (test_get_center(stack_a, pivot_a_pos, &pivot_over) != 0)
-				return (-1);
-			tmp = ft_a_stack_pivot(&stack_a, &stack_b, pivot_a_pos, pivot_over);
-			ft_cmd_n(&stack_a, &stack_b, "rra", tmp);
-			if (ft_deque_front_peak(&stack_b, &pivot_b) == -1)
-				return (6);
-			ft_deque_front_push(&pivot, pivot_b);
-		}
+			test_stacka_proc(&stack_a, &stack_b, &pivot, &stack_a_head);
 		//ft_deque_front_push(&pivot, pivot_a);
 		i++;
 		if (i > 15000)
