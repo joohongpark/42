@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:21:22 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/23 21:04:00 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/24 13:53:41 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,5 @@ int					ft_stackb_three_swap(t_list **stack_a, t_list **stack_b);
 
 void				ft_quicksort(int *data, int start, int end);
 void				ft_quicksort_swap(int *a, int *b);
-
-void				ft_stack_pre(t_list **stack_a, t_list **stack_b);
 
 #endif
