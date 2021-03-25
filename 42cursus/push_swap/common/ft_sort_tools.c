@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 16:22:48 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/25 20:57:12 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/26 03:03:57 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,11 @@ int	ft_get_center(t_list *stack, int depth, int *val)
 	if (list == NULL)
 		return (-1);
 	ft_quicksort(list, 0, depth - 1);
-	*val = list[depth / 2];
+	if (depth < 5)
+		depth = depth / 2 - 1;
+	else
+		depth = depth / 2;
+	*val = list[depth];
 	free(list);
 	return (0);
 }
@@ -112,12 +116,32 @@ int	ft_b_stack_pivot(t_list **sa, t_list **sb, int n, int pivot)
 
 int	ft_cmd_n(t_list **sa, t_list **sb, char *cmd, int n)
 {
+	static char	*string = NULL;
+	char	*tmp;
+
 	while (n > 0)
 	{
 		ft_op(sa, sb, cmd);
-		write(1, cmd, ft_strlen(cmd));
-		write(1, "\n", 1);
+		string = ft_strnstack(string, cmd, ft_strlen(cmd));
+		string = ft_strnstack(string, "\n", 1);
 		n--;
+	}
+	if (n == -1)
+	{
+		tmp = ft_strreplace(string, "\nra\nrb\n", "\nrr\n");
+		free(string);
+		string = ft_strreplace(tmp, "\nrra\nrrb\n", "\nrrr\n");
+		free(tmp);
+		tmp = ft_strreplace(string, "\nrb\nra\n", "\nrr\n");
+		free(string);
+		string = ft_strreplace(tmp, "\nrrb\nrra\n", "\nrrr\n");
+		free(tmp);
+		tmp = ft_strreplace(string, "\nrr\nrrr\n", "\n");
+		free(string);
+		string = ft_strreplace(tmp, "\nrrr\nrr\n", "\n");
+		free(tmp);
+		write(1, string, ft_strlen(string));
+		free(string);
 	}
 	return (1);
 }

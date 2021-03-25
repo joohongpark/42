@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:20:02 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/25 20:56:26 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/25 23:51:24 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ int				main(int argc, char *argv[])
 	while (ft_lstissort(stack_a) == -1)
 		ft_first_pivot(&stack_a, &stack_b, &pivot);
 	ft_stack_sort(&stack_a, &stack_b, &pivot);
+	ft_cmd_n(NULL, NULL, NULL, -1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:21:22 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/25 20:57:30 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/26 01:21:45 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ size_t				ft_strlen(char *str);
 size_t				ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char				*ft_strnstr(const char *haystack, const char *needle, size_t len);
 int					ft_str_is_int(char *str);
+char				*ft_strreplace(char *str, char *a, char *b);
 
 int 				ft_lstsize(t_list *lst);
 int					ft_lstdupchk(t_list *lst, int element);

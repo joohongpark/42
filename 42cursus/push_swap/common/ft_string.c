@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:03:15 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/12 15:12:13 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/26 01:21:01 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,28 @@ int	ft_str_is_int(char *str)
 			return (-1);
 	}
 	return (0);
+}
+
+char	*ft_strreplace(char *str, char *a, char *b)
+{
+	char	*rtn;
+	char	*pos;
+	char	*pos_next;
+
+	pos = str;
+	rtn = NULL;
+	while (1)
+	{
+		pos_next = ft_strnstr(pos, a, ft_strlen(str));
+		if (pos_next == NULL)
+		{
+			rtn = ft_strnstack(rtn, pos, ft_strlen(pos));
+			break ;
+		}
+		rtn = ft_strnstack(rtn, pos, pos_next - pos);
+		rtn = ft_strnstack(rtn, b, ft_strlen(b));
+		pos_next += ft_strlen(a);
+		pos = pos_next;
+	}
+	return (rtn);
 }
