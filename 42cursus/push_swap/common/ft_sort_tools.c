@@ -6,11 +6,51 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 16:22:48 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/25 02:04:53 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/25 20:57:12 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <common.h>
+
+int	ft_stack_sort(t_list **stack_a, t_list **stack_b, t_list **pivot)
+{
+	int			stack_a_head;
+	int			pivot_a_pos;
+
+	if (ft_deque_front_peak(stack_a, &stack_a_head) == -1)
+		return (-1);
+	while (1)
+	{
+		pivot_a_pos = ft_lstdist(*stack_a, stack_a_head);
+		if (pivot_a_pos == 0 && *stack_b == NULL)
+			break ;
+		else if (pivot_a_pos != 0)
+			ft_stacka_proc(stack_a, stack_b, pivot, &stack_a_head);
+		else
+		{
+			if (*stack_b == NULL)
+				break ;
+			if (*pivot == NULL)
+				ft_stackb_pivot_tail(stack_a, stack_b, pivot);
+			else
+				ft_stackb_pivot(stack_a, stack_b, pivot);
+		}
+	}
+	return (0);
+}
+
+int	ft_get_center(t_list *stack, int depth, int *val)
+{
+	int	*list;
+
+	list = ft_get_elem(stack, depth);
+	if (list == NULL)
+		return (-1);
+	ft_quicksort(list, 0, depth - 1);
+	*val = list[depth / 2];
+	free(list);
+	return (0);
+}
 
 int	ft_a_stack_pivot(t_list **sa, t_list **sb, int n, int pivot)
 {

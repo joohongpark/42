@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:21:22 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/24 13:53:41 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/25 20:57:30 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,19 @@ int					ft_reverse_rotate(t_list **stack);
 void				ft_insert_stack(t_list **stack_a, int argc, char *argv[]);
 void				ft_err_exit(t_list **stack_a, t_list **stack_b);
 
+int					ft_stack_sort(t_list **stack_a, t_list **stack_b, t_list **pivot);
+int					ft_get_center(t_list *stack, int depth, int *val);
 int					ft_a_stack_pivot(t_list **sa, t_list **sb, int n, int pivot);
 int					ft_b_stack_pivot(t_list **sa, t_list **sb, int n, int pivot);
 int					ft_cmd_n(t_list **sa, t_list **sb, char *cmd, int n);
 
-void				ft_stacka_rev(t_list **stack_a, t_list **stack_b, int len);
+int					ft_stacka_proc(t_list **sa, t_list **sb, t_list **p, int *h);
+int					ft_first_pivot(t_list **sa, t_list **sb, t_list **p);
 int					ft_stacka_head_swap(t_list **stack_a, t_list **stack_b);
 int					ft_stacka_three_swap(t_list **stack_a, t_list **stack_b);
 
-void				ft_stackb_rev(t_list **stack_a, t_list **stack_b, int len);
+int					ft_stackb_pivot(t_list **sa, t_list **sb, t_list **p);
+int					ft_stackb_pivot_tail(t_list **sa, t_list **sb, t_list **p);
 int					ft_stackb_head_swap(t_list **stack_a, t_list **stack_b);
 int					ft_stackb_three_swap(t_list **stack_a, t_list **stack_b);
 
