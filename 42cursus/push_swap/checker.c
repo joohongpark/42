@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:19:50 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/15 15:27:34 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/25 22:36:59 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ int	main(int argc, char *argv[])
 	if (stack_b != NULL || ft_lstissort(stack_a) == -1)
 		write(2, "KO\n", 3);
 	else
-		write(2, "OK\n", 3);
+		write(1, "OK\n", 3);
 	return (0);
 }
