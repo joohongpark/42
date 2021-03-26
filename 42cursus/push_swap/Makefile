@@ -37,6 +37,14 @@ COMPILER = gcc
 CFLAGS = -Wall -Wextra -Werror
 HEADER_COM = ./common
 
+all: $(NAME_CHECKER) $(NAME_PUSH_SWAP)
+
+clean:
+	rm -f $(OBJS_COM) $(OBJS_CHECKER) $(OBJS_PUSH_SWAP)
+
+fclean: clean
+	rm -f $(NAME_CHECKER) $(NAME_PUSH_SWAP)
+
 %.o: %.c
 	$(COMPILER) ${CFLAGS} -I${HEADER_COM} -c -o $@ $<
 
@@ -45,13 +53,5 @@ $(NAME_CHECKER): $(OBJS_COM) $(OBJS_CHECKER)
 
 $(NAME_PUSH_SWAP): $(OBJS_COM) $(OBJS_PUSH_SWAP)
 	$(COMPILER) $(CFLAGS) $(OBJS_PUSH_SWAP) $(OBJS_COM) -I$(HEADER_COM) -o $(NAME_PUSH_SWAP)
-
-all: $(NAME_CHECKER) $(NAME_PUSH_SWAP)
-
-clean:
-	rm -f $(OBJS_COM) $(OBJS_CHECKER) $(OBJS_PUSH_SWAP)
-
-fclean: clean
-	rm -f $(NAME_CHECKER) $(NAME_PUSH_SWAP)
 
 re: fclean all
