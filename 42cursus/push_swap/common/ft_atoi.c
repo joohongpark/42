@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 22:02:04 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/11 21:18:07 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/26 20:51:15 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ int	ft_atoi(const char *str, int *value)
 
 	sum = 0;
 	p = 1;
-	while ((*str == '\t') || (*str == '\n')
-		|| (*str == '\v') || (*str == '\f')
-		|| (*str == '\r') || (*str == ' '))
+	while ((*str == '\t') || (*str == '\n') || (*str == '\r') || (*str == ' '))
 		str++;
 	if (*str == '+' || *str == '-')
 	{
@@ -39,8 +37,6 @@ int	ft_atoi(const char *str, int *value)
 		if (sum * p < -2147483648L)
 			return (-1);
 	}
-	if (*str == '\0')
-		return (-1);
 	*value = (int)(sum * p);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 16:22:48 by joopark           #+#    #+#             */
-/*   Updated: 2021/03/26 03:03:57 by joopark          ###   ########.fr       */
+/*   Updated: 2021/03/27 00:02:11 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,10 @@ int	ft_cmd_n(t_list **sa, t_list **sb, char *cmd, int n)
 		string = ft_strreplace(string, "\nrrb\nrra\n", "\nrrr\n");
 		string = ft_strreplace(string, "\nrr\nrrr\n", "\n");
 		string = ft_strreplace(string, "\nrrr\nrr\n", "\n");
+		string = ft_strreplace(string, "\nsa\nsa\n", "\n");
+		string = ft_strreplace(string, "\nsb\nsb\n", "\n");
+		string = ft_strreplace(string, "\npa\npb\n", "\n");
+		string = ft_strreplace(string, "\npb\npa\n", "\n");
 		write(1, string, ft_strlen(string));
 		free(string);
 	}
