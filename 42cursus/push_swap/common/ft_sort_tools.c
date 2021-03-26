@@ -125,7 +125,7 @@ int	ft_cmd_n(t_list **sa, t_list **sb, char *cmd, int n)
 		string = ft_strnstack(string, "\n", 1);
 		n--;
 	}
-	if (n == -1)
+	if (n == -1 && string != NULL)
 	{
 		string = ft_strreplace(string, "\nra\nrb\n", "\nrr\n");
 		string = ft_strreplace(string, "\nrra\nrrb\n", "\nrrr\n");

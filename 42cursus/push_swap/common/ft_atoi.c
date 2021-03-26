@@ -29,6 +29,8 @@ int	ft_atoi(const char *str, int *value)
 			p = p * -1L;
 		str++;
 	}
+	if (*str == '\0')
+		return (-1);
 	while (*str >= '0' && *str <= '9')
 	{
 		sum = (long)(*str++ - '0') + sum * 10L;
@@ -37,6 +39,8 @@ int	ft_atoi(const char *str, int *value)
 		if (sum * p < -2147483648L)
 			return (-1);
 	}
+	if (*str == '\0')
+		return (-1);
 	*value = (int)(sum * p);
 	return (0);
 }
