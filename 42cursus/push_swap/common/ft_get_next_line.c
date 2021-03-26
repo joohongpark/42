@@ -12,7 +12,7 @@
 
 #include <common.h>
 
-char	*ft_strnstack(char *stack, char *str, size_t n)
+char		*ft_strnstack(char *stack, char *str, size_t n)
 {
 	char	*rtn;
 	size_t	len;
@@ -39,7 +39,7 @@ char	*ft_strnstack(char *stack, char *str, size_t n)
 	return (rtn);
 }
 
-char	*ft_getbuf(ssize_t clr, char **bp)
+char		*ft_getbuf(ssize_t clr, char **bp)
 {
 	if (*bp == NULL)
 	{
@@ -56,7 +56,7 @@ char	*ft_getbuf(ssize_t clr, char **bp)
 	return (*bp);
 }
 
-int	ft_prechk(int fd, char **line, char **bufrtn, char **bp)
+int			ft_prechk(int fd, char **line, char **bufrtn, char **bp)
 {
 	char	tmp;
 
@@ -77,7 +77,7 @@ int	ft_prechk(int fd, char **line, char **bufrtn, char **bp)
 	return (0);
 }
 
-int	ft_getbyn(char *buf, char **line)
+int			ft_getbyn(char *buf, char **line)
 {
 	char	*p;
 
@@ -98,7 +98,7 @@ int	ft_getbyn(char *buf, char **line)
 	return (p != NULL);
 }
 
-int	ft_get_next_line(int fd, char **line, char **bp)
+int			ft_get_next_line(int fd, char **line, char **bp)
 {
 	ssize_t	len;
 	char	*b;

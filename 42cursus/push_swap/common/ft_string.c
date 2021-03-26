@@ -12,7 +12,7 @@
 
 #include <common.h>
 
-size_t	ft_strlen(char *str)
+size_t		ft_strlen(char *str)
 {
 	size_t	i;
 
@@ -22,7 +22,7 @@ size_t	ft_strlen(char *str)
 	return (i);
 }
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t	i;
 	size_t	len;
@@ -41,7 +41,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	return (len);
 }
 
-char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
+char		*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
 	size_t	s_p;
 	size_t	f_p;
@@ -68,9 +68,9 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 	return (NULL);
 }
 
-int	ft_str_is_int(char *str)
+int			ft_str_is_int(char *str)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	if (str[i] == '+' || str[i] == '-')
@@ -85,7 +85,7 @@ int	ft_str_is_int(char *str)
 	return (0);
 }
 
-char	*ft_strreplace(char *str, char *a, char *b)
+char		*ft_strreplace(char *str, char *a, char *b)
 {
 	char	*rtn;
 	char	*pos;
@@ -106,5 +106,6 @@ char	*ft_strreplace(char *str, char *a, char *b)
 		pos_next += ft_strlen(a);
 		pos = pos_next;
 	}
+	free(str);
 	return (rtn);
 }

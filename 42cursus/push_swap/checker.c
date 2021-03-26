@@ -12,11 +12,11 @@
 
 #include <common.h>
 
-void	ft_exe_op(t_list **stack_a, t_list **stack_b)
+void		ft_exe_op(t_list **stack_a, t_list **stack_b)
 {
-	char		*bp;
-	char		*line;
-	int			gnl;
+	char	*bp;
+	char	*line;
+	int		gnl;
 
 	bp = NULL;
 	while (1)
@@ -36,10 +36,10 @@ void	ft_exe_op(t_list **stack_a, t_list **stack_b)
 	}
 }
 
-int	main(int argc, char *argv[])
+int			main(int argc, char *argv[])
 {
-	t_list		*stack_a;
-	t_list		*stack_b;
+	t_list	*stack_a;
+	t_list	*stack_b;
 
 	stack_a = NULL;
 	stack_b = NULL;

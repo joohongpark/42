@@ -12,7 +12,7 @@
 
 #include <common.h>
 
-int	ft_stackb_pivot(t_list **sa, t_list **sb, t_list **p)
+int		ft_stackb_pivot(t_list **sa, t_list **sb, t_list **p)
 {
 	int pivot;
 	int	pivot_dist;
@@ -27,7 +27,7 @@ int	ft_stackb_pivot(t_list **sa, t_list **sb, t_list **p)
 		ft_stackb_three_swap(sa, sb);
 	if ((pivot_dist < 3) || ft_lstisrevsort_len(*sb, pivot_dist + 1) == 0)
 		ft_cmd_n(sa, sb, "pa", pivot_dist + 1);
-	else 
+	else
 	{
 		if (ft_get_center(*sb, pivot_dist, &pivot) != 0)
 			return (-1);
@@ -41,7 +41,7 @@ int	ft_stackb_pivot(t_list **sa, t_list **sb, t_list **p)
 	return (0);
 }
 
-int	ft_stackb_pivot_tail(t_list **sa, t_list **sb, t_list **p)
+int		ft_stackb_pivot_tail(t_list **sa, t_list **sb, t_list **p)
 {
 	int	pivot;
 	int	stack_len;
@@ -53,7 +53,7 @@ int	ft_stackb_pivot_tail(t_list **sa, t_list **sb, t_list **p)
 		ft_stackb_three_swap(sa, sb);
 	if (stack_len > 0 && stack_len < 4)
 		ft_cmd_n(sa, sb, "pa", stack_len);
-	else 
+	else
 	{
 		if (ft_get_center(*sb, stack_len, &pivot) != 0)
 			return (-1);
@@ -65,7 +65,7 @@ int	ft_stackb_pivot_tail(t_list **sa, t_list **sb, t_list **p)
 	return (0);
 }
 
-int	ft_stackb_head_swap(t_list **stack_a, t_list **stack_b)
+int		ft_stackb_head_swap(t_list **stack_a, t_list **stack_b)
 {
 	int	top;
 	int	bottom;
@@ -83,7 +83,7 @@ int	ft_stackb_head_swap(t_list **stack_a, t_list **stack_b)
 	return (0);
 }
 
-int	ft_stackb_three_swap(t_list **stack_a, t_list **stack_b)
+int		ft_stackb_three_swap(t_list **stack_a, t_list **stack_b)
 {
 	int	*elem;
 

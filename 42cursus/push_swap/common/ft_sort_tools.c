@@ -117,7 +117,6 @@ int	ft_b_stack_pivot(t_list **sa, t_list **sb, int n, int pivot)
 int	ft_cmd_n(t_list **sa, t_list **sb, char *cmd, int n)
 {
 	static char	*string = NULL;
-	char	*tmp;
 
 	while (n > 0)
 	{
@@ -128,18 +127,12 @@ int	ft_cmd_n(t_list **sa, t_list **sb, char *cmd, int n)
 	}
 	if (n == -1)
 	{
-		tmp = ft_strreplace(string, "\nra\nrb\n", "\nrr\n");
-		free(string);
-		string = ft_strreplace(tmp, "\nrra\nrrb\n", "\nrrr\n");
-		free(tmp);
-		tmp = ft_strreplace(string, "\nrb\nra\n", "\nrr\n");
-		free(string);
-		string = ft_strreplace(tmp, "\nrrb\nrra\n", "\nrrr\n");
-		free(tmp);
-		tmp = ft_strreplace(string, "\nrr\nrrr\n", "\n");
-		free(string);
-		string = ft_strreplace(tmp, "\nrrr\nrr\n", "\n");
-		free(tmp);
+		string = ft_strreplace(string, "\nra\nrb\n", "\nrr\n");
+		string = ft_strreplace(string, "\nrra\nrrb\n", "\nrrr\n");
+		string = ft_strreplace(string, "\nrb\nra\n", "\nrr\n");
+		string = ft_strreplace(string, "\nrrb\nrra\n", "\nrrr\n");
+		string = ft_strreplace(string, "\nrr\nrrr\n", "\n");
+		string = ft_strreplace(string, "\nrrr\nrr\n", "\n");
 		write(1, string, ft_strlen(string));
 		free(string);
 	}
