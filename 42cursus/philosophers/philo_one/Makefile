@@ -17,6 +17,7 @@ OBJS_COM = ${FILES_COM:%.c=%.o}
 OBJS = ${FILES:%.c=%.o}
 COMPILER = gcc
 CFLAGS = -Wall -Wextra -Werror
+CLIBS = -lpthread
 HEADER = ./
 
 all: $(NAME)
@@ -28,9 +29,9 @@ fclean: clean
 	rm -f $(NAME)
 
 %.o: %.c
-	$(COMPILER) ${CFLAGS} -I${HEADER} -c -o $@ $<
+	$(COMPILER) $(CFLAGS) -I$(HEADER) -c -o $@ $<
 
 $(NAME): $(OBJS) $(OBJS_COM)
-	$(COMPILER) $(CFLAGS) $(OBJS) $(OBJS_COM) -I$(HEADER) -o $(NAME)
+	$(COMPILER) $(CFLAGS) $(CLIBS) $(OBJS) $(OBJS_COM) -I$(HEADER) -o $(NAME)
 
 re: fclean all
