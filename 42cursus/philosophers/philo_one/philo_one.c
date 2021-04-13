@@ -6,48 +6,68 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:41:07 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/12 01:49:34 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/13 23:31:01 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo_one.h>
 #include <stdio.h>
 
-void *ft_test(void *arg)
+int ft_philo_init(t_philo_one *arg)
 {
-	t_arg *tp;
+	int	i;
 
-	tp = (t_arg *)arg;
-	printf("number_of_philosophers : %d\n", tp->number_of_philo);
-	printf("time_to_die : %d\n", tp->time_to_die);
-	printf("time_to_eat : %d\n", tp->time_to_eat);
-	printf("time_to_sleep  : %d\n", tp->time_to_sleep );
-	printf("number_of_times_each_philosopher_must_eat : %d\n", tp->number_of_times_each_philo_must_eat);
-	return (NULL);
+	i = 0;
+	arg->philos = (t_philo *)malloc(sizeof(t_philo) * arg->arg.philo_num);
+	if (arg->philos == NULL)
+		return (-1);
+	while (i < arg->arg.philo_num)
+	{
+		arg->philos[i].philo_id = i + 1;
+		arg->philos[i].fork = 1;
+		arg->philos[i].status = 0;
+		i++;
+	}
+	return (0);
 }
 
-void ft_philo_gen(t_arg *arg)
+int ft_philo_gen(t_philo_one *arg)
 {
-	pthread_t thread;
+	int			i;
+	pthread_t	*thread;
+	t_relay		*data;
 
-	pthread_create(&thread, NULL, ft_test, (void *)arg);
-	pthread_join(thread, NULL);
-
+	i = 0;
+	data = (t_relay *)malloc(sizeof(t_relay) * arg->arg.philo_num);
+	if (data == NULL)
+		return (-1);
+	while (i < arg->arg.philo_num)
+	{
+		thread = &(arg->philos[i].thread);
+		data[i].id = &arg->philos[i].philo_id;
+		data[i].obj = (void *)arg;
+		pthread_create(thread, NULL, ft_philosopher, (void *)&data[i]);
+		i++;
+	}
+	i = 0;
+	while (i < arg->arg.philo_num)
+	{
+		pthread_join(arg->philos[i].thread, NULL);
+		i++;
+	}
+	free(data);
+	return (0);
 }
 
 int	main(int argc, char *argv[])
 {
-	t_arg	arg;
-
-	printf("argc : %d\n", argc);
-	if (ft_arg_parser(argc, argv, &arg) == -1)
+	t_philo_one	philo_struct;
+	//pthread_mutex_init(&mutex_fork, NULL);
+	if (ft_arg_parser(argc, argv, &philo_struct.arg) == -1)
 		return (-1);
-	printf("number_of_philosophers : %d\n", arg.number_of_philo);
-	printf("time_to_die : %d\n", arg.time_to_die);
-	printf("time_to_eat : %d\n", arg.time_to_eat);
-	printf("time_to_sleep  : %d\n", arg.time_to_sleep );
-	printf("number_of_times_each_philosopher_must_eat : %d\n", arg.number_of_times_each_philo_must_eat);
-
-	ft_philo_gen(&arg);
+	if (ft_philo_init(&philo_struct) == -1)
+		return (-1);
+	ft_philo_gen(&philo_struct);
+	free(philo_struct.philos);
 	return (0);
 }

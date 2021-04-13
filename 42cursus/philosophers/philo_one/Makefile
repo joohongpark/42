@@ -6,13 +6,13 @@
 #    By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/10 12:03:14 by joopark           #+#    #+#              #
-#    Updated: 2021/04/11 21:46:25 by joopark          ###   ########.fr        #
+#    Updated: 2021/04/13 21:18:49 by joopark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo_one
-FILES_COM =ft_arg_parser.c
-FILES = philo_one.c
+FILES_COM = ft_arg_parser.c ft_timer.c ft_printer.c
+FILES = philo_one.c ft_philospher.c
 OBJS_COM = ${FILES_COM:%.c=%.o}
 OBJS = ${FILES:%.c=%.o}
 COMPILER = gcc

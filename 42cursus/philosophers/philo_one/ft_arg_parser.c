@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/11 18:53:43 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/12 01:49:33 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/13 15:46:19 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int			ft_arg_parser(int argc, char *argv[], t_arg *s)
 {
 	if ((argc != 5 && argc != 6) ||
-		ft_atoi(argv[1], &(s->number_of_philo)) == -1 ||
+		ft_atoi(argv[1], &(s->philo_num)) == -1 ||
 		ft_atoi(argv[2], &(s->time_to_die)) == -1 ||
 		ft_atoi(argv[3], &(s->time_to_eat)) == -1 ||
 		ft_atoi(argv[4], &(s->time_to_sleep)) == -1)
@@ -23,7 +23,7 @@ int			ft_arg_parser(int argc, char *argv[], t_arg *s)
 	if (argc == 6 &&
 		ft_atoi(argv[5], &(s->number_of_times_each_philo_must_eat)) == -1)
 		return (-1);
-	if (s->number_of_philo <= 1 ||
+	if (s->philo_num <= 1 ||
 		s->time_to_die <= 0 ||
 		s->time_to_eat <= 0 ||
 		s->time_to_sleep <= 0 ||
