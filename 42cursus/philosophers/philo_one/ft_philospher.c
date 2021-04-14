@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 15:55:39 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/14 16:03:51 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/15 00:46:37 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,16 @@ void			*ft_philosopher(void *arg)
 		p->philos[i].time_to_live = timer_stop(p->philos[i].time_to_live_t);
 		if (p->philos[i].time_to_live > p->arg.time_to_die * 1000)
 		{
-			p->philo_all_live = 0;
+			// printer 함수에 mutex 걸고 p->philo_all_live 값 이용해 출력해도 되는지 확인하게해야함.
+			pthread_mutex_lock(&(p->mutex_stop));
+			if (p->philo_all_live == 1)
+				p->philo_all_live = 0;
+			if (p->philo_all_live == 0)
+			{
+				ft_printer(4, i + 1, p->philos[i].gen_timer);
+				p->philo_all_live = p->philo_all_live - 1;
+			}
+			pthread_mutex_unlock(&(p->mutex_stop));
 			break ;
 		}
 		if (p->philos[i].status == 0)
@@ -68,14 +77,6 @@ void			*ft_philosopher(void *arg)
 		}
 		usleep(100);
 	}
-	pthread_mutex_lock(&(p->mutex_stop));
-	if (p->philo_all_live == 0)
-	{
-		ft_printer(4, i + 1, p->philos[i].gen_timer);
-		p->philo_all_live = p->philo_all_live - 1;
-	}
-	pthread_mutex_unlock(&(p->mutex_stop));
-	
 	return (NULL);
 }
 
