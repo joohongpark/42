@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 15:55:39 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/14 01:28:00 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/14 16:03:51 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,14 @@ void			*ft_philosopher(void *arg)
 	p->philos[i].gen_timer = timer_start();
 	p->philos[i].fsm_timer_t = timer_start();
 	p->philos[i].time_to_live_t = timer_start();
-	while (1)
+	while (p->philo_all_live > 0)
 	{
 		p->philos[i].time_to_live = timer_stop(p->philos[i].time_to_live_t);
 		if (p->philos[i].time_to_live > p->arg.time_to_die * 1000)
+		{
+			p->philo_all_live = 0;
 			break ;
+		}
 		if (p->philos[i].status == 0)
 		{
 			if (ft_philo_get_fork(i + 1, p) == 1)
@@ -63,9 +66,15 @@ void			*ft_philosopher(void *arg)
 				p->philos[i].status = 0;
 			}
 		}
-		usleep(10);
+		usleep(100);
 	}
-	ft_printer(4, i + 1, p->philos[i].gen_timer);
+	pthread_mutex_lock(&(p->mutex_stop));
+	if (p->philo_all_live == 0)
+	{
+		ft_printer(4, i + 1, p->philos[i].gen_timer);
+		p->philo_all_live = p->philo_all_live - 1;
+	}
+	pthread_mutex_unlock(&(p->mutex_stop));
 	
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:41:07 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/13 23:31:01 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/14 16:00:50 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ int ft_philo_init(t_philo_one *arg)
 		arg->philos[i].status = 0;
 		i++;
 	}
+	arg->philo_all_live = 1;
+	pthread_mutex_init(&(arg->mutex_fork), NULL);
+	pthread_mutex_init(&(arg->mutex_stop), NULL);
 	return (0);
 }
 
@@ -62,7 +65,6 @@ int ft_philo_gen(t_philo_one *arg)
 int	main(int argc, char *argv[])
 {
 	t_philo_one	philo_struct;
-	//pthread_mutex_init(&mutex_fork, NULL);
 	if (ft_arg_parser(argc, argv, &philo_struct.arg) == -1)
 		return (-1);
 	if (ft_philo_init(&philo_struct) == -1)

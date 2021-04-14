@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:41:17 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/13 23:24:26 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/14 16:00:17 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ typedef struct		s_philo_one
 	t_arg			arg;
 	t_philo			*philos;
 	pthread_mutex_t	mutex_fork;
+	pthread_mutex_t	mutex_stop;
+	int				philo_all_live;
 }					t_philo_one;
 
 void				*ft_philosopher(void *arg);
