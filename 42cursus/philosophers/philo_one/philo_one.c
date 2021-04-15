@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:41:07 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/14 16:00:50 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/16 00:57:16 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@ int ft_philo_init(t_philo_one *arg)
 		return (-1);
 	while (i < arg->arg.philo_num)
 	{
+		pthread_mutex_init(&(arg->philos[i].fork_mutex), NULL);
 		arg->philos[i].philo_id = i + 1;
 		arg->philos[i].fork = 1;
+		arg->philos[i].fork_got = 0;
 		arg->philos[i].status = 0;
 		i++;
 	}
 	arg->philo_all_live = 1;
-	pthread_mutex_init(&(arg->mutex_fork), NULL);
 	pthread_mutex_init(&(arg->mutex_stop), NULL);
 	return (0);
 }

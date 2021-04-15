@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:41:17 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/14 16:00:17 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/16 00:57:04 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,11 @@ typedef struct		s_philo
 	struct timeval	gen_timer;
 	struct timeval	fsm_timer_t;
 	struct timeval	time_to_live_t;
+	pthread_mutex_t	fork_mutex;
 	long			fsm_timer;
 	long			time_to_live;
 	int				fork;
+	int				fork_got;
 	int				status;
 	int				philo_id;
 }					t_philo;
@@ -60,7 +62,6 @@ typedef struct		s_philo_one
 {
 	t_arg			arg;
 	t_philo			*philos;
-	pthread_mutex_t	mutex_fork;
 	pthread_mutex_t	mutex_stop;
 	int				philo_all_live;
 }					t_philo_one;
