@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 21:18:35 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/13 21:26:41 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/17 02:12:05 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,12 @@ void		ft_printer(int status, int philo_id, struct timeval time)
 		msg = "is eating";
 	else if (status == 3)
 		msg = "is sleeping";
-	else
+	else if (status == 4)
 		msg = "died";
-	printf("[%ld ms] philosopher %d %s\n", ms, philo_id, msg);
+	else
+		msg = "All philosophers ate enough pasta! :D";
+	if (status < 5)
+		printf("[%ld ms] philosopher %d %s\n", ms, philo_id, msg);
+	else
+		printf("[%ld ms] %s\n", ms, msg);
 }

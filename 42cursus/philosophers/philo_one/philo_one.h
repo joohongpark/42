@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:41:17 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/16 23:36:30 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/17 02:05:26 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct		s_philo
 	pthread_mutex_t	fork_mutex;
 	long			fsm_timer;
 	long			time_to_live;
+	long			eat_cnt;
 	int				fork;
 	int				fork_got;
 	int				philo_id;
@@ -63,6 +64,8 @@ typedef struct		s_philo_one
 	t_philo			*philos;
 	pthread_mutex_t	mutex_stop;
 	int				philo_all_live;
+	int				philo_least_eat;
+	pthread_mutex_t	philo_least_eat_mutex;
 }					t_philo_one;
 
 void				*ft_philosopher(void *arg);
@@ -71,4 +74,6 @@ int		ft_philo_giveback_fork(int right, t_philo_one *p);
 void		ft_set_fork_seq(int *first, int *second, int i, int len);
 int			ft_get_fork_atomic(int *fork, pthread_mutex_t *mutex);
 int			ft_giveback_fork_atomic(int *fork, pthread_mutex_t *mutex);
+int			ft_watchdog(int i, t_philo_one *p);
+int			ft_philo_fsm(int status, int i, t_philo_one *p);
 #endif
