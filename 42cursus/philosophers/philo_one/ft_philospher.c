@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 15:55:39 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/16 23:38:20 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/17 01:09:07 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void			*ft_philosopher(void *arg)
 				status = 0;
 			}
 		}
-		usleep(100);
+		usleep(1);
 	}
 	return (NULL);
 }
