@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:41:17 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/16 00:57:04 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/16 23:36:30 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef struct		s_philo
 	long			time_to_live;
 	int				fork;
 	int				fork_got;
-	int				status;
 	int				philo_id;
 }					t_philo;
 
@@ -69,4 +68,7 @@ typedef struct		s_philo_one
 void				*ft_philosopher(void *arg);
 int		ft_philo_get_fork(int right, t_philo_one *p);
 int		ft_philo_giveback_fork(int right, t_philo_one *p);
+void		ft_set_fork_seq(int *first, int *second, int i, int len);
+int			ft_get_fork_atomic(int *fork, pthread_mutex_t *mutex);
+int			ft_giveback_fork_atomic(int *fork, pthread_mutex_t *mutex);
 #endif

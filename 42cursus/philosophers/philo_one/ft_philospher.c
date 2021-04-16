@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 15:55:39 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/16 02:38:18 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/16 23:38:20 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,19 @@
 void			*ft_philosopher(void *arg)
 {
 	int			i;
+	int			status;
+	int			first;
+	int			second;
 	t_philo_one	*p;
 
 	i = *((*((t_relay *)arg)).id) - 1;
 	p = (t_philo_one *)((*((t_relay *)arg)).obj);
+	status = 0;
 	p->philos[i].gen_timer = timer_start();
 	p->philos[i].fsm_timer_t = timer_start();
 	p->philos[i].time_to_live_t = timer_start();
+	ft_set_fork_seq(&first, &second, i, p->arg.philo_num);
+	printf("philo %d : (%d, %d)\n", i + 1, first, second);
 	while (p->philo_all_live > 0)
 	{
 		p->philos[i].time_to_live = timer_stop(p->philos[i].time_to_live_t);
@@ -34,129 +40,59 @@ void			*ft_philosopher(void *arg)
 			if (p->philo_all_live == 0)
 			{
 				ft_printer(4, i + 1, p->philos[i].gen_timer);
-				for (int i = 0; i < p->arg.philo_num; i++)
-				{
-					printf("fork %d : %d\n", i, p->philos[i].fork);
-				}
 				p->philo_all_live = p->philo_all_live - 1;
 			}
 			pthread_mutex_unlock(&(p->mutex_stop));
 			break ;
 		}
-		if (p->philos[i].status == 0)
+		if (status == 0)
 		{
-			if (ft_philo_get_fork(i + 1, p) == 1)
+			if (ft_get_fork_atomic(&p->philos[first].fork, &(p->philos[first].fork_mutex)) == 1)
+				status = 1;
+		}
+		else if (status == 1)
+		{
+			if (ft_get_fork_atomic(&p->philos[second].fork, &(p->philos[second].fork_mutex)) == 1)
 			{
 				ft_printer(1, i + 1, p->philos[i].gen_timer);
 				p->philos[i].fsm_timer_t = timer_start();
-				p->philos[i].status = 1;
+				status = 2;
+			}
+			else
+			{
+				ft_giveback_fork_atomic(&p->philos[first].fork, &(p->philos[first].fork_mutex));
+				status = 0;
 			}
 		}
-		else if (p->philos[i].status == 1)
+		else if (status == 2)
 		{
 			ft_printer(2, i + 1, p->philos[i].gen_timer);
 			p->philos[i].time_to_live_t = timer_start();
-			p->philos[i].status = 2;
+			status = 3;
 		}
-		else if (p->philos[i].status == 2)
+		else if (status == 3)
 		{
 			p->philos[i].fsm_timer = timer_stop(p->philos[i].fsm_timer_t);
 			if (p->philos[i].fsm_timer > p->arg.time_to_eat * 1000)
 			{
 				p->philos[i].fsm_timer_t = timer_start();
-				if (ft_philo_giveback_fork(i + 1, p) != 1)
+				if (ft_giveback_fork_atomic(&p->philos[first].fork, &(p->philos[first].fork_mutex)) != 1
+					|| ft_giveback_fork_atomic(&p->philos[second].fork, &(p->philos[second].fork_mutex)) != 1)
 					printf("error\n");
 				ft_printer(3, i + 1, p->philos[i].gen_timer);
-				p->philos[i].status = 3;
+				status = 4;
 			}
 		}
-		else if (p->philos[i].status == 3)
+		else if (status == 4)
 		{
 			p->philos[i].fsm_timer = timer_stop(p->philos[i].fsm_timer_t);
 			if (p->philos[i].fsm_timer > p->arg.time_to_sleep * 1000)
 			{
 				ft_printer(0, i + 1, p->philos[i].gen_timer);
-				p->philos[i].status = 0;
+				status = 0;
 			}
 		}
 		usleep(100);
 	}
 	return (NULL);
-}
-
-int		ft_philo_get_fork(int right, t_philo_one *p)
-{
-	int left;
-	int i;
-
-	if (right == 1)
-		left = p->arg.philo_num;
-	else
-		left = right - 1;
-	i = right - 1;
-	if (right % 2 == 0) // even
-	{
-		if (p->philos[i].fork_got == 0)
-		{
-			pthread_mutex_lock(&(p->philos[right - 1].fork_mutex));
-			if (p->philos[right - 1].fork == 1) {
-				p->philos[right - 1].fork = 0;
-				p->philos[i].fork_got++;
-			}
-			pthread_mutex_unlock(&(p->philos[right - 1].fork_mutex));
-		}
-		if (p->philos[i].fork_got == 1)
-		{
-			pthread_mutex_lock(&(p->philos[left - 1].fork_mutex));
-			if (p->philos[left - 1].fork == 1) {
-				p->philos[left - 1].fork = 0;
-				p->philos[i].fork_got++;
-			}
-			pthread_mutex_unlock(&(p->philos[left - 1].fork_mutex));
-		}
-	}
-	else // odd
-	{
-		if (p->philos[i].fork_got == 0)
-		{
-			pthread_mutex_lock(&(p->philos[left - 1].fork_mutex));
-			if (p->philos[left - 1].fork == 1) {
-				p->philos[left - 1].fork = 0;
-				p->philos[i].fork_got++;
-			}
-			pthread_mutex_unlock(&(p->philos[left - 1].fork_mutex));
-		}
-		if (p->philos[i].fork_got == 1)
-		{
-			pthread_mutex_lock(&(p->philos[right - 1].fork_mutex));
-			if (p->philos[right - 1].fork == 1) {
-				p->philos[right - 1].fork = 0;
-				p->philos[i].fork_got++;
-			}
-			pthread_mutex_unlock(&(p->philos[right - 1].fork_mutex));
-		}
-	}
-	if (p->philos[i].fork_got == 2)
-		return (1);
-	else
-		return (0);
-}
-
-int		ft_philo_giveback_fork(int right, t_philo_one *p)
-{
-	int left;
-
-	if (right == 1)
-		left = p->arg.philo_num;
-	else
-		left = right - 1;
-	pthread_mutex_lock(&(p->philos[left - 1].fork_mutex));
-	pthread_mutex_lock(&(p->philos[right - 1].fork_mutex));
-	if (p->philos[right - 1].fork == 0)
-		p->philos[right - 1].fork = 1;
-	if (p->philos[left - 1].fork == 0)
-		p->philos[left - 1].fork = 1;
-	pthread_mutex_unlock(&(p->philos[right - 1].fork_mutex));
-	pthread_mutex_unlock(&(p->philos[left - 1].fork_mutex));
-	return (1);
 }
