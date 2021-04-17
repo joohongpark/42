@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 15:55:39 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/17 20:23:12 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/18 00:31:20 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void			*ft_philosopher(void *arg)
 	p = (t_philo_one *)((*((t_relay *)arg)).obj);
 	status = PHILO_THINKING;
 	p->philos[i].gen_timer = timer_start();
-	p->philos[i].fsm_timer_t = timer_start();
-	p->philos[i].time_to_live_t = timer_start();
+	p->philos[i].fsm_timer_t = p->philos[i].gen_timer;
+	p->philos[i].time_to_live_t = p->philos[i].gen_timer;
 	while (ft_watchdog(i, p) == 1)
 	{
 		status = ft_philo_fsm(status, i, p);

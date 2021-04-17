@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:41:07 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/17 15:15:18 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/18 00:31:40 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int ft_philo_gen(t_philo_one *arg)
 		data[i].id = &arg->philos[i].philo_id;
 		data[i].obj = (void *)arg;
 		pthread_create(thread, NULL, ft_philosopher, (void *)&data[i]);
-		usleep(200);
+		usleep(10);
 		i++;
 	}
 	i = 0;
