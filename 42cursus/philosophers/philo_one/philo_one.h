@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:41:17 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/17 02:05:26 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/17 16:29:21 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,25 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <sys/time.h>
+
+# ifndef PHILO_THINKING
+#  define PHILO_THINKING 110
+# endif
+# ifndef PHILO_GET_FORK
+#  define PHILO_GET_FORK 120
+# endif
+# ifndef PHILO_EATING
+#  define PHILO_EATING 130
+# endif
+# ifndef PHILO_SLEEPING
+#  define PHILO_SLEEPING 140
+# endif
+# ifndef PHILO_DIE
+#  define PHILO_DIE 150
+# endif
+# ifndef PHILO_ATE_ALL
+#  define PHILO_ATE_ALL 160
+# endif
 
 typedef struct		s_arg
 {
@@ -62,8 +81,10 @@ typedef struct		s_philo_one
 {
 	t_arg			arg;
 	t_philo			*philos;
-	pthread_mutex_t	mutex_stop;
-	int				philo_all_live;
+	int				print;
+	pthread_mutex_t	print_mutex;
+	int				stop;
+	pthread_mutex_t	stop_mutex;
 	int				philo_least_eat;
 	pthread_mutex_t	philo_least_eat_mutex;
 }					t_philo_one;

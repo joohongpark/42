@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:41:07 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/17 02:06:06 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/17 15:15:18 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,11 @@ int ft_philo_init(t_philo_one *arg)
 		arg->philos[i].eat_cnt = 0;
 		i++;
 	}
-	arg->philo_all_live = 1;
+	arg->print = 1;
+	arg->stop = 1;
 	arg->philo_least_eat = 0;
-	pthread_mutex_init(&(arg->mutex_stop), NULL);
+	pthread_mutex_init(&(arg->print_mutex), NULL);
+	pthread_mutex_init(&(arg->stop_mutex), NULL);
 	pthread_mutex_init(&(arg->philo_least_eat_mutex), NULL);
 	return (0);
 }
