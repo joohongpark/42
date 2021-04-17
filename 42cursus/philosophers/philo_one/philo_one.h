@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:41:17 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/17 16:29:21 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/17 19:26:17 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,5 @@ int			ft_get_fork_atomic(int *fork, pthread_mutex_t *mutex);
 int			ft_giveback_fork_atomic(int *fork, pthread_mutex_t *mutex);
 int			ft_watchdog(int i, t_philo_one *p);
 int			ft_philo_fsm(int status, int i, t_philo_one *p);
+void			ft_philo_fsm_do(int status, int i, t_philo_one *p);
 #endif

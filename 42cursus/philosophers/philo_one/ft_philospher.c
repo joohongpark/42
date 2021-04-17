@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 15:55:39 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/17 18:45:04 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/17 20:23:12 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void			*ft_philosopher(void *arg)
 	while (ft_watchdog(i, p) == 1)
 	{
 		status = ft_philo_fsm(status, i, p);
+		ft_philo_fsm_do(status, i, p);
 		pthread_mutex_lock(&(p->print_mutex));
 		if (p->print == 1)
 			ft_printer(status, i + 1, p->philos[i].gen_timer);
@@ -54,58 +55,52 @@ int			ft_philo_fsm(int status, int i, t_philo_one *p)
 	ft_set_fork_seq(&first, &second, i, p->arg.philo_num);
 	if (status == PHILO_THINKING)
 		return (PHILO_THINKING + 1);
-	else if (status == PHILO_THINKING + 1)
-	{
-		if (ft_get_fork_atomic(&p->philos[first].fork, &(p->philos[first].fork_mutex)) == 1)
-			return (PHILO_THINKING + 2);
-	}
-	else if (status == (PHILO_THINKING + 2))
-	{
-		if (ft_get_fork_atomic(&p->philos[second].fork, &(p->philos[second].fork_mutex)) == 1)
-		{
-			p->philos[i].fsm_timer_t = timer_start();
-			return (PHILO_GET_FORK);
-		}
-	}
+	else if ( (status == (PHILO_THINKING + 1))
+		&& (ft_get_fork_atomic(&p->philos[first].fork, &(p->philos[first].fork_mutex)) == 1))
+		return (PHILO_THINKING + 2);
+	else if ( (status == (PHILO_THINKING + 2))
+		&& (ft_get_fork_atomic(&p->philos[second].fork, &(p->philos[second].fork_mutex)) == 1))
+		return (PHILO_GET_FORK);
 	else if (status == PHILO_GET_FORK)
-		return (PHILO_GET_FORK + 1);
-	else if (status == (PHILO_GET_FORK + 1))
-	{
-		p->philos[i].time_to_live_t = timer_start();
-		status = PHILO_EATING;
-	}
+		return (PHILO_EATING);
 	else if (status == PHILO_EATING)
 		return (PHILO_EATING + 1);
-	else if (status == (PHILO_EATING + 1))
-	{
-		p->philos[i].fsm_timer = timer_stop(p->philos[i].fsm_timer_t);
-		if (p->philos[i].fsm_timer > p->arg.time_to_eat * 1000)
-		{
-			if (p->arg.number_of_times_each_philo_must_eat != -1)
-				p->philos[i].eat_cnt = p->philos[i].eat_cnt + 1;
-			if (p->philos[i].eat_cnt == p->arg.number_of_times_each_philo_must_eat)
-			{
-				pthread_mutex_lock(&(p->philo_least_eat_mutex));
-				if (p->stop == 1)
-					p->philo_least_eat = p->philo_least_eat + 1;
-				pthread_mutex_unlock(&(p->philo_least_eat_mutex));
-			}
-			p->philos[i].fsm_timer_t = timer_start();
-			if (ft_giveback_fork_atomic(&p->philos[first].fork, &(p->philos[first].fork_mutex)) != 1
-				|| ft_giveback_fork_atomic(&p->philos[second].fork, &(p->philos[second].fork_mutex)) != 1)
-				printf("error\n");
-			status = PHILO_SLEEPING;
-		}
-	}
+	else if ( (status == (PHILO_EATING + 1))
+		&& (timer_stop(p->philos[i].fsm_timer_t) > p->arg.time_to_eat * 1000))
+		return (PHILO_SLEEPING);
 	else if (status == PHILO_SLEEPING)
 		return (PHILO_SLEEPING + 1);
-	else if (status == (PHILO_SLEEPING + 1))
-	{
-		p->philos[i].fsm_timer = timer_stop(p->philos[i].fsm_timer_t);
-		if (p->philos[i].fsm_timer > p->arg.time_to_sleep * 1000)
-		{
-			status = PHILO_THINKING;
-		}
-	}
+	else if ( (status == (PHILO_SLEEPING + 1))
+		&& (timer_stop(p->philos[i].fsm_timer_t) > p->arg.time_to_sleep * 1000))
+		return (PHILO_THINKING);
 	return (status);
+}
+
+void			ft_philo_fsm_do(int status, int i, t_philo_one *p)
+{
+	int			first;
+	int			second;
+
+	ft_set_fork_seq(&first, &second, i, p->arg.philo_num);
+	if (status == PHILO_EATING)
+	{
+		p->philos[i].time_to_live_t = timer_start();
+		p->philos[i].fsm_timer_t = timer_start();
+	}
+	else if (status == PHILO_SLEEPING)
+	{
+		if (p->arg.number_of_times_each_philo_must_eat != -1)
+			p->philos[i].eat_cnt = p->philos[i].eat_cnt + 1;
+		if (p->philos[i].eat_cnt == p->arg.number_of_times_each_philo_must_eat)
+		{
+			pthread_mutex_lock(&(p->philo_least_eat_mutex));
+			if (p->stop == 1)
+				p->philo_least_eat = p->philo_least_eat + 1;
+			pthread_mutex_unlock(&(p->philo_least_eat_mutex));
+		}
+		p->philos[i].fsm_timer_t = timer_start();
+		if (ft_giveback_fork_atomic(&p->philos[first].fork, &(p->philos[first].fork_mutex)) != 1
+			|| ft_giveback_fork_atomic(&p->philos[second].fork, &(p->philos[second].fork_mutex)) != 1)
+			printf("error\n");
+	}
 }
