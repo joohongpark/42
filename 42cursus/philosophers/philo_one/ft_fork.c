@@ -6,16 +6,16 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:46:15 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/18 13:44:49 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/18 16:02:26 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo_one.h>
 
-void		ft_set_fork_seq(int *first, int *second, int i, int len)
+void	ft_set_fork_seq(int *first, int *second, int i, int len)
 {
-	int left;
-	int right;
+	int	left;
+	int	right;
 
 	right = i;
 	if (right == 0)
@@ -34,30 +34,27 @@ void		ft_set_fork_seq(int *first, int *second, int i, int len)
 	}
 }
 
-int			ft_get_fork_atomic(int *fork, pthread_mutex_t *mutex)
+int	ft_get_fork(int i, t_philo *philo)
 {
 	int		rtn;
 
 	rtn = 0;
-	pthread_mutex_lock(mutex);
-	if (*fork == 1) {
-		*fork = 0;
+	pthread_mutex_lock(&philo[i].fork_mutex);
+	if (philo[i].fork == 1)
+	{
+		philo[i].fork = 0;
 		rtn = 1;
 	}
-	pthread_mutex_unlock(mutex);
+	pthread_mutex_unlock(&philo[i].fork_mutex);
 	return (rtn);
 }
 
-int			ft_giveback_fork_atomic(int *fork, pthread_mutex_t *mutex)
+void	ft_giveback_fork_atomic(int i, int j, t_philo *philo)
 {
-	int		rtn;
-
-	rtn = 0;
-	pthread_mutex_lock(mutex);
-	if (*fork == 0) {
-		*fork = 1;
-		rtn = 1;
-	}
-	pthread_mutex_unlock(mutex);
-	return (rtn);
+	pthread_mutex_lock(&philo[i].fork_mutex);
+	pthread_mutex_lock(&philo[j].fork_mutex);
+	philo[i].fork = 1;
+	philo[j].fork = 1;
+	pthread_mutex_unlock(&philo[j].fork_mutex);
+	pthread_mutex_unlock(&philo[i].fork_mutex);
 }

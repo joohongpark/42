@@ -6,13 +6,13 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 22:24:54 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/18 03:30:22 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/18 15:04:07 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo_one.h>
 
-int			ft_watchdog(int i, t_philo_one *p)
+int	ft_watchdog(int i, t_philo_one *p)
 {
 	int		flag;
 

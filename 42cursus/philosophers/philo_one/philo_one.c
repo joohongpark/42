@@ -6,14 +6,14 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:41:07 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/18 14:00:42 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/18 15:04:38 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo_one.h>
 #include <stdio.h>
 
-int ft_philo_init(t_philo_one *arg)
+int	ft_philo_init(t_philo_one *arg)
 {
 	int	i;
 
@@ -39,7 +39,7 @@ int ft_philo_init(t_philo_one *arg)
 	return (0);
 }
 
-int ft_philo_gen(t_philo_one *arg)
+int	ft_philo_gen(t_philo_one *arg)
 {
 	int			i;
 	pthread_t	*thread;
@@ -71,6 +71,7 @@ int ft_philo_gen(t_philo_one *arg)
 int	main(int argc, char *argv[])
 {
 	t_philo_one	philo_struct;
+
 	if (ft_arg_parser(argc, argv, &philo_struct.arg) == -1)
 		return (-1);
 	if (ft_philo_init(&philo_struct) == -1)

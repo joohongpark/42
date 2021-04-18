@@ -6,35 +6,35 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/11 18:53:43 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/13 15:46:19 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/18 14:56:56 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo_one.h>
 
-int			ft_arg_parser(int argc, char *argv[], t_arg *s)
+int	ft_arg_parser(int argc, char *argv[], t_arg *s)
 {
-	if ((argc != 5 && argc != 6) ||
-		ft_atoi(argv[1], &(s->philo_num)) == -1 ||
-		ft_atoi(argv[2], &(s->time_to_die)) == -1 ||
-		ft_atoi(argv[3], &(s->time_to_eat)) == -1 ||
-		ft_atoi(argv[4], &(s->time_to_sleep)) == -1)
+	if ((argc != 5 && argc != 6)
+		|| ft_atoi(argv[1], &(s->philo_num)) == -1
+		|| ft_atoi(argv[2], &(s->time_to_die)) == -1
+		|| ft_atoi(argv[3], &(s->time_to_eat)) == -1
+		|| ft_atoi(argv[4], &(s->time_to_sleep)) == -1)
 		return (-1);
-	if (argc == 6 &&
-		ft_atoi(argv[5], &(s->number_of_times_each_philo_must_eat)) == -1)
+	if (argc == 6
+		&& ft_atoi(argv[5], &(s->number_of_times_each_philo_must_eat)) == -1)
 		return (-1);
-	if (s->philo_num <= 1 ||
-		s->time_to_die <= 0 ||
-		s->time_to_eat <= 0 ||
-		s->time_to_sleep <= 0 ||
-		(argc == 6 && s->number_of_times_each_philo_must_eat < 0))
+	if (s->philo_num <= 1
+		|| s->time_to_die <= 0
+		|| s->time_to_eat <= 0
+		|| s->time_to_sleep <= 0
+		|| (argc == 6 && s->number_of_times_each_philo_must_eat < 0))
 		return (-1);
 	if (argc == 5)
 		s->number_of_times_each_philo_must_eat = -1;
 	return (0);
 }
 
-int			ft_atoi(const char *str, int *value)
+int	ft_atoi(const char *str, int *value)
 {
 	long	sum;
 	long	p;
