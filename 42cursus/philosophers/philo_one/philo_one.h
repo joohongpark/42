@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:41:17 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/17 19:26:17 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/18 03:29:09 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,20 @@
 # ifndef PHILO_GET_FORK
 #  define PHILO_GET_FORK 120
 # endif
+# ifndef PHILO_GET_FORK_ANOTHER
+#  define PHILO_GET_FORK_ANOTHER 130
+# endif
 # ifndef PHILO_EATING
-#  define PHILO_EATING 130
+#  define PHILO_EATING 140
 # endif
 # ifndef PHILO_SLEEPING
-#  define PHILO_SLEEPING 140
+#  define PHILO_SLEEPING 150
 # endif
 # ifndef PHILO_DIE
-#  define PHILO_DIE 150
+#  define PHILO_DIE 160
 # endif
 # ifndef PHILO_ATE_ALL
-#  define PHILO_ATE_ALL 160
+#  define PHILO_ATE_ALL 170
 # endif
 
 typedef struct		s_arg
@@ -66,11 +69,9 @@ typedef struct		s_philo
 {
 	pthread_t		thread;
 	struct timeval	gen_timer;
-	struct timeval	fsm_timer_t;
-	struct timeval	time_to_live_t;
 	pthread_mutex_t	fork_mutex;
-	long			fsm_timer;
-	long			time_to_live;
+	long			fsm_timer_exp;
+	long			time_to_live_exp;
 	long			eat_cnt;
 	int				fork;
 	int				fork_got;

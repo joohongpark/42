@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 15:55:39 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/18 00:31:20 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/18 13:29:35 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void			*ft_philosopher(void *arg)
 	p = (t_philo_one *)((*((t_relay *)arg)).obj);
 	status = PHILO_THINKING;
 	p->philos[i].gen_timer = timer_start();
-	p->philos[i].fsm_timer_t = p->philos[i].gen_timer;
-	p->philos[i].time_to_live_t = p->philos[i].gen_timer;
+	p->philos[i].time_to_live_exp = p->arg.time_to_die * 1000L;
 	while (ft_watchdog(i, p) == 1)
 	{
 		status = ft_philo_fsm(status, i, p);
@@ -32,7 +31,7 @@ void			*ft_philosopher(void *arg)
 		if (p->print == 1)
 			ft_printer(status, i + 1, p->philos[i].gen_timer);
 		pthread_mutex_unlock(&(p->print_mutex));
-		usleep(0);
+		usleep(200);
 	}
 	pthread_mutex_lock(&(p->print_mutex));
 	if (p->print == 1)
@@ -57,21 +56,21 @@ int			ft_philo_fsm(int status, int i, t_philo_one *p)
 		return (PHILO_THINKING + 1);
 	else if ( (status == (PHILO_THINKING + 1))
 		&& (ft_get_fork_atomic(&p->philos[first].fork, &(p->philos[first].fork_mutex)) == 1))
-		return (PHILO_THINKING + 2);
-	else if ( (status == (PHILO_THINKING + 2))
-		&& (ft_get_fork_atomic(&p->philos[second].fork, &(p->philos[second].fork_mutex)) == 1))
 		return (PHILO_GET_FORK);
 	else if (status == PHILO_GET_FORK)
+		return (PHILO_GET_FORK_ANOTHER);
+	else if ( (status == PHILO_GET_FORK_ANOTHER)
+		&& (ft_get_fork_atomic(&p->philos[second].fork, &(p->philos[second].fork_mutex)) == 1))
 		return (PHILO_EATING);
 	else if (status == PHILO_EATING)
 		return (PHILO_EATING + 1);
 	else if ( (status == (PHILO_EATING + 1))
-		&& (timer_stop(p->philos[i].fsm_timer_t) > p->arg.time_to_eat * 1000))
+		&& (timer_stop(p->philos[i].gen_timer) >= p->philos[i].fsm_timer_exp))
 		return (PHILO_SLEEPING);
 	else if (status == PHILO_SLEEPING)
 		return (PHILO_SLEEPING + 1);
 	else if ( (status == (PHILO_SLEEPING + 1))
-		&& (timer_stop(p->philos[i].fsm_timer_t) > p->arg.time_to_sleep * 1000))
+		&& (timer_stop(p->philos[i].gen_timer) >= p->philos[i].fsm_timer_exp))
 		return (PHILO_THINKING);
 	return (status);
 }
@@ -84,8 +83,10 @@ void			ft_philo_fsm_do(int status, int i, t_philo_one *p)
 	ft_set_fork_seq(&first, &second, i, p->arg.philo_num);
 	if (status == PHILO_EATING)
 	{
-		p->philos[i].time_to_live_t = timer_start();
-		p->philos[i].fsm_timer_t = timer_start();
+		p->philos[i].fsm_timer_exp = timer_stop(p->philos[i].gen_timer);
+		p->philos[i].fsm_timer_exp += p->arg.time_to_eat * 1000L;
+		p->philos[i].time_to_live_exp = timer_stop(p->philos[i].gen_timer);
+		p->philos[i].time_to_live_exp += p->arg.time_to_die * 1000L;
 	}
 	else if (status == PHILO_SLEEPING)
 	{
@@ -98,9 +99,13 @@ void			ft_philo_fsm_do(int status, int i, t_philo_one *p)
 				p->philo_least_eat = p->philo_least_eat + 1;
 			pthread_mutex_unlock(&(p->philo_least_eat_mutex));
 		}
-		p->philos[i].fsm_timer_t = timer_start();
-		if (ft_giveback_fork_atomic(&p->philos[first].fork, &(p->philos[first].fork_mutex)) != 1
-			|| ft_giveback_fork_atomic(&p->philos[second].fork, &(p->philos[second].fork_mutex)) != 1)
-			printf("error\n");
+		p->philos[i].fsm_timer_exp = timer_stop(p->philos[i].gen_timer);
+		p->philos[i].fsm_timer_exp += p->arg.time_to_sleep * 1000L;
+		pthread_mutex_lock(&(p->philos[first].fork_mutex));
+		pthread_mutex_lock(&(p->philos[second].fork_mutex));
+		p->philos[first].fork = 1;
+		p->philos[second].fork = 1;
+		pthread_mutex_unlock(&(p->philos[second].fork_mutex));
+		pthread_mutex_unlock(&(p->philos[first].fork_mutex));
 	}
 }

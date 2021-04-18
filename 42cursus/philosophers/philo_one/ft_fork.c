@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:46:15 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/18 00:45:34 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/18 13:44:49 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,16 @@ void		ft_set_fork_seq(int *first, int *second, int i, int len)
 		left = len - 1;
 	else
 		left = right - 1;
-	*first = left;
-	*second = right;
-	/*
 	if (right % 2 == 0)
-	{
-		*first = right;
-		*second = left;
-	}
-	else
 	{
 		*first = left;
 		*second = right;
 	}
-	*/
+	else
+	{
+		*first = right;
+		*second = left;
+	}
 }
 
 int			ft_get_fork_atomic(int *fork, pthread_mutex_t *mutex)
