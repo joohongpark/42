@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 21:18:35 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/21 21:37:43 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/23 00:19:47 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ void	ft_printer(int status, int philo_id, struct timeval time)
 	}
 }
 
-void	ft_printer_mutex(int status, int philo_id, t_philo_three *p)
+void	ft_printer_mutex(int s, int ph_id, t_philo_three *p)
 {
 	struct timeval	time;
 
 	sem_wait(p->sema.print_mutex);
 	time = p->philo.gen_timer;
-	ft_printer(status, philo_id, time);
+	ft_printer(s, ph_id, time);
 	sem_post(p->sema.print_mutex);
 }

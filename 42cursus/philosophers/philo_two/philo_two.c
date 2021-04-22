@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:41:07 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/20 12:56:17 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/22 23:08:41 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,25 @@ sem_t	*ft_sem_gen(char *name, int value)
 	return (rtn);
 }
 
-int	ft_philo_init(t_philo_two *arg)
+void	ft_itoa_32(char *buf, int num)
 {
 	int	i;
+
+	i = 0;
+	while (i < 32)
+	{
+		if ((num & (1 << (31 - i))))
+			buf[i] = '1';
+		else
+			buf[i] = '0';
+		i++;
+	}
+}
+
+int	ft_philo_init(t_philo_two *arg)
+{
+	int		i;
+	char	buf[33];
 
 	i = 0;
 	arg->philos = (t_philo *)malloc(sizeof(t_philo) * arg->arg.philo_num);
@@ -36,6 +52,9 @@ int	ft_philo_init(t_philo_two *arg)
 	arg->stop = 0;
 	while (i < arg->arg.philo_num)
 	{
+		memset(buf, 0, 33);
+		ft_itoa_32(buf, i);
+		arg->philos[i].cnt_mutex = ft_sem_gen(buf, 1);
 		arg->philos[i].philo_id = i + 1;
 		if (arg->arg.number_of_times_each_philo_must_eat != -1)
 			arg->philos[i].eat_cnt = 0;

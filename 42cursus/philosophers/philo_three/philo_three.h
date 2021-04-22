@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:41:17 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/21 22:05:37 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/23 00:19:38 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_philo
 	long			fsm_timer_exp;
 	int				philo_id;
 	int				eat_cnt;
+	sem_t			*cnt_mutex;
 }					t_philo;
 
 typedef struct s_sema
@@ -84,16 +85,18 @@ typedef struct s_philo_three
 int					ft_arg_parser(int argc, char *argv[], t_arg *arg);
 int					ft_atoi(const char *str, int *value);
 struct timeval		timer_start(void);
-long				timer_stop(struct timeval time_start);
+unsigned long		timer_stop(struct timeval time_start);
 void				ft_printer(int status, int philo_id, struct timeval time);
 void				ft_unblocking(sem_t *sem, int len);
 void				*ft_watchdog(void *arg);
-void	*ft_watchdog_die(void *arg);
-void	*ft_watchdog_eat(void *arg);
-void				ft_printer_mutex(int status, int philo_id, t_philo_three *p);
-void				ft_waisting_time(long stop_t, int *stop);
+void				*ft_watchdog_die(void *arg);
+void				*ft_watchdog_eat(void *arg);
+void				ft_printer_mutex(int s, int ph_id, t_philo_three *p);
+void				ft_waisting_time(unsigned long stop_t, int *stop);
 void				ft_philo_cnt(t_philo_three *p);
+void				ft_timer_mutex(sem_t *arg, struct timeval *t);
 void				ft_philosopher(t_philo_three *p, int i);
 sem_t				*ft_sem_gen(char *name, int value);
-int	ft_philo_init(t_philo_three *arg);
+int					ft_philo_init(t_philo_three *arg);
+sem_t				*ft_gen_sema(int i);
 #endif

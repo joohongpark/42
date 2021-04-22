@@ -6,12 +6,11 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:41:07 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/18 15:04:38 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/22 02:44:47 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo_one.h>
-#include <stdio.h>
 
 int	ft_philo_init(t_philo_one *arg)
 {
@@ -55,7 +54,7 @@ int	ft_philo_gen(t_philo_one *arg)
 		data[i].id = &arg->philos[i].philo_id;
 		data[i].obj = (void *)arg;
 		pthread_create(thread, NULL, ft_philosopher, (void *)&data[i]);
-		usleep(arg->arg.philo_num);
+		usleep(1000);
 		i++;
 	}
 	i = 0;

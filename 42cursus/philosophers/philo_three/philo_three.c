@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:41:07 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/21 23:59:13 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/23 00:18:25 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,6 @@ int	ft_philo_init(t_philo_three *arg)
 	else
 		arg->philo.eat_cnt = -1;
 	return (0);
-}
-
-void	ft_unblocking(sem_t *sem, int len)
-{
-	int	i;
-
-	i = 0;
-	while (i < len)
-	{
-		sem_post(sem);
-		i++;
-	}
 }
 
 void	ft_philo_watchdog(t_philo_three *arg)

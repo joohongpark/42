@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 15:55:39 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/18 16:29:30 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/22 23:31:34 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	*ft_philosopher(void *arg)
 		status = ft_philo_fsm(status, i, p);
 		ft_philo_fsm_do(status, i, p);
 		ft_printer_mutex(status, i + 1, p);
-		usleep(200);
+		usleep(100);
 	}
 	ft_printer_mutex(-1, i + 1, p);
 	return (NULL);

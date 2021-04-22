@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 22:24:54 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/21 21:29:44 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/23 00:18:42 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,21 @@
 
 void	*ft_watchdog(void *arg)
 {
-	int	i;
-	t_philo_three *p;
+	int				i;
+	unsigned long	ttd;
+	t_philo_three	*p;
 
 	p = (t_philo_three *)arg;
 	i = p->philo.philo_id - 1;
-	while (p->arg.time_to_die * 1000L > timer_stop(p->philo.time_to_live))
-		usleep(10);
+	while (1)
+	{
+		sem_wait(p->philo.cnt_mutex);
+		ttd = timer_stop(p->philo.time_to_live);
+		sem_post(p->philo.cnt_mutex);
+		if ((p->arg.time_to_die * 1000UL) < ttd)
+			break ;
+		usleep(100);
+	}
 	p->stop = 1;
 	return (NULL);
 }
@@ -43,7 +51,7 @@ void	*ft_watchdog_die(void *arg)
 			i++;
 		if (pid != 0)
 			break ;
-		usleep(1);
+		usleep(100);
 	}
 	p->die_id = i + 1;
 	sem_post(p->sema.main_watchdog);
@@ -64,4 +72,16 @@ void	*ft_watchdog_eat(void *arg)
 	}
 	sem_post(p->sema.main_watchdog);
 	return (NULL);
+}
+
+void	ft_unblocking(sem_t *sem, int len)
+{
+	int	i;
+
+	i = 0;
+	while (i < len)
+	{
+		sem_post(sem);
+		i++;
+	}
 }
