@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 15:55:15 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/26 23:37:51 by joopark          ###   ########.fr       */
+/*   Updated: 2021/04/27 22:26:45 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,20 @@ void Phonebook::printall(void) {
 	std::cout << "|-------------------------------------------|" << std::endl;
 }
 
+void Phonebook::printpersonaldata(int i) {
+	std::cout << "FirstName : " << people[i].getFirstName() << std::endl;
+	std::cout << "LastName : " << people[i].getLastName() << std::endl;
+	std::cout << "NickName : " << people[i].getNickName() << std::endl;
+	std::cout << "Login : " << people[i].getLogin() << std::endl;
+	std::cout << "PostalAddress : " << people[i].getPostalAddress() << std::endl;
+	std::cout << "EmailAddress : " << people[i].getEmailAddress() << std::endl;
+	std::cout << "PhoneNumber : " << people[i].getPhoneNumber() << std::endl;
+	std::cout << "BirthdayDate : " << people[i].getBirthdayDate() << std::endl;
+	std::cout << "FavoriteMeal : " << people[i].getFavoriteMeal() << std::endl;
+	std::cout << "UnderwearColor : " << people[i].getUnderwearColor() << std::endl;
+	std::cout << "DarkestSecret : " << people[i].getDarkestSecret() << std::endl;
+}
+
 void Phonebook::search(void) {
 	int	input;
 
@@ -100,9 +114,7 @@ void Phonebook::search(void) {
 				std::cin.clear();
 			break ;
 		} else {
-			std::cout << "|-------------------------------------------|" << std::endl;
-			printcol(input - 1);
-			std::cout << "|-------------------------------------------|" << std::endl;
+			printpersonaldata(input - 1);
 		}
 	}
 }
@@ -123,7 +135,7 @@ void Phonebook::run(void) {
 				std::cout << "[alert] phonebook is empty!" << std::endl;
 			else
 				search();
-		} else if (tmp.compare("EXIT") == 0) {
+		} else if (std::cin.eof() || tmp.compare("EXIT") == 0) {
 			std::cout << "bye" << std::endl;
 			break ;
 		}
