@@ -5,32 +5,16 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/27 00:08:28 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/28 00:34:37 by joopark          ###   ########.fr       */
+/*   Created: 2021/04/29 02:01:36 by joopark           #+#    #+#             */
+/*   Updated: 2021/04/30 00:00:08 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Pony.hpp"
+#include "Human.hpp"
 
-void ponyOnTheHeap(void) {
-	Pony *pony = new Pony("joopark", 12, "black", "sleeping");
-	pony->greeting();
-	pony->status();
-	pony->changeStatus("running");
-	pony->status();
-	delete pony;
-}
+int main() {
+	Human bob;
 
-void ponyOnTheStack(void) {
-	Pony pony("parkjoo", 21, "white", "running");
-	pony.greeting();
-	pony.status();
-	pony.changeStatus("sleeping");
-	pony.status();
-}
-
-int main (void) {
-	ponyOnTheHeap();
-	ponyOnTheStack();
-	return (0);
+	std::cout << bob.identify() << std::endl;
+	std::cout << bob.getBrain().identify() << std::endl;
 }

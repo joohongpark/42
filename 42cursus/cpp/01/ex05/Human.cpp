@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Pony.hpp                                           :+:      :+:    :+:   */
+/*   Human.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/27 00:08:33 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/28 00:33:01 by joopark          ###   ########.fr       */
+/*   Created: 2021/04/29 02:01:31 by joopark           #+#    #+#             */
+/*   Updated: 2021/04/29 23:59:49 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PONY_H
-#define PONY_H
+#include "Human.hpp"
 
-#include <iostream>
+Human::Human() : Soul() {}
 
-class Pony {
-	private:
-		std::string Name;
-		std::string Status;
-		std::string Color;
-		int Age;
-	public:
-		Pony(std::string name, int age, std::string color, std::string status);
-		void greeting(void);
-		void status(void);
-		void changeStatus(std::string status);
-};
+Human::Human(Brain soul) : Soul(soul) {}
 
-#endif
+std::string Human::identify(void) const {
+	return (Soul.identify());
+}
+
+const Brain& Human::getBrain(void) const {
+	return (Soul);
+}

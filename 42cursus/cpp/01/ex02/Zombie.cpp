@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Pony.hpp                                           :+:      :+:    :+:   */
+/*   Zombie.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/27 00:08:33 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/28 00:33:01 by joopark          ###   ########.fr       */
+/*   Created: 2021/04/28 01:28:30 by joopark           #+#    #+#             */
+/*   Updated: 2021/04/28 21:38:50 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PONY_H
-#define PONY_H
+#include "Zombie.hpp"
 
-#include <iostream>
+Zombie::Zombie() : Name(), Type() {
+}
 
-class Pony {
-	private:
-		std::string Name;
-		std::string Status;
-		std::string Color;
-		int Age;
-	public:
-		Pony(std::string name, int age, std::string color, std::string status);
-		void greeting(void);
-		void status(void);
-		void changeStatus(std::string status);
-};
+Zombie::Zombie(std::string name, std::string type) : Name(name), Type(type) {
+}
 
-#endif
+void Zombie::announce(void) {
+	std::cout << '<' << Name << " (" << Type << ")> Braiiiiiiinnnssss..." << std::endl;
+}

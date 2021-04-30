@@ -1,31 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Pony.hpp                                           :+:      :+:    :+:   */
+/*   HumanB.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/27 00:08:33 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/28 00:33:01 by joopark          ###   ########.fr       */
+/*   Created: 2021/04/30 00:10:00 by joopark           #+#    #+#             */
+/*   Updated: 2021/04/30 01:19:54 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PONY_H
-#define PONY_H
+#ifndef HUMANB_H
+#define HUMANB_H
 
-#include <iostream>
+#include "Weapon.hpp"
 
-class Pony {
-	private:
-		std::string Name;
-		std::string Status;
-		std::string Color;
-		int Age;
-	public:
-		Pony(std::string name, int age, std::string color, std::string status);
-		void greeting(void);
-		void status(void);
-		void changeStatus(std::string status);
+class HumanB
+{
+private:
+	/* data */
+public:
+	HumanB(/* args */);
+	~HumanB();
 };
+
+HumanB::HumanB(/* args */)
+{
+}
+
+HumanB::~HumanB()
+{
+}
 
 #endif

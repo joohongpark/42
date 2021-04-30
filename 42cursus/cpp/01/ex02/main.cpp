@@ -5,32 +5,33 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/27 00:08:28 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/28 00:34:37 by joopark          ###   ########.fr       */
+/*   Created: 2021/04/28 01:28:25 by joopark           #+#    #+#             */
+/*   Updated: 2021/04/28 21:21:42 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Pony.hpp"
+#include "Zombie.hpp"
+#include "ZombieEvent.hpp"
 
-void ponyOnTheHeap(void) {
-	Pony *pony = new Pony("joopark", 12, "black", "sleeping");
-	pony->greeting();
-	pony->status();
-	pony->changeStatus("running");
-	pony->status();
-	delete pony;
-}
+int main(void) {
+	Zombie zombie_stack("puju", "on stack");
+	Zombie *zombie_heap = new Zombie("pupuju", "on heap");
+	Zombie *zombie_by_ze;
+	ZombieEvent zombieevent;
 
-void ponyOnTheStack(void) {
-	Pony pony("parkjoo", 21, "white", "running");
-	pony.greeting();
-	pony.status();
-	pony.changeStatus("sleeping");
-	pony.status();
-}
+	zombie_stack.announce();
+	zombie_heap->announce();
+	delete zombie_heap;
 
-int main (void) {
-	ponyOnTheHeap();
-	ponyOnTheStack();
+	zombieevent.setZombieType("by ZombieEvent");
+	zombie_by_ze = zombieevent.newZombie("jupu");
+	zombie_by_ze->announce();
+	delete zombie_by_ze;
+
+	zombieevent.setZombieType("by ZombieEvent_rand");
+	zombie_by_ze = zombieevent.randomChump();
+	zombie_by_ze->announce();
+	delete zombie_by_ze;
+
 	return (0);
 }

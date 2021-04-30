@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Pony.hpp                                           :+:      :+:    :+:   */
+/*   ZombieHorde.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/27 00:08:33 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/28 00:33:01 by joopark          ###   ########.fr       */
+/*   Created: 2021/04/28 21:39:42 by joopark           #+#    #+#             */
+/*   Updated: 2021/04/28 22:40:18 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PONY_H
-#define PONY_H
+#ifndef ZOMBIEHORDE_H
+#define ZOMBIEHORDE_H
 
-#include <iostream>
+#include "Zombie.hpp"
+#include <ctime>
 
-class Pony {
+class ZombieHorde {
 	private:
-		std::string Name;
-		std::string Status;
-		std::string Color;
-		int Age;
+		Zombie *zombies;
 	public:
-		Pony(std::string name, int age, std::string color, std::string status);
-		void greeting(void);
-		void status(void);
-		void changeStatus(std::string status);
+		ZombieHorde();
+		ZombieHorde(int n);
+		~ZombieHorde();
 };
-
 #endif

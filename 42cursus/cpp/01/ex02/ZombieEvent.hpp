@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Pony.hpp                                           :+:      :+:    :+:   */
+/*   ZombieEvent.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/27 00:08:33 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/28 00:33:01 by joopark          ###   ########.fr       */
+/*   Created: 2021/04/28 01:28:37 by joopark           #+#    #+#             */
+/*   Updated: 2021/04/28 21:19:42 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PONY_H
-#define PONY_H
+#ifndef ZOMBIEEVENT_H
+#define ZOMBIEEVENT_H
 
-#include <iostream>
+#include "Zombie.hpp"
+#include <ctime>
 
-class Pony {
+class ZombieEvent {
 	private:
-		std::string Name;
-		std::string Status;
-		std::string Color;
-		int Age;
+		std::string Type;
 	public:
-		Pony(std::string name, int age, std::string color, std::string status);
-		void greeting(void);
-		void status(void);
-		void changeStatus(std::string status);
+		ZombieEvent(/* args */);
+		ZombieEvent(std::string type);
+		Zombie *newZombie(std::string name);
+		void setZombieType(std::string type);
+		Zombie *randomChump(void);
 };
 
 #endif
