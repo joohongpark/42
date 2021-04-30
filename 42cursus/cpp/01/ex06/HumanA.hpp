@@ -17,20 +17,12 @@
 
 class HumanA {
 	private:
-		Weapon weapon_;
+		Weapon& weapon_;
 		std::string name_;
 	public:
-		HumanA();
+		HumanA(std::string name);
+		HumanA(std::string name, Weapon& weapon);
 		void attack();
 };
-
-HumanA::HumanA(/* args */)
-{
-}
-
-HumanA::~HumanA()
-{
-}
-
 
 #endif

@@ -15,21 +15,16 @@
 
 #include "Weapon.hpp"
 
-class HumanB
-{
-private:
-	/* data */
-public:
-	HumanB(/* args */);
-	~HumanB();
+class HumanB {
+	private:
+		Weapon weapon_;
+		std::string name_;
+	public:
+		HumanB();
+		HumanB(std::string name);
+		HumanB(std::string name, Weapon weapon);
+		void setWeapon(Weapon weapon);
+		void attack();
 };
-
-HumanB::HumanB(/* args */)
-{
-}
-
-HumanB::~HumanB()
-{
-}
 
 #endif

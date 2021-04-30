@@ -108,10 +108,8 @@ void Phonebook::search(void) {
 		std::cout << "type index of the desired entry" << std::endl;
 		std::cout << "> ";
 		std::cin >> input;
-		if (std::cin.fail() || input < 1 || input > (overwrite ? 8 : index)) {
+		if (std::cin.eof() || std::cin.fail() || input < 1 || input > (overwrite ? 8 : index)) {
 			std::cout << "wrong index" << std::endl;
-			if (std::cin.fail())
-				std::cin.clear();
 			break ;
 		} else {
 			printpersonaldata(input - 1);
@@ -135,7 +133,11 @@ void Phonebook::run(void) {
 				std::cout << "[alert] phonebook is empty!" << std::endl;
 			else
 				search();
-		} else if (std::cin.eof() || tmp.compare("EXIT") == 0) {
+		} else if (tmp.compare("EXIT") == 0) {
+			std::cout << "bye" << std::endl;
+			break ;
+		}
+		if (std::cin.eof()) {
 			std::cout << "bye" << std::endl;
 			break ;
 		}
