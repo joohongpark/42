@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   HumanB.hpp                                         :+:      :+:    :+:   */
+/*   Replace.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/30 00:10:00 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/30 23:47:07 by joopark          ###   ########.fr       */
+/*   Created: 2021/05/03 12:37:25 by joopark           #+#    #+#             */
+/*   Updated: 2021/05/03 16:32:30 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HUMANB_H
-#define HUMANB_H
+#ifndef REPLACE_H
+#define REPLACE_H
 
-#include "Weapon.hpp"
+#include <string>
+#include <fstream>
 
-class HumanB {
+class Replace {
 	private:
-		Weapon *weapon_;
-		std::string name_;
+		std::string _file;
+		std::string _buf;
 	public:
-		HumanB();
-		HumanB(std::string name);
-		HumanB(std::string name, Weapon& weapon);
-		void setWeapon(Weapon& weapon);
-		void attack();
+		Replace();
+		bool open(std::string filename);
+		void replace(std::string find, std::string replace);
+		bool save(std::string filename);
 };
-
 #endif
