@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 12:37:25 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/03 16:32:30 by joopark          ###   ########.fr       */
+/*   Updated: 2021/05/06 01:08:06 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,5 @@ class Replace {
 		void replace(std::string find, std::string replace);
 		bool save(std::string filename);
 };
+
 #endif

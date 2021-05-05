@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ZombieHorde.hpp                                    :+:      :+:    :+:   */
+/*   Fixed.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/28 21:39:42 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/06 00:38:33 by joopark          ###   ########.fr       */
+/*   Created: 2021/05/04 00:58:39 by joopark           #+#    #+#             */
+/*   Updated: 2021/05/06 01:11:03 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ZOMBIEHORDE_H
-#define ZOMBIEHORDE_H
+#ifndef FIXED_H
+#define FIXED_H
 
-#include "Zombie.hpp"
-#include <ctime>
+#include <iostream>
 
-class ZombieHorde {
+class Fixed {
 	private:
-		Zombie *zombies;
+		int RawBits;
+		static const int fractional_bits = 8;
 	public:
-		ZombieHorde();
-		ZombieHorde(int n);
-		~ZombieHorde();
+		Fixed();
+		Fixed(const Fixed& fixed);
+		Fixed& operator= (const Fixed& fixed);
+		~Fixed();
+		int getRawBits(void) const;
+		void setRawBits(int const raw);
 };
+
 #endif

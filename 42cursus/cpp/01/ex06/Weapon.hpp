@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 00:10:00 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/30 00:32:02 by joopark          ###   ########.fr       */
+/*   Updated: 2021/05/06 00:57:34 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,5 @@ class Weapon {
 		const std::string& getType(void);
 		void setType(std::string _type);
 };
+
 #endif

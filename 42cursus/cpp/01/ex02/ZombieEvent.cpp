@@ -6,17 +6,15 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 01:28:35 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/28 21:19:57 by joopark          ###   ########.fr       */
+/*   Updated: 2021/05/06 00:14:13 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ZombieEvent.hpp"
 
-ZombieEvent::ZombieEvent() : Type() {
-}
+ZombieEvent::ZombieEvent() : Type() {}
 
-ZombieEvent::ZombieEvent(std::string type) : Type(type) {
-}
+ZombieEvent::ZombieEvent(std::string type) : Type(type) {}
 
 Zombie *ZombieEvent::newZombie(std::string name) {
 	return (new Zombie(name, Type));

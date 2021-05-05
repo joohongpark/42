@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ZombieHorde.hpp                                    :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/28 21:39:42 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/06 00:38:33 by joopark          ###   ########.fr       */
+/*   Created: 2021/05/04 11:38:45 by joopark           #+#    #+#             */
+/*   Updated: 2021/05/06 01:10:26 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ZOMBIEHORDE_H
-#define ZOMBIEHORDE_H
+#include "Fixed.hpp"
+#include <iostream>
 
-#include "Zombie.hpp"
-#include <ctime>
+int main( void ) {
+	Fixed a;
+	Fixed b( a );
+	Fixed c;
 
-class ZombieHorde {
-	private:
-		Zombie *zombies;
-	public:
-		ZombieHorde();
-		ZombieHorde(int n);
-		~ZombieHorde();
-};
-#endif
+	c = b;
+
+	std::cout << a.getRawBits() << std::endl;
+	std::cout << b.getRawBits() << std::endl;
+	std::cout << c.getRawBits() << std::endl;
+
+	return (0);
+}

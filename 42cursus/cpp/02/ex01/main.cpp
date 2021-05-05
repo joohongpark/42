@@ -5,35 +5,31 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/03 12:37:29 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/06 01:07:57 by joopark          ###   ########.fr       */
+/*   Created: 2021/05/04 11:38:45 by joopark           #+#    #+#             */
+/*   Updated: 2021/05/06 01:11:41 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Replace.hpp"
+#include "Fixed.hpp"
 #include <iostream>
 
-int main(int argc, char *argv[]) {
-	Replace replace;
-	std::string filename;
-	std::string s1;
-	std::string s2;
+int main(void) {
+	Fixed a;
+	Fixed const b( 10 );
+	Fixed const c( 42.42f );
+	Fixed const d( b );
 
-	if (argc != 4) {
-		std::cerr << "[error] argument error!" << std::endl;
-		return (-1);
-	}
-	filename = argv[1];
-	s1 = argv[2];
-	s2 = argv[3];
-	if (!replace.open(filename)) {
-		std::cerr << "[error] file open error!" << std::endl;
-		return (-1);
-	}
-	replace.replace(s1, s2);
-	if (!replace.save(filename + ".replace")) {
-		std::cerr << "[error] file save error!" << std::endl;
-		return (-1);
-	}
+	a = Fixed( 1234.4321f );
+
+	std::cout << "a is " << a << std::endl;
+	std::cout << "b is " << b << std::endl;
+	std::cout << "c is " << c << std::endl;
+	std::cout << "d is " << d << std::endl;
+
+	std::cout << "a is " << a.toInt() << " as integer" << std::endl;
+	std::cout << "b is " << b.toInt() << " as integer" << std::endl;
+	std::cout << "c is " << c.toInt() << " as integer" << std::endl;
+	std::cout << "d is " << d.toInt() << " as integer" << std::endl;
+
 	return (0);
 }

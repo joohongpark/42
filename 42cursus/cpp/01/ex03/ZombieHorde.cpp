@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 21:39:39 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/28 22:53:11 by joopark          ###   ########.fr       */
+/*   Updated: 2021/05/06 00:35:08 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,3 @@ ZombieHorde::ZombieHorde(int n) {
 ZombieHorde::~ZombieHorde() {
 	delete [] zombies;
 }
-

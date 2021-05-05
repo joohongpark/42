@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 00:41:26 by joopark           #+#    #+#             */
-/*   Updated: 2021/04/28 01:02:28 by joopark          ###   ########.fr       */
+/*   Updated: 2021/05/06 00:09:53 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,9 @@ void		memoryLeak()
 	std::cout << *panther << std::endl;
 	delete panther;
 	panther = NULL;
+}
+
+int main(void) {
+	memoryLeak();
+	return (0);
 }
