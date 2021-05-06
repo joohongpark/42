@@ -28,7 +28,8 @@ Fixed::Fixed(const float f) {
 
 Fixed::Fixed(const Fixed& fixed) {
 	std::cout << "Copy constructor called" << std::endl;
-	RawBits = fixed.getRawBits();
+	if (this != &fixed)
+		RawBits = fixed.getRawBits();
 }
 
 Fixed& Fixed::operator= (const Fixed& fixed) {
@@ -44,7 +45,6 @@ Fixed::~Fixed() {
 }
 
 int Fixed::getRawBits(void) const {
-	std::cout << "getRawBits member function called" << std::endl;
 	return (RawBits);
 }
 
