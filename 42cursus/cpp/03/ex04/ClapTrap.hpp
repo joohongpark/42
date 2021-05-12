@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
+/*   ClapTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/09 01:18:16 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/09 23:29:35 by joopark          ###   ########.fr       */
+/*   Created: 2021/05/09 14:51:07 by joopark           #+#    #+#             */
+/*   Updated: 2021/05/11 19:43:50 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCAVTRAP_HPP
-#define SCAVTRAP_HPP
+#ifndef CLAPTRAP_HPP
+#define CLAPTRAP_HPP
 
 #include <string>
 #include <iostream>
-#include <ctime>
 
-class ScavTrap {
-	private:
-		unsigned int _rand_seed;
+class ClapTrap {
+	protected:
 		unsigned int _hit_points;
 		unsigned int _max_hit_points;
 		unsigned int _energy_points;
@@ -30,15 +28,21 @@ class ScavTrap {
 		unsigned int _ranged_attack_damage;
 		unsigned int _armor_damage_reduction;
 	public:
-		ScavTrap(std::string Name);
-		ScavTrap(const ScavTrap& fragtrap);
-		ScavTrap& operator=(const ScavTrap& fragtrap);
-		~ScavTrap();
-		void rangedAttack(std::string const & target);
-		void meleeAttack(std::string const & target);
+		ClapTrap(	unsigned int hit_points,
+					unsigned int max_hit_points,
+					unsigned int energy_points,
+					unsigned int max_energy_points,
+					unsigned int level,
+					std::string name,
+					unsigned int melee_attack_damage,
+					unsigned int ranged_attack_damage,
+					unsigned int armor_damage_reduction	);
+		ClapTrap(const ClapTrap& fragtrap);
+		ClapTrap& operator=(const ClapTrap& fragtrap);
+		~ClapTrap();
 		void takeDamage(unsigned int amount);
 		void beRepaired(unsigned int amount);
-		void challengeNewcomer(std::string const & target);
+		std::string getName(void);
 };
 
 #endif

@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
+/*   NinjaTrap.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/09 01:18:16 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/11 16:57:17 by joopark          ###   ########.fr       */
+/*   Created: 2021/05/11 17:44:11 by joopark           #+#    #+#             */
+/*   Updated: 2021/05/11 22:31:43 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCAVTRAP_HPP
-#define SCAVTRAP_HPP
+#ifndef NINJATRAP_HPP
+#define NINJATRAP_HPP
 
-#include "ClapTrap.hpp"
-#include <ctime>
+#include "FragTrap.hpp"
+#include "ScavTrap.hpp"
 
-class ScavTrap : public ClapTrap {
-	private:
-		unsigned int _rand_seed;
+class NinjaTrap : virtual public ClapTrap {
 	public:
-		ScavTrap(std::string Name);
-		ScavTrap(const ScavTrap& fragtrap);
-		ScavTrap& operator=(const ScavTrap& fragtrap);
-		~ScavTrap();
+		NinjaTrap(std::string Name);
+		NinjaTrap(const NinjaTrap& fragtrap);
+		NinjaTrap& operator=(const NinjaTrap& fragtrap);
+		~NinjaTrap();
 		void rangedAttack(std::string const & target);
 		void meleeAttack(std::string const & target);
-		void challengeNewcomer(std::string const & target);
+		void ninjaShoebox(ClapTrap& target);
+		void ninjaShoebox(FragTrap& target);
+		void ninjaShoebox(ScavTrap& target);
+		void ninjaShoebox(NinjaTrap& target);
 };
 
 #endif

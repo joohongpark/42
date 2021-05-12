@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 14:51:07 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/11 17:08:58 by joopark          ###   ########.fr       */
+/*   Updated: 2021/05/11 19:43:56 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,4 +103,8 @@ void ClapTrap::beRepaired(unsigned int amount) {
 	std::cout << ")";
 	std::cout << "\033[0m";
 	std::cout << std::endl;
+}
+
+std::string ClapTrap::getName(void) {
+	return (_name);
 }

@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:28:12 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/09 11:50:21 by joopark          ###   ########.fr       */
+/*   Updated: 2021/05/10 00:30:39 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ FragTrap::FragTrap(std::string Name) :
 	_ranged_attack_damage(20),
 	_armor_damage_reduction(5) {
 	std::cout << "\033[1;33m";
-	std::cout << "[";
+	std::cout << "[FR4G-TP ";
 	std::cout << Name;
 	std::cout << " has joined the game]";
 	std::cout << "\033[0m";
@@ -52,7 +52,7 @@ FragTrap& FragTrap::operator=(const FragTrap& fragtrap) {
 
 FragTrap::~FragTrap() {
 	std::cout << "\033[1;33m";
-	std::cout << "[";
+	std::cout << "[FR4G-TP ";
 	std::cout << _name;
 	std::cout << " has left the game.]";
 	std::cout << "\033[0m";
@@ -86,9 +86,9 @@ void FragTrap::meleeAttack(std::string const & target) {
 }
 
 void FragTrap::takeDamage(unsigned int amount) {
-	int damage;
+	unsigned int damage;
 
-	damage = amount * int(_armor_damage_reduction / _level);
+	damage = amount * unsigned(_armor_damage_reduction / _level);
 	if (_hit_points >= damage)
 		_hit_points -= damage;
 	else
@@ -105,10 +105,10 @@ void FragTrap::takeDamage(unsigned int amount) {
 }
 
 void FragTrap::beRepaired(unsigned int amount) {
-	int repair;
+	unsigned int repair;
 
-	repair = amount * int(_armor_damage_reduction / _level);
-	if (_hit_points >= repair)
+	repair = amount * unsigned(_armor_damage_reduction / _level);
+	if ((_hit_points + repair) <= _max_hit_points)
 		_hit_points += repair;
 	else
 		_hit_points = _max_hit_points;

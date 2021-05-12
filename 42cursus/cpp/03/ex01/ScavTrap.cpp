@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 01:18:16 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/09 14:36:10 by joopark          ###   ########.fr       */
+/*   Updated: 2021/05/11 17:10:42 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ ScavTrap::ScavTrap(std::string Name) :
 	_ranged_attack_damage(15),
 	_armor_damage_reduction(3) {
 	std::cout << "\033[1;33m";
-	std::cout << "[SR4G-TP - ";
+	std::cout << "[SC4V-TP - ";
 	std::cout << Name;
 	std::cout << " has joined the game]";
 	std::cout << "\033[0m";
@@ -52,7 +52,7 @@ ScavTrap& ScavTrap::operator=(const ScavTrap& fragtrap) {
 
 ScavTrap::~ScavTrap() {
 	std::cout << "\033[1;33m";
-	std::cout << "[SR4G-TP - ";
+	std::cout << "[SC4V-TP - ";
 	std::cout << _name;
 	std::cout << " has left the game.]";
 	std::cout << "\033[0m";
@@ -61,7 +61,7 @@ ScavTrap::~ScavTrap() {
 
 void ScavTrap::rangedAttack(std::string const & target) {
 	std::cout << "\033[1;95m";
-	std::cout << "FR4G-TP ";
+	std::cout << "SC4V-TP ";
 	std::cout << target;
 	std::cout << " attacks ";
 	std::cout << _name;
@@ -74,7 +74,7 @@ void ScavTrap::rangedAttack(std::string const & target) {
 
 void ScavTrap::meleeAttack(std::string const & target) {
 	std::cout << "\033[1;95m";
-	std::cout << "FR4G-TP ";
+	std::cout << "SC4V-TP ";
 	std::cout << target;
 	std::cout << " attacks ";
 	std::cout << _name;
@@ -86,9 +86,9 @@ void ScavTrap::meleeAttack(std::string const & target) {
 }
 
 void ScavTrap::takeDamage(unsigned int amount) {
-	int damage;
+	unsigned int damage;
 
-	damage = amount * int(_armor_damage_reduction / _level);
+	damage = amount * unsigned(_armor_damage_reduction / _level);
 	if (_hit_points >= damage)
 		_hit_points -= damage;
 	else
@@ -105,10 +105,10 @@ void ScavTrap::takeDamage(unsigned int amount) {
 }
 
 void ScavTrap::beRepaired(unsigned int amount) {
-	int repair;
+	unsigned int repair;
 
-	repair = amount * int(_armor_damage_reduction / _level);
-	if (_hit_points >= repair)
+	repair = amount * unsigned(_armor_damage_reduction / _level);
+	if ((_hit_points + repair) <= _max_hit_points)
 		_hit_points += repair;
 	else
 		_hit_points = _max_hit_points;
@@ -142,7 +142,8 @@ void ScavTrap::challengeNewcomer(std::string const & target) {
 		random = rand() % 5;
 		_energy_points -= 25;
 		std::cout << "\033[1;92m";
-		std::cout << "your challenge is ";
+		std::cout << target;
+		std::cout << "'s challenge is ";
 		std::cout << challenges[random];
 		std::cout << "\033[0m";
 		std::cout << std::endl;
