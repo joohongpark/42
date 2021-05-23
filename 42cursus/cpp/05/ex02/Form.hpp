@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Form.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: joopark <joopark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 13:40:38 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/22 15:57:03 by joopark          ###   ########.fr       */
+/*   Updated: 2021/05/23 15:16:48 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,14 @@ class Form {
 		int getGradeForSign(void) const;
 		int getGradeForExecute(void) const;
 		void beSigned(Bureaucrat & bureaucrat);
+		virtual void execute(Bureaucrat const & executor) const;
 		class GradeTooHighException : public std::exception {
 			virtual const char* what() const throw();
 		};
 		class GradeTooLowException : public std::exception {
+			virtual const char* what() const throw();
+		};
+		class NotSignedException : public std::exception {
 			virtual const char* what() const throw();
 		};
 };

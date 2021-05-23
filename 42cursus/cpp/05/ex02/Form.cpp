@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Form.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: joopark <joopark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 13:40:36 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/22 17:06:33 by joopark          ###   ########.fr       */
+/*   Updated: 2021/05/23 15:17:26 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,23 @@ void Form::beSigned(Bureaucrat & bureaucrat) {
 		throw Form::GradeTooLowException();
 }
 
+void Form::execute(Bureaucrat const & executor) const {
+	if (_signed == false)
+		throw Form::NotSignedException();
+	if (executor.getGrade() > _gradeForSign)
+		throw Form::GradeTooLowException();
+}
+
 const char* Form::GradeTooHighException::what() const throw() {
 	return "Grade Too High";
 }
 
 const char* Form::GradeTooLowException::what() const throw() {
 	return "Grade Too Low";
+}
+
+const char* Form::NotSignedException::what() const throw() {
+	return "Not Signed";
 }
 
 std::ostream &operator<<(std::ostream &out, const Form & form) {

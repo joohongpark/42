@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ShrubberyCreationForm.cpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: joopark <joopark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 17:49:11 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/22 18:53:13 by joopark          ###   ########.fr       */
+/*   Updated: 2021/05/23 15:21:39 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,13 @@ ShrubberyCreationForm::ShrubberyCreationForm(/* args */)
 
 ShrubberyCreationForm::~ShrubberyCreationForm()
 {
+}
+
+void ShrubberyCreationForm::execute(Bureaucrat const & executor) const {
+	try {
+		Form::execute(executor);
+	} catch (const std::exception & e) {
+		(void) e;
+	}
+	
 }

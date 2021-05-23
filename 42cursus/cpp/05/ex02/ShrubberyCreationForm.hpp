@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ShrubberyCreationForm.hpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: joopark <joopark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 17:49:13 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/22 23:29:46 by joopark          ###   ########.fr       */
+/*   Updated: 2021/05/23 15:19:51 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ class ShrubberyCreationForm : public Form {
 		ShrubberyCreationForm(const ShrubberyCreationForm & shrubberycreationform);
 		ShrubberyCreationForm & operator=(const ShrubberyCreationForm & shrubberycreationform);
 		~ShrubberyCreationForm();
+		virtual void execute(Bureaucrat const & executor) const;
 };
 
 #endif

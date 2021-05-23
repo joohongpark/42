@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RobotomyRequestForm.hpp                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: joopark <joopark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 17:49:08 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/22 23:30:08 by joopark          ###   ########.fr       */
+/*   Updated: 2021/05/23 15:19:48 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ class RobotomyRequestForm : public Form {
 		RobotomyRequestForm(const RobotomyRequestForm & robotomyrequestform);
 		RobotomyRequestForm & operator=(const RobotomyRequestForm & robotomyrequestform);
 		~RobotomyRequestForm();
+		virtual void execute(Bureaucrat const & executor) const;
 };
 
 #endif

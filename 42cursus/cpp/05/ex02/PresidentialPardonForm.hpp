@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PresidentialPardonForm.hpp                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: joopark <joopark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 17:48:59 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/22 23:28:39 by joopark          ###   ########.fr       */
+/*   Updated: 2021/05/23 15:19:47 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ class PresidentialPardonForm : public Form {
 		PresidentialPardonForm(const PresidentialPardonForm & presidentialpardonform);
 		PresidentialPardonForm & operator=(const PresidentialPardonForm & presidentialpardonform);
 		~PresidentialPardonForm();
+		virtual void execute(Bureaucrat const & executor) const;
 };
 
 #endif
