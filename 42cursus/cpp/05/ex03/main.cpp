@@ -6,21 +6,20 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 22:10:57 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/24 11:08:17 by joopark          ###   ########.fr       */
+/*   Updated: 2021/05/24 11:15:50 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
-#include "PresidentialPardonForm.hpp"
-#include "RobotomyRequestForm.hpp"
-#include "ShrubberyCreationForm.hpp"
+#include "Intern.hpp"
 
 int main(void) {
-	Bureaucrat signer("joopark", 100);
+	Bureaucrat signer("joopark", 15);
 	Bureaucrat executor("polarbear", 10);
-	Form* a = new ShrubberyCreationForm("Home");
-	Form* b = new RobotomyRequestForm("Robot");
-	Form* c = new PresidentialPardonForm("killer");
+	Intern  someRandomIntern;
+	Form* a = someRandomIntern.makeForm("robotomy request", "Robot");
+	Form* b = someRandomIntern.makeForm("presidential pardon", "killer");
+	Form* c = someRandomIntern.makeForm("shrubbery creation", "Home");
 
 	signer.signForm(*a);
 	signer.signForm(*b);

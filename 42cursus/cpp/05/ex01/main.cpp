@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 22:10:57 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/22 17:13:46 by joopark          ###   ########.fr       */
+/*   Updated: 2021/05/24 11:03:22 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,22 @@ void form_odd_value_test() {
 	try {
 		Form a("joopark", -20, 30);
 	} catch (const std::exception & e) {
-		std::cerr << "Exception : " << e.what() << '\n';
+		std::cout << "Exception : " << e.what() << std::endl;
 	}
 	try {
 		Form b("joopark", 1000, 30);
 	} catch (const std::exception & e) {
-		std::cerr << "Exception : " << e.what() << '\n';
+		std::cout << "Exception : " << e.what() << std::endl;
 	}
 	try {
 		Form b("joopark", 10, -30);
 	} catch (const std::exception & e) {
-		std::cerr << "Exception : " << e.what() << '\n';
+		std::cout << "Exception : " << e.what() << std::endl;
 	}
 	try {
 		Form b("joopark", 10, 200);
 	} catch (const std::exception & e) {
-		std::cerr << "Exception : " << e.what() << '\n';
+		std::cout << "Exception : " << e.what() << std::endl;
 	}
 }
 
@@ -44,7 +44,7 @@ void form_sign_test() {
 		b.gradeInc();
 		b.signForm(a);
 	} catch (const std::exception & e) {
-		std::cerr << "Exception : " << e.what() << '\n';
+		std::cout << "Exception : " << e.what() << std::endl;
 	}
 }
 

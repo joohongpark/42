@@ -1,38 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Intern.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/20 22:10:57 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/24 11:08:17 by joopark          ###   ########.fr       */
+/*   Created: 2021/05/23 21:41:37 by joopark           #+#    #+#             */
+/*   Updated: 2021/05/24 01:13:52 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bureaucrat.hpp"
+#ifndef INTERN_HPP
+#define INTERN_HPP
+
 #include "PresidentialPardonForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "ShrubberyCreationForm.hpp"
 
-int main(void) {
-	Bureaucrat signer("joopark", 100);
-	Bureaucrat executor("polarbear", 10);
-	Form* a = new ShrubberyCreationForm("Home");
-	Form* b = new RobotomyRequestForm("Robot");
-	Form* c = new PresidentialPardonForm("killer");
+class Intern {
+	public:
+		Intern();
+		Intern(const Intern & intern);
+		Intern & operator=(const Intern & intern);
+		~Intern();
+		Form* makeForm(std::string name, std::string target);
+};
 
-	signer.signForm(*a);
-	signer.signForm(*b);
-	signer.signForm(*c);
+Form* genPresidentialPardonForm(std::string const & target);
+Form* genRobotomyRequestForm(std::string const & target);
+Form* genShrubberyCreationForm(std::string const & target);
 
-	executor.executeForm(*a);
-	executor.executeForm(*b);
-	executor.executeForm(*c);
-
-	delete a;
-	delete b;
-	delete c;
-
-	return (0);
-}
+#endif
