@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Form.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joopark <joopark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 13:40:36 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/23 15:17:26 by joopark          ###   ########.fr       */
+/*   Updated: 2021/05/26 19:48:46 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void Form::beSigned(Bureaucrat & bureaucrat) {
 void Form::execute(Bureaucrat const & executor) const {
 	if (_signed == false)
 		throw Form::NotSignedException();
-	if (executor.getGrade() > _gradeForSign)
+	if (executor.getGrade() > _gradeForExecute)
 		throw Form::GradeTooLowException();
 }
 

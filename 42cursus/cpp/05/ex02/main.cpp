@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 22:10:57 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/24 11:08:17 by joopark          ###   ########.fr       */
+/*   Updated: 2021/05/26 19:51:41 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 #include "ShrubberyCreationForm.hpp"
 
 int main(void) {
-	Bureaucrat signer("joopark", 100);
-	Bureaucrat executor("polarbear", 10);
+	Bureaucrat signer("joopark", 15);
+	Bureaucrat executor("polarbear", 5);
 	Form* a = new ShrubberyCreationForm("Home");
 	Form* b = new RobotomyRequestForm("Robot");
 	Form* c = new PresidentialPardonForm("killer");

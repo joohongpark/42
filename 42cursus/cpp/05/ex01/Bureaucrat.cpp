@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 22:10:52 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/22 16:44:17 by joopark          ###   ########.fr       */
+/*   Updated: 2021/05/26 19:35:33 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,7 @@ void Bureaucrat::gradeDec(void) {
 
 void Bureaucrat::signForm(Form & form) {
 	if (form.getSigned()) {
-		std::cout << "<";
-		std::cout << _name;
-		std::cout << "> has already received an autograph from <";
-		std::cout << form.getName();
-		std::cout << ">";
+		std::cout << "It's already signed.";
 		std::cout << std::endl;
 	} else {
 		try {
