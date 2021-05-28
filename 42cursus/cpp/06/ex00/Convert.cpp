@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   Convert.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: joopark <joopark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 19:15:51 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/25 01:11:43 by joopark          ###   ########.fr       */
+/*   Updated: 2021/05/28 18:25:36 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Convert.hpp"
+
+Convert::Convert() {}
 
 Convert::Convert(const char* str) {
 	number = atof(str);

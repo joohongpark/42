@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Convert.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: joopark <joopark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 19:15:14 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/25 00:33:14 by joopark          ###   ########.fr       */
+/*   Updated: 2021/05/28 18:25:24 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ class Convert {
 	private:
 		double number;
 	public:
+		Convert();
 		Convert(const char* str);
 		Convert(const Convert & convert);
 		Convert & operator=(const Convert & convert);
