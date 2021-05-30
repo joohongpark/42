@@ -6,11 +6,12 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 16:18:10 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/25 16:30:10 by joopark          ###   ########.fr       */
+/*   Updated: 2021/05/31 00:29:03 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "whatever.hpp"
+#include <iostream>
 
 int main(void) {
 	int a = 2;
