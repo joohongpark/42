@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   whatever.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: joopark <joopark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 16:19:29 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/25 16:30:14 by joopark          ###   ########.fr       */
+/*   Updated: 2021/05/30 19:02:14 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ void swap(T &a, T &b) {
 
 template <typename T>
 T min(T a, T b) {
-	return (a > b ? b : a);
+	return (a >= b ? b : a);
 }
 
 template <typename T>
 T max(T a, T b) {
-	return (a < b ? b : a);
+	return (a <= b ? b : a);
 }
 
 #endif
