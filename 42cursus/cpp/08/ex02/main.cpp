@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joopark <joopark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 13:40:19 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/30 15:56:49 by joopark          ###   ########.fr       */
+/*   Updated: 2021/05/31 15:55:54 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mutantstack.hpp"
 #include <iostream>
+#include <list>
 
-int main() {
+void test_mstack(void) {
 	MutantStack<int> mstack;
 	mstack.push(5);
 	mstack.push(17);
@@ -35,5 +36,36 @@ int main() {
 		++it;
 	}
 	std::stack<int> s(mstack);
+}
+
+void test_list(void) {
+	std::list<int> mstack;
+	mstack.push_back(5);
+	mstack.push_back(17);
+	std::cout << mstack.back() << std::endl;
+	mstack.pop_back();
+	std::cout << mstack.size() << std::endl;
+	mstack.push_back(3);
+	mstack.push_back(5);
+	mstack.push_back(737);
+	//[...]
+	mstack.push_back(0);
+	std::list<int>::iterator it = mstack.begin();
+	std::list<int>::iterator ite = mstack.end();
+	++it;
+	--it;
+	while (it != ite)
+	{
+		std::cout << *it << std::endl;
+		++it;
+	}
+	std::list<int> s(mstack);
+}
+
+int main() {
+	std::cout << "Mutant Stack test" << std::endl;
+	test_mstack();
+	std::cout << "List test" << std::endl;
+	test_list();
 	return (0);
 }
