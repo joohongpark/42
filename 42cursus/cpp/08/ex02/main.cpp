@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: joopark <joopark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 13:40:19 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/31 15:55:54 by joopark          ###   ########.fr       */
+/*   Updated: 2021/06/01 16:43:08 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,30 @@ void test_mstack(void) {
 	std::stack<int> s(mstack);
 }
 
+void test_mrstack(void) {
+	MutantStack<int> mstack;
+	for (int i = 0; i < 10; i++)
+	{
+		mstack.push(i);
+	}
+	
+	MutantStack<int>::reverse_iterator rit = mstack.rbegin();
+	MutantStack<int>::reverse_iterator rite = mstack.rend();
+	while (rit != rite)
+	{
+		std::cout << *rit << std::endl;
+		++rit;
+	}
+	
+	MutantStack<int>::iterator it = mstack.begin();
+	MutantStack<int>::iterator ite = mstack.end();
+	while (it != ite)
+	{
+		std::cout << *it << std::endl;
+		++it;
+	}
+}
+
 void test_list(void) {
 	std::list<int> mstack;
 	mstack.push_back(5);
@@ -65,6 +89,8 @@ void test_list(void) {
 int main() {
 	std::cout << "Mutant Stack test" << std::endl;
 	test_mstack();
+	std::cout << "Mutant Stack test (reverse)" << std::endl;
+	test_mrstack();
 	std::cout << "List test" << std::endl;
 	test_list();
 	return (0);

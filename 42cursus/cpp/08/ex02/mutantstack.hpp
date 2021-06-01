@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mutantstack.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: joopark <joopark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 13:40:25 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/31 01:04:49 by joopark          ###   ########.fr       */
+/*   Updated: 2021/06/01 16:45:38 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,26 +32,26 @@ class MutantStack : public std::stack<T, std::deque<T> > {
 		iterator begin(void) {
 			return (this->c.begin());
 		}
-		const_iterator begin(void) const {
-			return (this->c.begin());
+		const_iterator cbegin(void) const {
+			return (this->c.cbegin());
 		}
 		iterator end(void) {
 			return (this->c.end());
 		}
-		const_iterator end(void) const {
-			return (this->c.end());
+		const_iterator cend(void) const {
+			return (this->c.cend());
 		}
 		reverse_iterator rbegin(void) {
-			return (this->c.begin());
-		}
-		const_reverse_iterator rbegin(void) const {
-			return (this->c.begin());
+			return (this->c.rbegin());
 		}
 		reverse_iterator rend(void) {
-			return (this->c.end());
+			return (this->c.rend());
 		}
-		const_reverse_iterator rend(void) const {
-			return (this->c.end());
+		const_reverse_iterator crbegin(void) const {
+			return (this->c.crbegin());
+		}
+		const_reverse_iterator crend(void) const {
+			return (this->c.crend());
 		}
 };
 
