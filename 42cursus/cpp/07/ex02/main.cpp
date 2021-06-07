@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joopark <joopark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 21:58:05 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/28 17:29:54 by joopark          ###   ########.fr       */
+/*   Updated: 2021/06/07 15:05:03 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int main(void) {
 	std::cout << "arrStr[0] : " << arrStr[0] << std::endl;
 
 	arrStrAssign = arrStr;
-	Array<std::string> arrStrCopy(arrStr);
+	const Array<std::string> arrStrCopy(arrStr);
 
 	try {
 		for (unsigned int i = 0; i < 10; i++)
@@ -47,6 +47,5 @@ int main(void) {
 		std::cerr << e.what() << '\n';
 	}
 
-	
 	return (0);
 }

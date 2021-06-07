@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Array.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joopark <joopark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 21:58:07 by joopark           #+#    #+#             */
-/*   Updated: 2021/05/28 19:21:10 by joopark          ###   ########.fr       */
+/*   Updated: 2021/06/07 14:56:23 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ class Array {
 		}
 
 		T & operator[](unsigned int i) {
+			if (i >= _size)
+				throw Array::OutOfTheLimitsException();
+			return (_arr[i]);
+		}
+
+		const T & operator[](unsigned int i) const {
 			if (i >= _size)
 				throw Array::OutOfTheLimitsException();
 			return (_arr[i]);
