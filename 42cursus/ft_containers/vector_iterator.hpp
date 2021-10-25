@@ -70,6 +70,40 @@ namespace ft {
             iterator_type       base() const {
                 return (iter);
             }
+
+            // TODO: 누락된 연산자 및 함수 추가 (조치 필요)
+            template <class T1, class T2> friend
+            bool operator==(const vector_iterator<T1>&, const vector_iterator<T2>&);
+            template <class T1, class T2> friend
+            bool operator<(const vector_iterator<T1>&, const vector_iterator<T2>&);
+            template <class T1, class T2> friend
+            bool operator!=(const vector_iterator<T1>&, const vector_iterator<T2>&);
+            template <class T1, class T2> friend
+            bool operator>(const vector_iterator<T1>&, const vector_iterator<T2>&);
+            template <class T1, class T2> friend
+            bool operator>=(const vector_iterator<T1>&, const vector_iterator<T2>&);
+            template <class T1, class T2> friend
+            bool operator<=(const vector_iterator<T1>&, const vector_iterator<T2>&);
+
+            template <class T1, class T2> friend
+            typename vector_iterator<T1>::difference_type operator-(const vector_iterator<T1>& x, const vector_iterator<T2>& y) {
+                return (x.base() - y.base());
+            }
+            template <class T1> friend
+            vector_iterator<T1> operator+(typename vector_iterator<T1>::difference_type x, vector_iterator<T1> y) {
+                x += y;
+                return (x);
+            }
+/*
+            template <class _Up> friend class vector_iterator;
+            template <class _CharT, class _Traits, class _Alloc> friend class basic_string;
+            template <class _Tp, class _Alloc> friend class vector;
+            template <class _Tp, size_t> friend class span;
+            template <class _Ip, class _Op> friend _Op copy(_Ip, _Ip, _Op);
+            template <class _B1, class _B2> friend _B2 copy_backward(_B1, _B1, _B2);
+            template <class _Ip, class _Op> friend _Op move(_Ip, _Ip, _Op);
+            template <class _B1, class _B2> friend _B2 move_backward(_B1, _B1, _B2);
+*/
     };
     template <class T1, class T2>
     bool operator==(const vector_iterator<T1>& x, const vector_iterator<T2>& y) { return bool(x.base() == y.base()); }
