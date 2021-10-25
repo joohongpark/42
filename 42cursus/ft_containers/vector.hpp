@@ -3,8 +3,6 @@
 
 #include <memory>
 
-#include <iostream>
-
 #include "vector_iterator.hpp"
 #include "reverse_iterator.hpp"
 #include "type_traits.hpp"
@@ -173,7 +171,7 @@ namespace ft {
     void vector<T, Allocator>::reserve(size_type n) {
         // 인수가 메모리 할당된 크기보다 크면 구문 실행
         if (n > _capacity) {
-            pointer _new_data = _alloc.allocate(_capacity);
+            pointer _new_data = _alloc.allocate(n);
             for (size_type i = 0; i < _size; i++) {
                 _new_data[i] = _data[i];
             }
@@ -253,12 +251,12 @@ namespace ft {
 
     template <class T, class Allocator>
     typename vector<T, Allocator>::iterator vector<T, Allocator>::end(){
-        return (iterator(_data[_size]));
+        return (iterator(&_data[_size]));
     }
 
     template <class T, class Allocator>
     typename vector<T, Allocator>::const_iterator vector<T, Allocator>::end() const{
-        return (const_iterator(_data[_size]));
+        return (const_iterator(&_data[_size]));
     }
     
     template <class T, class Allocator>

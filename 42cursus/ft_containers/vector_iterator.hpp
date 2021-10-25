@@ -2,6 +2,7 @@
 #define VECTOR_ITERATOR_HPP
 
 #include "iterator_traits.hpp"
+#include "type_traits.hpp"
 
 namespace ft {
     template <class T>
@@ -18,15 +19,10 @@ namespace ft {
         public:
             vector_iterator();
             vector_iterator(const iterator_type& x) : iter(x) {}
-            //operator vector_iterator<const T> () const { return (vector_iterator<const T>(this->iter)); }
+            template <class Type> // NOTE: 이터레이터 클래스에는 복사 생성자가 들어가야 하며 인수는 상수형 타입이 들어가면 안됨 (왜 그런지 아직 모름)
+            vector_iterator(const vector_iterator<Type>& i, typename enable_if<!is_const<Type>::value>::type* = 0) : iter(i.base()) {}
+            //vector_iterator(const vector_iterator<Type>& i, typename enable_if<std::is_convertible<_Up, iterator_type>::value>::type* = 0) : iter(i.base()) {}
 
-            /*
-            template <class T>
-            vector_iterator(
-                const vector_iterator<T>& i
-                typename enable_if<is_convertible<T, iterator_type>::value>::type* = 0)
-            : iter(i.base());
-            */
             reference           operator*() const {
                 return (*iter);
             }
@@ -36,7 +32,7 @@ namespace ft {
             }
             vector_iterator&    operator++() {
                 ++iter;
-                return (*iter);
+                return (*this);
             }
             vector_iterator     operator++(int) {
                 vector_iterator tmp(*this);
@@ -75,5 +71,27 @@ namespace ft {
                 return (iter);
             }
     };
+    template <class T1, class T2>
+    bool operator==(const vector_iterator<T1>& x, const vector_iterator<T2>& y) { return bool(x.base() == y.base()); }
+    template <class T>
+    bool operator!=(const vector_iterator<T >& x, const vector_iterator<T >& y) { return bool(x.base() != y.base()); }
+    template <class T1, class T2>
+    bool operator!=(const vector_iterator<T1>& x, const vector_iterator<T2>& y) { return bool(x.base() != y.base()); }
+    template <class T>
+    bool operator< (const vector_iterator<T >& x, const vector_iterator<T >& y) { return bool(x.base() <  y.base()); }
+    template <class T1, class T2>
+    bool operator< (const vector_iterator<T1>& x, const vector_iterator<T2>& y) { return bool(x.base() <  y.base()); }
+    template <class T>
+    bool operator> (const vector_iterator<T >& x, const vector_iterator<T >& y) { return bool(x.base() >  y.base()); }
+    template <class T1, class T2>
+    bool operator> (const vector_iterator<T1>& x, const vector_iterator<T2>& y) { return bool(x.base() >  y.base()); }
+    template <class T>
+    bool operator>=(const vector_iterator<T >& x, const vector_iterator<T >& y) { return bool(x.base() >= y.base()); }
+    template <class T1, class T2>
+    bool operator>=(const vector_iterator<T1>& x, const vector_iterator<T2>& y) { return bool(x.base() >= y.base()); }
+    template <class T>
+    bool operator<=(const vector_iterator<T >& x, const vector_iterator<T >& y) { return bool(x.base() <= y.base()); }
+    template <class T1, class T2>
+    bool operator<=(const vector_iterator<T1>& x, const vector_iterator<T2>& y) { return bool(x.base() <= y.base()); }
 }
 #endif
