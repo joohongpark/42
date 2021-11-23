@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 09:23:14 by joopark           #+#    #+#             */
-/*   Updated: 2021/11/23 12:32:51 by joopark          ###   ########.fr       */
+/*   Updated: 2021/11/23 12:34:56 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ long	ft_strlen(char *str)
 
 int	ft_atoi(const char *str)
 {
-	long sum;
+	long	sum;
 
 	sum = 0;
 	while ((*str == '\t') || (*str == '\n')

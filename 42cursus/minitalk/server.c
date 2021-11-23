@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 09:23:14 by joopark           #+#    #+#             */
-/*   Updated: 2021/11/23 12:27:25 by joopark          ###   ########.fr       */
+/*   Updated: 2021/11/23 12:37:25 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <signal.h>
 #include "utils.h"
 
-void    transmit(int pid, int signum)
+void	transmit(int pid, int signum)
 {
 	if (kill(pid, signum) == -1)
 	{
@@ -22,10 +22,10 @@ void    transmit(int pid, int signum)
 	}
 }
 
-static void server(int sig, siginfo_t *info_struct, void *fun)
+static void	server(int sig, siginfo_t *info_struct, void *fun)
 {
-	static char counter = 0;
-	static unsigned char receive_char = 0;
+	static char				counter = 0;
+	static unsigned char	receive_char = 0;
 
 	(void) fun;
 	receive_char <<= 1;
@@ -47,10 +47,10 @@ static void server(int sig, siginfo_t *info_struct, void *fun)
 	}
 }
 
-int main(void)
+int	main(void)
 {
-	struct sigaction sigaction_t;
-	int pid;
+	struct sigaction		sigaction_t;
+	int						pid;
 	
 	pid = getpid();
 	if (pid == -1)
@@ -63,7 +63,7 @@ int main(void)
 	ft_putstr_fd("\n", 1);
 	sigaction_t.sa_sigaction = server;
 	sigaction_t.sa_flags = SA_SIGINFO;
-	if (   sigaction(SIGUSR1, &sigaction_t, 0) == -1
+	if ( sigaction(SIGUSR1, &sigaction_t, 0) == -1
 		|| sigaction(SIGUSR2, &sigaction_t, 0) == -1)
 	{
 		write(2, "[ALERT] sigaction() FAIL\n", 25);
