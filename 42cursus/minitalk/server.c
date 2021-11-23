@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 09:23:14 by joopark           #+#    #+#             */
-/*   Updated: 2021/11/23 12:44:54 by joopark          ###   ########.fr       */
+/*   Updated: 2021/11/23 12:46:10 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	main(void)
 {
 	struct sigaction		sigaction_t;
 	int						pid;
-	
+
 	pid = getpid();
 	if (pid == -1)
 	{

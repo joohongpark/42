@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 09:23:14 by joopark           #+#    #+#             */
-/*   Updated: 2021/11/23 12:44:43 by joopark          ###   ########.fr       */
+/*   Updated: 2021/11/23 14:01:49 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	client(int pid, char *str)
 			{
 				transmit(pid, SIGUSR1);
 			}
-			usleep(100);
+			usleep(150);
 		}
 		if (*str == '\0')
 		{
