@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 09:23:14 by joopark           #+#    #+#             */
-/*   Updated: 2021/11/23 12:42:18 by joopark          ###   ########.fr       */
+/*   Updated: 2021/11/23 12:44:43 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	client(int pid, char *str)
 	}
 }
 
-int	main(int argc, char* argv[])
+int	main(int argc, char *argv[])
 {
 	struct sigaction	sigaction_t;
 	int					pid;
@@ -86,8 +86,8 @@ int	main(int argc, char* argv[])
 	}
 	sigaction_t.sa_flags = SA_SIGINFO;
 	sigaction_t.sa_handler = ack_check;
-	if ( sigaction(SIGUSR1, &sigaction_t, 0) == -1 ||
-		sigaction(SIGUSR2, &sigaction_t, 0) == -1)
+	if (sigaction(SIGUSR1, &sigaction_t, 0) == -1
+		|| sigaction(SIGUSR2, &sigaction_t, 0) == -1)
 	{
 		ft_putstr_fd("[ALERT] sigaction() FAIL\n", 2);
 		return (0);

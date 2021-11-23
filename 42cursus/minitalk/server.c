@@ -6,7 +6,7 @@
 /*   By: joopark <joopark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 09:23:14 by joopark           #+#    #+#             */
-/*   Updated: 2021/11/23 12:37:25 by joopark          ###   ########.fr       */
+/*   Updated: 2021/11/23 12:44:54 by joopark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	main(void)
 	ft_putstr_fd("\n", 1);
 	sigaction_t.sa_sigaction = server;
 	sigaction_t.sa_flags = SA_SIGINFO;
-	if ( sigaction(SIGUSR1, &sigaction_t, 0) == -1
+	if (sigaction(SIGUSR1, &sigaction_t, 0) == -1
 		|| sigaction(SIGUSR2, &sigaction_t, 0) == -1)
 	{
 		write(2, "[ALERT] sigaction() FAIL\n", 25);
